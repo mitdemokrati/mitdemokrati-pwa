@@ -901,7 +901,7 @@
     chalk "^2.4.2"
     emphasize "^2.1.0"
 
-"@parcel/config-default@^2.0.0-alpha.3.1":
+"@parcel/config-default@2.0.0-nightly.156+14eaa0f4":
   version "2.0.0-nightly.156"
   resolved "https://registry.yarnpkg.com/@parcel/config-default/-/config-default-2.0.0-nightly.156.tgz#8ebb7fbe496937f5077ba2b59b818386bff93b59"
   integrity sha512-Zmbsqd+7rkXeVzCmDaQJEkqbM92MLhqURcP2goOJfLbqYptGcElC3mTU44xYlTPFNTDgyxxKTgUXxchvEX0qRQ==
@@ -947,7 +947,7 @@
     "@parcel/transformer-typescript-types" "2.0.0-nightly.156+14eaa0f4"
     "@parcel/transformer-yaml" "2.0.0-nightly.156+14eaa0f4"
 
-"@parcel/core@^2.0.0-alpha.3.2":
+"@parcel/core@2.0.0-nightly.154+14eaa0f4":
   version "2.0.0-nightly.154"
   resolved "https://registry.yarnpkg.com/@parcel/core/-/core-2.0.0-nightly.154.tgz#973c12bba485cdb5881a2bcc766290d086225617"
   integrity sha512-NwDUU/oIpBJkZgovYd9avB/1w/4ea7xEV4xbucb30buhMvzh2X7cYbj2xEP1/mk6n2SBoYRlLxTNR4cSMnWP2A==
@@ -987,7 +987,7 @@
   resolved "https://registry.yarnpkg.com/@parcel/events/-/events-2.0.0-nightly.156.tgz#e49f4be548c9d009d307266ba26b122769b93b4f"
   integrity sha512-YFhndSI3yeQ2zBmLaI5hzQrvb2oxs2LT7er+C6r6d2Jene5sXcuUOYN84dUqGvBZhYPuUgPlJN+9E7uELTdk0A==
 
-"@parcel/fs@2.0.0-nightly.156+14eaa0f4", "@parcel/fs@^2.0.0-alpha.3.1":
+"@parcel/fs@2.0.0-nightly.156+14eaa0f4":
   version "2.0.0-nightly.156"
   resolved "https://registry.yarnpkg.com/@parcel/fs/-/fs-2.0.0-nightly.156.tgz#e6f8e64738fdd57e2295f423932ad3bf0238797e"
   integrity sha512-2sxyewRDabxM1HvoqxHeKhwGbIu9+VLA4YjiZJzkQHIFjlpMu0B4TVZXhHgdRx1Z9mwYb9lmKP8ycoDB6/CslA==
@@ -1000,7 +1000,7 @@
     nullthrows "^1.1.1"
     rimraf "^2.6.2"
 
-"@parcel/logger@2.0.0-nightly.156+14eaa0f4", "@parcel/logger@^2.0.0-alpha.3.1":
+"@parcel/logger@2.0.0-nightly.156+14eaa0f4":
   version "2.0.0-nightly.156"
   resolved "https://registry.yarnpkg.com/@parcel/logger/-/logger-2.0.0-nightly.156.tgz#5c99c51dd1b82bef51d2db13ec693d2450e69f1b"
   integrity sha512-X69mcdK/+pQWpldZdIG3SstdrXsgmdpDuGosDY3lE1frnrcj+Wgvli3YSjS37quFLnk6T3bWjIng+lPbNQ1ELg==
@@ -1103,7 +1103,7 @@
     nullthrows "^1.1.1"
     terser "^4.0.0"
 
-"@parcel/package-manager@2.0.0-nightly.156+14eaa0f4", "@parcel/package-manager@^2.0.0-alpha.3.1":
+"@parcel/package-manager@2.0.0-nightly.156+14eaa0f4":
   version "2.0.0-nightly.156"
   resolved "https://registry.yarnpkg.com/@parcel/package-manager/-/package-manager-2.0.0-nightly.156.tgz#740a9d0f49f815ef6722c59922926ebbd4b2da56"
   integrity sha512-/GE2eLy4XiyYh0N9z/WqblBNSYL1tW7aGFJoamxYWDyzLltTi3kL7Bv3CuNo5ifTWs4H8AcSonxM6nRofQ/k5A==
@@ -1783,6 +1783,20 @@ aws4@^1.8.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.9.1.tgz#7e33d8f7d449b3f673cd72deb9abdc552dbe528e"
   integrity sha512-wMHVg2EOHaMRxbzgFJ9gtjOOCrI80OHLG14rxi28XwOW8ux6IiEbRCGGGqCtdAIg4FQCbW20k9RsT4y3gJlFug==
+
+axios-retry@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/axios-retry/-/axios-retry-3.1.2.tgz#4f4dcbefb0b434e22b72bd5e28a027d77b8a3458"
+  integrity sha512-+X0mtJ3S0mmia1kTVi1eA3DAC+oWnT2A29g3CpkzcBPMT6vJm+hn/WiV9wPt/KXLHVmg5zev9mWqkPx7bHMovg==
+  dependencies:
+    is-retry-allowed "^1.1.0"
+
+axios@^0.19.2:
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
+  integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
+  dependencies:
+    follow-redirects "1.5.10"
 
 babel-plugin-apply-mdx-type-prop@^1.5.7:
   version "1.5.7"
@@ -2593,6 +2607,13 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
   dependencies:
     ms "2.0.0"
 
+debug@=3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  integrity sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
+  dependencies:
+    ms "2.0.0"
+
 debug@^3.0.0:
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
@@ -3231,6 +3252,13 @@ flatted@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.1.tgz#69e57caa8f0eacbc281d2e2cb458d46fdb449e08"
   integrity sha512-a1hQMktqW9Nmqr5aktAux3JMNqaucxGcjtjWnZLHX7yyPCmlSV3M54nGYbqT8K+0GhF3NBgmJCc3ma+WOgX8Jg==
+
+follow-redirects@1.5.10:
+  version "1.5.10"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
+  integrity sha512-0V5l4Cizzvqt5D44aTXbFZz+FtyXV1vrDN6qrelxtfYQKW0KO0W2T/hkE8xvGa/540LkZlkaUjO4ailYTFtHVQ==
+  dependencies:
+    debug "=3.1.0"
 
 follow-redirects@^1.0.0:
   version "1.10.0"
@@ -3987,6 +4015,11 @@ is-resolvable@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/is-resolvable/-/is-resolvable-1.1.0.tgz#fb18f87ce1feb925169c9a407c19318a3206ed88"
   integrity sha512-qgDYXFSR5WvEfuS5dMj6oTMEbrrSaM0CrFk2Yiq/gXnBvD9pMa2jGXxyhGLfvhZpuMZe18CJpFxAt3CRs42NMg==
+
+is-retry-allowed@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/is-retry-allowed/-/is-retry-allowed-1.2.0.tgz#d778488bd0a4666a3be8a1482b9f2baafedea8b4"
+  integrity sha512-RUbUeKwvm3XG2VYamhJL1xFktgjvPzL0Hq8C+6yrWIswDy3BIXGqCxhxkc30N9jqK311gVU137K8Ei55/zVJRg==
 
 is-svg@^3.0.0:
   version "3.0.0"
@@ -4748,16 +4781,18 @@ pako@~1.0.5:
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
-parcel@^2.0.0-alpha.3.2:
-  version "2.0.0-alpha.3.2"
-  resolved "https://registry.yarnpkg.com/parcel/-/parcel-2.0.0-alpha.3.2.tgz#d59de34f491608197d4f9e40688545d62aada08e"
-  integrity sha512-FG8JZtY2MAhxYANtLUlRbPNhTqtDB6zDQ+GVPBgzs6xlzyWSEdzayJ2a25Nnee+SBptV9nSHavkMrtP3YLrnAg==
+parcel@2.0.0-nightly.154:
+  version "2.0.0-nightly.154"
+  resolved "https://registry.yarnpkg.com/parcel/-/parcel-2.0.0-nightly.154.tgz#05ac3b73694c52613cc1f20edce1936c41e5f606"
+  integrity sha512-vJHpFv8LvMy/uJ82UJENCx1nw3dEXFkROgTXxu+CU+zctOfwFm/AmwO2Aw+zga/QwSWWGLmBQ/yBSd2IRjeclg==
   dependencies:
-    "@parcel/config-default" "^2.0.0-alpha.3.1"
-    "@parcel/core" "^2.0.0-alpha.3.2"
-    "@parcel/fs" "^2.0.0-alpha.3.1"
-    "@parcel/logger" "^2.0.0-alpha.3.1"
-    "@parcel/package-manager" "^2.0.0-alpha.3.1"
+    "@parcel/config-default" "2.0.0-nightly.156+14eaa0f4"
+    "@parcel/core" "2.0.0-nightly.154+14eaa0f4"
+    "@parcel/diagnostic" "2.0.0-nightly.156+14eaa0f4"
+    "@parcel/fs" "2.0.0-nightly.156+14eaa0f4"
+    "@parcel/logger" "2.0.0-nightly.156+14eaa0f4"
+    "@parcel/package-manager" "2.0.0-nightly.156+14eaa0f4"
+    "@parcel/utils" "2.0.0-nightly.156+14eaa0f4"
     chalk "^2.1.0"
     commander "^2.19.0"
     get-port "^4.2.0"
