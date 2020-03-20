@@ -1,0 +1,25 @@
+version: '3'
+services:
+  install:
+    image: node:12
+    working_dir: /app
+    command: 'yarn install'
+    volumes:
+      - ./:/app
+
+  build:
+    image: node:12
+    working_dir: /app
+    command: 'yarn run build'
+    volumes:
+      - ./:/app
+
+  start:
+    image: node:12
+    working_dir: /app
+    command: 'yarn start'
+    volumes:
+      - ./:/app
+    ports:
+      - 1234:1234
+      - 30000:30000

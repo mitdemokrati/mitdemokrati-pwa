@@ -1,0 +1,29 @@
+{
+  "name": "mitdemokrati-pwa",
+  "version": "1.0.0",
+  "main": "./src/index.html",
+  "author": "Andreas Goodstein <andreasgoodstein@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "eslint": "^6.8.0",
+    "less": "^3.11.1",
+    "parcel": "^2.0.0-alpha.3.2",
+    "prettier": "^1.19.1",
+    "typescript": "^3.8.3"
+  },
+  "scripts": {
+    "start": "parcel ./src/index.html --hot-port 30000",
+    "build": "parcel build ./src/index.html"
+  },
+  "targets": {
+    "main": {
+      "engines": {
+        "browsers": [
+          "> 1%",
+          "not dead",
+          "not ie <= 11"
+        ]
+      }
+    }
+  }
+}
