@@ -1,43 +1,71 @@
+import { mapAfstemning } from './maps/afstemningMap';
 import axios from 'axios';
-import axiosRetry from 'axios-retry';
+import { parseAfstemningId } from '../utility/parseAfstemningId';
 
-axiosRetry(axios, { retries: 3 });
+const LATEST_AFSTEMNING_ID_URL =
+  'https://oda.ft.dk/api/Afstemning?$expand=Møde,Sagstrin/Sag&$orderby=Møde/dato desc,id desc&$top=1&$select=id,Møde/dato,Sagstrin/Sag/id&$filter=typeid eq 1';
 
-const latestAfstemningUrl =
-  'https://oda.ft.dk/api/Afstemning?$expand=M%C3%B8de&$orderby=M%C3%B8de/dato%20desc,id%20desc&$top=1&$select=id,M%C3%B8de/dato&$filter=typeid eq 1';
+const AFSTEMNING_URL =
+  'https://oda.ft.dk/api/Afstemning(idPlaceholder)?$expand=Sagstrin/Sag,Møde,Stemme';
 
-const afstemningUrl =
-  'https://oda.ft.dk/api/Afstemning(idPlaceholder)?$expand=Sagstrin/Sag,M%C3%B8de';
+const AFSTEMNING_STILLER_ID_URL =
+  'https://oda.ft.dk/api/SagAktør?$filter=sagid eq sagsIdPlaceholder and (rolleid eq 19 or rolleid eq 16)&$select=aktørid';
 
-const afstemningStillerUrl =
-  'https://oda.ft.dk/api/SagAkt%C3%B8r?$filter=sagid eq sagsIdPlaceholder and (rolleid eq 19 or rolleid eq 16)&$select=akt%C3%B8rid';
+const PREVIOUS_AFSTEMNING_URL =
+  "https://oda.ft.dk/api/Afstemning?$expand=Møde,Sagstrin/Sag&$orderby=Møde/dato desc,id desc&$top=1&$select=id,Møde/dato,Sagstrin/Sag/id&$filter=typeid eq 1 and Møde/dato le DateTime'dateTimePlaceholder' and id lt idPlaceholder";
 
 export const fetchAfstemning = async (
   afstemningId: number
 ): Promise<Afstemning> => {
-  const { data } = await axios.request<AfstemningResponse>({
-    method: 'get',
-    url: afstemningUrl.replace('idPlaceholder', afstemningId.toString())
+  const { data } = await axios.request<Afstemning>({
+    url: AFSTEMNING_URL.replace('idPlaceholder', afstemningId.toString())
   });
 
-  console.log(data);
+  if (data['Stemme@odata.nextLink']) {
+    const { data: stemmeData } = await axios.request<StemmeResponse>({
+      url: data['Stemme@odata.nextLink']
+    });
 
-  const { id } = data;
+    return mapAfstemning({
+      ...data,
+      Stemme: [...data.Stemme, ...stemmeData.value]
+    });
+  }
 
-  return data;
+  return mapAfstemning(data);
 };
 
-export const fetchLatestAfstemningId = async (): Promise<{
-  id: number;
-  date: Date;
-}> => {
-  const { data } = await axios.request<LatestIdResponse>({
-    method: 'get',
-    url: latestAfstemningUrl
+export const fetchForslagStillerId = async (
+  sagsId: number
+): Promise<number> => {
+  const { data } = await axios.request<AfstemningStillerResponse>({
+    url: AFSTEMNING_STILLER_ID_URL.replace(
+      'sagsIdPlaceholder',
+      sagsId.toString()
+    )
   });
 
-  const date = new Date(Date.parse(data?.value[0]?.Møde?.dato));
-  const id = data?.value[0]?.id;
+  return data?.value[0]?.aktørid;
+};
 
-  return { id, date };
+export const fetchLatestAfstemningId = async (): Promise<AfstemningId> => {
+  const { data } = await axios.request<LatestIdResponse>({
+    url: LATEST_AFSTEMNING_ID_URL
+  });
+
+  return parseAfstemningId(data);
+};
+
+export const fetchPreviousAfstemning = async (
+  afstemningId: number,
+  afstemningDate: string
+): Promise<AfstemningId> => {
+  const { data } = await axios.request<LatestIdResponse>({
+    url: PREVIOUS_AFSTEMNING_URL.replace(
+      'dateTimePlaceholder',
+      afstemningDate
+    ).replace('idPlaceholder', afstemningId.toString())
+  });
+
+  return parseAfstemningId(data);
 };
