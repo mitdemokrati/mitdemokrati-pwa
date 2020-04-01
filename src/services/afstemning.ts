@@ -18,21 +18,48 @@ export const fetchAfstemning = async (
   afstemningId: number
 ): Promise<Afstemning> => {
   const { data } = await axios.request<Afstemning>({
-    url: AFSTEMNING_URL.replace('idPlaceholder', afstemningId.toString())
+    url: AFSTEMNING_URL.replace('idPlaceholder', afstemningId.toString()),
   });
 
+  const forslagStillerIdPromise = fetchForslagStillerId(data.Sagstrin.Sag.id);
+  const previousAfstemningIdPromise = fetchPreviousAfstemning(
+    data.id,
+    data.Møde.dato
+  );
+
   if (data['Stemme@odata.nextLink']) {
-    const { data: stemmeData } = await axios.request<StemmeResponse>({
-      url: data['Stemme@odata.nextLink']
+    const stemmeDataPromise = axios.request<StemmeResponse>({
+      url: data['Stemme@odata.nextLink'],
     });
+
+    const [
+      { data: stemmeData },
+      forslagStillerId,
+      previousAfstemningId,
+    ] = await Promise.all([
+      stemmeDataPromise,
+      forslagStillerIdPromise,
+      previousAfstemningIdPromise,
+    ]);
 
     return mapAfstemning({
       ...data,
-      Stemme: [...data.Stemme, ...stemmeData.value]
+      Stemme: [...data.Stemme, ...stemmeData.value],
+      forslagStillerId,
+      previousAfstemningId,
     });
   }
 
-  return mapAfstemning(data);
+  const [forslagStillerId, previousAfstemningId] = await Promise.all([
+    forslagStillerIdPromise,
+    previousAfstemningIdPromise,
+  ]);
+
+  return mapAfstemning({
+    ...data,
+    forslagStillerId,
+    previousAfstemningId,
+  });
 };
 
 export const fetchForslagStillerId = async (
@@ -42,7 +69,7 @@ export const fetchForslagStillerId = async (
     url: AFSTEMNING_STILLER_ID_URL.replace(
       'sagsIdPlaceholder',
       sagsId.toString()
-    )
+    ),
   });
 
   return data?.value[0]?.aktørid;
@@ -50,7 +77,7 @@ export const fetchForslagStillerId = async (
 
 export const fetchLatestAfstemningId = async (): Promise<AfstemningId> => {
   const { data } = await axios.request<LatestIdResponse>({
-    url: LATEST_AFSTEMNING_ID_URL
+    url: LATEST_AFSTEMNING_ID_URL,
   });
 
   return parseAfstemningId(data);
@@ -64,7 +91,7 @@ export const fetchPreviousAfstemning = async (
     url: PREVIOUS_AFSTEMNING_URL.replace(
       'dateTimePlaceholder',
       afstemningDate
-    ).replace('idPlaceholder', afstemningId.toString())
+    ).replace('idPlaceholder', afstemningId.toString()),
   });
 
   return parseAfstemningId(data);

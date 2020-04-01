@@ -1,7 +1,7 @@
 import {
   fetchLatestAfstemningId,
   fetchForslagStillerId,
-  fetchAfstemning
+  fetchAfstemning,
 } from '../services/afstemning';
 import { fetchAktør } from '../services/aktør';
 import {
@@ -10,28 +10,32 @@ import {
   loadAfstemning,
   saveAfstemning,
   loadAktørList,
-  saveAktørList
+  saveAktørList,
 } from '../storage/store';
 
 const state: ApplicationState = {
   afstemningMap: new Map(),
-  aktørMap: new Map()
+  aktørMap: new Map(),
 };
 
 export const getLatestAfstemning = async () => {
+  const t0 = performance.now();
+
   populateStateFromStorage();
+
+  console.log(`populated at ${performance.now() - t0}ms`);
 
   const { id } = await getLatestAfstemningId();
 
   const afstemning = await getAfstemning(id);
 
-  console.dir(afstemning);
+  console.dir(afstemning, `${performance.now() - t0}ms`);
 
-  const aktørIdList = afstemning?.Stemme.map(stemme => stemme.aktørid) || [];
+  const aktørIdList = afstemning?.Stemme.map((stemme) => stemme.aktørid) || [];
 
-  const aktørList = await Promise.all(aktørIdList?.map(id => getAktør(id)));
+  const aktørList = await Promise.all(aktørIdList?.map((id) => getAktør(id)));
 
-  console.dir(aktørList);
+  console.dir(aktørList, `${performance.now() - t0}ms`);
 
   // const [afstemning, forslagStillerId] = await Promise.all([
   //   fetchAfstemning(id),
@@ -124,7 +128,7 @@ async function populateStateFromStorage() {
 
   const aktørList = loadAktørList();
 
-  aktørList?.forEach(aktør => {
+  aktørList?.forEach((aktør) => {
     state.aktørMap.set(aktør.id, aktør);
   });
 }

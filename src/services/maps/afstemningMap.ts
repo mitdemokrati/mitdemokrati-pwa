@@ -7,13 +7,17 @@ export const mapAfstemning = ({
   Sagstrin,
   Stemme,
   id,
-  vedtaget
+  forslagStillerId,
+  previousAfstemningId,
+  vedtaget,
 }: Afstemning): Afstemning => {
   return {
     Møde: mapMøde(Møde),
     Sagstrin: mapSagstrin(Sagstrin),
     Stemme: Stemme.map(mapStemme),
     id,
-    vedtaget
+    forslagStillerId,
+    previousAfstemningId,
+    vedtaget,
   };
 };

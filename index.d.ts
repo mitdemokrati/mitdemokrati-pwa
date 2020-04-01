@@ -5,11 +5,12 @@ type Afstemning = FTEntity & {
   'Stemme@odata.nextLink'?: string;
   forslagStillerId?: number;
   id: number;
+  previousAfstemningId?: AfstemningId;
   vedtaget: boolean;
 };
 
 type AfstemningId = {
-  date: Date;
+  dato: string;
   id: number;
   sagsId: number;
 };
@@ -37,7 +38,7 @@ type FTEntity = {
 
 type Møde = {
   id: number;
-  dato: Date;
+  dato: string;
 };
 
 type Sag = {
