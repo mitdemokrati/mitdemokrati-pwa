@@ -1,3 +1,4 @@
+import { compressToUTF16, decompressFromUTF16 } from 'lz-string';
 import { STORAGE_KEY } from './../config';
 
 const storage = window.localStorage;
@@ -7,13 +8,13 @@ const getKey = (key: string): string => `${STORAGE_KEY}/${key}`;
 export function get(key: string): any | null {
   const stored = storage.getItem(getKey(key));
 
-  return stored && JSON.parse(stored);
+  return stored && JSON.parse(decompressFromUTF16(stored));
 }
 
 export function set(key: string, value: string | object | Array<any>) {
   const stored = typeof value === 'string' ? value : JSON.stringify(value);
 
-  storage.setItem(getKey(key), stored);
+  storage.setItem(getKey(key), compressToUTF16(stored));
 }
 
 export function remove(key: string) {

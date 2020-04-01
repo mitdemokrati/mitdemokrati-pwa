@@ -3,9 +3,10 @@ services:
   install:
     image: node:12
     working_dir: /app
-    command: 'yarn install'
+    command: 'yarn install --silent --frozen-lockfile'
     volumes:
       - ./:/app
+      - /app/.git
 
   build:
     image: node:12
@@ -13,12 +14,14 @@ services:
     command: 'yarn run build'
     volumes:
       - ./:/app
+      - /app/.git
 
   start:
     image: node:12
     working_dir: /app
     command: 'yarn start'
-    volumes:
-      - ./:/app
     ports:
       - 1234:1234
+    volumes:
+      - ./:/app
+      - /app/.git

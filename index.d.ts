@@ -24,13 +24,15 @@ type Aktør = FTEntity & {
   parti?: string;
 };
 
-type AktørResponse = {
-  value: Aktør[];
-  'odata.nextLink': string;
+type ApplicationState = {
+  afstemningMap: Map<number, Afstemning>;
+  aktørMap: Map<number, Aktør>;
+  latestAfstemningId?: AfstemningId;
 };
 
 type FTEntity = {
   shouldUpdate?: boolean;
+  version?: number;
 };
 
 type Møde = {
