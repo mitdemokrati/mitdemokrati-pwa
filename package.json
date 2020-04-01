@@ -1,6 +1,6 @@
 {
   "name": "mitdemokrati-pwa",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "./dist/index.html",
   "author": "Andreas Goodstein <andreasgoodstein@gmail.com>",
   "license": "MIT",
