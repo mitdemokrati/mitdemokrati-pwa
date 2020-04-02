@@ -3,7 +3,7 @@ services:
   install:
     image: node:12
     working_dir: /app
-    command: 'yarn install --silent --frozen-lockfile'
+    command: 'yarn install'
     volumes:
       - ./:/app
       - /app/.git
