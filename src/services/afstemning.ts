@@ -1,18 +1,23 @@
-import { mapAfstemning } from './maps/afstemningMap';
 import axios from 'axios';
+
+import { mapAfstemning } from './maps/afstemningMap';
 import { parseAfstemningId } from '../utility/parseAfstemningId';
 
-const LATEST_AFSTEMNING_ID_URL =
-  'https://oda.ft.dk/api/Afstemning?$expand=Møde,Sagstrin/Sag&$orderby=Møde/dato desc,id desc&$top=1&$select=id,Møde/dato,Sagstrin/Sag/id&$filter=typeid eq 1';
+const LATEST_AFSTEMNING_ID_URL = encodeURI(
+  'https://oda.ft.dk/api/Afstemning?$expand=Møde,Sagstrin/Sag&$orderby=Møde/dato desc,id desc&$top=1&$select=id,Møde/dato,Sagstrin/Sag/id&$filter=typeid eq 1'
+);
 
-const AFSTEMNING_URL =
-  'https://oda.ft.dk/api/Afstemning(idPlaceholder)?$expand=Sagstrin/Sag,Møde,Stemme';
+const AFSTEMNING_URL = encodeURI(
+  'https://oda.ft.dk/api/Afstemning(idPlaceholder)?$expand=Sagstrin/Sag,Møde,Stemme'
+);
 
-const AFSTEMNING_STILLER_ID_URL =
-  'https://oda.ft.dk/api/SagAktør?$filter=sagid eq sagsIdPlaceholder and (rolleid eq 19 or rolleid eq 16)&$select=aktørid';
+const AFSTEMNING_STILLER_ID_URL = encodeURI(
+  'https://oda.ft.dk/api/SagAktør?$filter=sagid eq sagsIdPlaceholder and (rolleid eq 19 or rolleid eq 16)&$select=aktørid'
+);
 
-const PREVIOUS_AFSTEMNING_URL =
-  "https://oda.ft.dk/api/Afstemning?$expand=Møde,Sagstrin/Sag&$orderby=Møde/dato desc,id desc&$top=1&$select=id,Møde/dato,Sagstrin/Sag/id&$filter=typeid eq 1 and Møde/dato le DateTime'dateTimePlaceholder' and id lt idPlaceholder";
+const PREVIOUS_AFSTEMNING_URL = encodeURI(
+  "https://oda.ft.dk/api/Afstemning?$expand=Møde,Sagstrin/Sag&$orderby=Møde/dato desc,id desc&$top=1&$select=id,Møde/dato,Sagstrin/Sag/id&$filter=typeid eq 1 and Møde/dato le DateTime'dateTimePlaceholder' and id lt idPlaceholder"
+);
 
 export const fetchAfstemning = async (
   afstemningId: number

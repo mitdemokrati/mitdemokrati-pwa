@@ -1,9 +1,38 @@
 {
   "name": "mitdemokrati-pwa",
   "version": "0.1.0",
-  "main": "./dist/index.html",
+  "browser": "./dist/index.html",
+  "server": "./dist/prefetcher.js",
   "author": "Andreas Goodstein <andreasgoodstein@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "parcel ./src/index.html",
+    "build": "parcel build --target=browser ./src/index.html",
+    "build:prefetcher": "parcel build --target=server ./src/prefetcher.ts"
+  },
+  "source": [
+    "./src/prefetcher.ts",
+    "./src/index.html"
+  ],
+  "targets": {
+    "browser": {
+      "context": "browser",
+      "engines": {
+        "browsers": [
+          "last 3 versions",
+          "not dead",
+          "not ie <= 11",
+          "not < 1%"
+        ]
+      }
+    },
+    "server": {
+      "context": "node",
+      "engines": {
+        "node": "12.x"
+      }
+    }
+  },
   "dependencies": {
     "@types/lz-string": "^1.3.33",
     "axios": "^0.19.2",
@@ -14,9 +43,5 @@
     "parcel": "2.0.0-alpha.3.2",
     "prettier": "^2.0.2",
     "typescript": "^3.8.3"
-  },
-  "scripts": {
-    "start": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html"
   }
 }

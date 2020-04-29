@@ -7,10 +7,10 @@ import { fetchAktør } from '../services/aktør';
 import {
   loadLatestAfstemningId,
   saveLatestAfstemningId,
-  loadAfstemning,
-  saveAfstemning,
   loadAktørList,
   saveAktørList,
+  saveAfstemningList,
+  loadAfstemningList,
 } from '../storage/store';
 
 const state: ApplicationState = {
@@ -18,51 +18,50 @@ const state: ApplicationState = {
   aktørMap: new Map(),
 };
 
-export const getLatestAfstemning = async () => {
-  const t0 = performance.now();
-
+export async function getNewestAfstemningList(count: number) {
   populateStateFromStorage();
 
-  console.log(`populated at ${performance.now() - t0}ms`);
+  if (!state.latestAfstemningId) {
+    await getLatestAfstemning();
+  }
+
+  let currentAfstemningId = state.latestAfstemningId;
+
+  let loopCount = count;
+  while (currentAfstemningId && loopCount > 0) {
+    console.log(currentAfstemningId?.id);
+    const previousAfstemning = await getAfstemning(currentAfstemningId.id);
+
+    if (!previousAfstemning) {
+      return;
+    }
+
+    currentAfstemningId = previousAfstemning.previousAfstemningId;
+    loopCount -= 1;
+  }
+
+  saveAfstemningList(Array.from(state.afstemningMap.values()));
+
+  return Array.from(state.afstemningMap.values()).slice(0, count);
+}
+async function getLatestAfstemning() {
+  populateStateFromStorage();
 
   const { id } = await getLatestAfstemningId();
 
   const afstemning = await getAfstemning(id);
 
-  console.dir(afstemning, `${performance.now() - t0}ms`);
-
   const aktørIdList = afstemning?.Stemme.map((stemme) => stemme.aktørid) || [];
+  await Promise.all(aktørIdList?.map((id) => getAktør(id)));
 
-  const aktørList = await Promise.all(aktørIdList?.map((id) => getAktør(id)));
-
-  console.dir(aktørList, `${performance.now() - t0}ms`);
-
-  // const [afstemning, forslagStillerId] = await Promise.all([
-  //   fetchAfstemning(id),
-  //   fetchForslagStillerId(sagsId)
-  // ]);
-
-  // afstemning.forslagStillerId = forslagStillerId;
-
-  // const fetchResponses = await Promise.all([
-  //   fetchPreviousAfstemning(afstemning.id, afstemning.Møde.dato)
-  // ...afstemning.Stemme.map(stemme => fetchAktør([stemme.aktørid]))
-  // ]);
-
-  // console.dir(fetchResponses);
-};
+  saveAktørList(Array.from(state.aktørMap.values()));
+  saveAfstemningList(Array.from(state.afstemningMap.values()));
+}
 
 async function getAfstemning(id: number) {
   let afstemning = state.afstemningMap.get(id);
 
   if (afstemning) {
-    return afstemning;
-  }
-
-  afstemning = loadAfstemning(id) || undefined;
-
-  if (afstemning) {
-    state.afstemningMap.set(id, afstemning);
     return afstemning;
   }
 
@@ -81,8 +80,6 @@ async function getAfstemning(id: number) {
     afstemning.forslagStillerId = forslagStillerId;
   }
 
-  saveAfstemning(afstemning);
-
   return afstemning;
 }
 
@@ -97,7 +94,6 @@ async function getAktør(id: number) {
 
   if (aktør) {
     state.aktørMap.set(aktør.id, aktør);
-    saveAktørList(Array.from(state.aktørMap.values()));
     return aktør;
   }
 }
@@ -109,7 +105,7 @@ async function getLatestAfstemningId() {
     return afstemningId;
   }
 
-  afstemningId = loadLatestAfstemningId() || undefined;
+  afstemningId = loadLatestAfstemningId();
 
   if (afstemningId) {
     state.latestAfstemningId = afstemningId;
@@ -124,10 +120,14 @@ async function getLatestAfstemningId() {
 }
 
 async function populateStateFromStorage() {
-  state.latestAfstemningId = loadLatestAfstemningId() || undefined;
+  state.latestAfstemningId = loadLatestAfstemningId();
+
+  const afstemningList = loadAfstemningList();
+  afstemningList?.forEach((afstemning) => {
+    state.afstemningMap.set(afstemning.id, afstemning);
+  });
 
   const aktørList = loadAktørList();
-
   aktørList?.forEach((aktør) => {
     state.aktørMap.set(aktør.id, aktør);
   });

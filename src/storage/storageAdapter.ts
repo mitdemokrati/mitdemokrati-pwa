@@ -1,7 +1,15 @@
 import { compressToUTF16, decompressFromUTF16 } from 'lz-string';
 import { STORAGE_KEY } from './../config';
 
-const storage = window.localStorage;
+const storage =
+  typeof window !== 'undefined'
+    ? window.localStorage
+    : {
+        getItem: () => {},
+        setItem: () => {},
+        removeItem: () => {},
+        clear: () => {},
+      };
 
 const getKey = (key: string): string => `${STORAGE_KEY}/${key}`;
 

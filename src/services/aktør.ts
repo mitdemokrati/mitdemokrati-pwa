@@ -1,14 +1,16 @@
 import axios from 'axios';
+
 import { mapAktør } from './maps/aktørMap';
 
-const AKTØR_URL = 'https://oda.ft.dk/api/Aktør(idPlaceholder)';
+const AKTØR_URL = encodeURI('https://oda.ft.dk/api/Aktør(idPlaceholder)');
 
-const AKTØR_PARTI_URL =
-  'https://oda.ft.dk/api/AktørAktør?$filter=fraaktørid eq aktørIdPlaceholder and rolleid eq 15 and TilAktør/typeid eq 4&$expand=TilAktør&$select=TilAktør/id,TilAktør/navn&$orderby=TilAktør/slutdato desc&$top=1';
+const AKTØR_PARTI_URL = encodeURI(
+  'https://oda.ft.dk/api/AktørAktør?$filter=fraaktørid eq aktørIdPlaceholder and rolleid eq 15 and TilAktør/typeid eq 4&$expand=TilAktør&$select=TilAktør/id,TilAktør/navn&$orderby=TilAktør/slutdato desc&$top=1'
+);
 
 export const fetchAktør = async (aktørId: number): Promise<Aktør> => {
   const { data } = await axios.request<Aktør>({
-    url: AKTØR_URL.replace('idPlaceholder', aktørId.toString())
+    url: AKTØR_URL.replace('idPlaceholder', aktørId.toString()),
   });
 
   const mappedAktør = mapAktør(data);
@@ -24,7 +26,7 @@ export const fetchAktørParti = async (aktørId: number): Promise<string> => {
   const { data } = await axios.request<{
     value: [{ TilAktør: { navn: string } }];
   }>({
-    url: AKTØR_PARTI_URL.replace('aktørIdPlaceholder', aktørId.toString())
+    url: AKTØR_PARTI_URL.replace('aktørIdPlaceholder', aktørId.toString()),
   });
 
   return data?.value[0].TilAktør.navn;
