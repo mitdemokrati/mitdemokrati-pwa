@@ -1,5 +1,9 @@
+import { render } from 'react-dom';
+
 import { setupAxios } from './utility/setupAxios';
 import { getNewestAfstemningList } from './logic/afstemning';
+
+import { AfstemningList } from './components/afstemning/afstemningList';
 
 const renderTarget = document.querySelector('#pwa');
 
@@ -11,11 +15,7 @@ getNewestAfstemningList(3).then((afstemningList) => {
     return;
   }
 
-  const afstemningTitleList = afstemningList.map(
-    (afstemning) => afstemning.Sagstrin.Sag.titel
-  );
+  const afstemningListComponent = AfstemningList({ afstemningList });
 
-  renderTarget!.innerHTML = afstemningTitleList
-    .map((title) => `<p>${title}</p>`)
-    .join('');
+  render(afstemningListComponent, renderTarget);
 });

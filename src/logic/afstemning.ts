@@ -21,28 +21,25 @@ const state: ApplicationState = {
 export async function getNewestAfstemningList(count: number) {
   populateStateFromStorage();
 
-  if (!state.latestAfstemningId) {
-    await getLatestAfstemning();
-  }
-
-  let currentAfstemningId = state.latestAfstemningId;
+  let currentAfstemningId = await fetchLatestAfstemningId();
 
   let loopCount = count;
   while (currentAfstemningId && loopCount > 0) {
-    console.log(currentAfstemningId?.id);
     const previousAfstemning = await getAfstemning(currentAfstemningId.id);
 
     if (!previousAfstemning) {
       return;
     }
 
-    currentAfstemningId = previousAfstemning.previousAfstemningId;
+    currentAfstemningId = previousAfstemning.previousAfstemningId!;
     loopCount -= 1;
   }
 
   saveAfstemningList(Array.from(state.afstemningMap.values()));
 
-  return Array.from(state.afstemningMap.values()).slice(0, count);
+  return Array.from(state.afstemningMap.values())
+    .sort((a, b) => b.id - a.id)
+    .slice(0, count);
 }
 async function getLatestAfstemning() {
   populateStateFromStorage();
@@ -80,6 +77,8 @@ async function getAfstemning(id: number) {
     afstemning.forslagStillerId = forslagStillerId;
   }
 
+  state.afstemningMap.set(afstemning.id, afstemning);
+
   return afstemning;
 }
 
@@ -113,6 +112,8 @@ async function getLatestAfstemningId() {
   }
 
   afstemningId = await fetchLatestAfstemningId();
+
+  state.latestAfstemningId = afstemningId;
 
   saveLatestAfstemningId(afstemningId);
 
