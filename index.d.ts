@@ -15,6 +15,12 @@ type AfstemningId = {
   sagsId: number;
 };
 
+type AfstemningStillerResponse = {
+  value: {
+    aktørid: number;
+  }[];
+};
+
 type Aktør = FTEntity & {
   id: number;
   typeid: number;
@@ -24,6 +30,8 @@ type Aktør = FTEntity & {
   biografi?: string;
   parti?: string;
 };
+
+type AktørPartyMap = Map<number, string>;
 
 type ApplicationState = {
   afstemningMap: Map<number, Afstemning>;
@@ -36,9 +44,21 @@ type FTEntity = {
   version?: number;
 };
 
+type LatestIdResponse = {
+  value: {
+    id: number;
+    Møde: { dato: string };
+    Sagstrin: { Sag: { id: number } };
+  }[];
+};
+
 type Møde = {
   id: number;
   dato: string;
+};
+
+type PartyVoteSpread = {
+  [party: string]: VoteSpread;
 };
 
 type Sag = {
@@ -63,16 +83,16 @@ type StemmeResponse = {
   'odata.nextLink': string | undefined;
 };
 
-type AfstemningStillerResponse = {
-  value: {
-    aktørid: number;
-  }[];
-};
+declare enum VoteTypeEnum {
+  For,
+  Imod,
+  Blank,
+  Fraværende,
+}
 
-type LatestIdResponse = {
-  value: {
-    id: number;
-    Møde: { dato: string };
-    Sagstrin: { Sag: { id: number } };
-  }[];
+type VoteSpread = {
+  for: number;
+  imod: number;
+  blank: number;
+  fraværende: number;
 };

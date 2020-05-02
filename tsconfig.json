@@ -5,6 +5,6 @@
     "lib": ["ESNext", "DOM"],
     "module": "ESNext",
     "strict": true,
-    "target": "ESNext"
+    "target": "ES2019"
   }
 }
