@@ -1,5 +1,5 @@
 import { compressToUTF16, decompressFromUTF16 } from 'lz-string';
-import { STORAGE_KEY } from './../config';
+import { STORAGE_KEY } from '../config';
 
 const storage =
   typeof window !== 'undefined'

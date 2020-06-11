@@ -1,13 +1,22 @@
 {
   "cSpell.words": [
     "afstemning",
+    "afstemningid",
+    "akt",
     "aktør",
+    "aktørid",
     "demokrati",
     "forslag",
+    "frav",
+    "fraværende",
+    "imod",
     "møde",
     "odata",
+    "rende",
+    "rid",
     "sagstrin",
     "stemme",
     "titel"
-  ]
+  ],
+  "deno.enable": false
 }

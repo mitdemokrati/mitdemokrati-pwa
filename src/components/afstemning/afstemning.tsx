@@ -12,7 +12,8 @@ export const Afstemning = ({ afstemning }: AfstemningProps) => {
   const toggleSection = visibility ? (
     <>
       <p>
-        {afstemning.Sagstrin?.Sag?.resume || 'Ingen yderligere information'}
+        {afstemning.Sagstrin?.Sag?.resume ||
+          'Ingen yderligere information fra Folketinget'}
       </p>
 
       <p>Forslaget er opstillet af {afstemning.forslagStillerId}</p>
@@ -27,6 +28,7 @@ export const Afstemning = ({ afstemning }: AfstemningProps) => {
         <button
           className="afstemning__button"
           onClick={() => toggleVisibility(!visibility)}
+          type="button"
         >
           <p>
             {afstemning.Møde?.dato} - {afstemning.id}

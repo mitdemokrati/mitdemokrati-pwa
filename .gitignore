@@ -1,4 +1,6 @@
-.parcel-cache
+node_modules
+coverage
 data
 dist
-node_modules
+
+.parcel-cache

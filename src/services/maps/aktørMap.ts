@@ -1,4 +1,4 @@
-import { parseParty } from './../../utility/parseParty';
+import { parseParty } from '../../utility/parseParty';
 
 export const mapAktør = ({
   id,
@@ -6,7 +6,7 @@ export const mapAktør = ({
   efternavn,
   fornavn,
   navn,
-  typeid
+  typeid,
 }: Aktør): Aktør => {
   return {
     id,
@@ -14,6 +14,6 @@ export const mapAktør = ({
     fornavn,
     navn,
     typeid,
-    parti: parseParty(biografi)
+    parti: parseParty(biografi),
   };
 };

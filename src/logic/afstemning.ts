@@ -18,17 +18,21 @@ const state: ApplicationState = {
   aktørMap: new Map(),
 };
 
-export async function getNewestAfstemningList(count: number) {
+export async function getNewestAfstemningList(
+  count: number
+): Promise<Afstemning[]> {
   populateStateFromStorage();
 
   let currentAfstemningId = await fetchLatestAfstemningId();
 
   let loopCount = count;
   while (currentAfstemningId && loopCount > 0) {
+    // await-in-loop part of current control flow
+    // eslint-disable-next-line no-await-in-loop
     const previousAfstemning = await getAfstemning(currentAfstemningId.id);
 
     if (!previousAfstemning) {
-      return;
+      return [];
     }
 
     currentAfstemningId = previousAfstemning.previousAfstemningId!;
@@ -41,6 +45,9 @@ export async function getNewestAfstemningList(count: number) {
     .sort((a, b) => b.id - a.id)
     .slice(0, count);
 }
+
+// TODO: Rewrite logic flow at some point
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function getLatestAfstemning() {
   populateStateFromStorage();
 
@@ -49,13 +56,13 @@ async function getLatestAfstemning() {
   const afstemning = await getAfstemning(id);
 
   const aktørIdList = afstemning?.Stemme.map((stemme) => stemme.aktørid) || [];
-  await Promise.all(aktørIdList?.map((id) => getAktør(id)));
+  await Promise.all(aktørIdList?.map((aktørId) => getAktør(aktørId)));
 
   saveAktørList(Array.from(state.aktørMap.values()));
   saveAfstemningList(Array.from(state.afstemningMap.values()));
 }
 
-async function getAfstemning(id: number) {
+async function getAfstemning(id: number): Promise<Afstemning | undefined> {
   let afstemning = state.afstemningMap.get(id);
 
   if (afstemning) {
@@ -65,8 +72,9 @@ async function getAfstemning(id: number) {
   afstemning = await fetchAfstemning(id);
 
   if (!afstemning) {
+    // TODO: Use better logging
     console.error(Error(`Could not fetch afstemning ${id}`));
-    return;
+    return undefined;
   }
 
   if (!afstemning.forslagStillerId) {
@@ -82,7 +90,7 @@ async function getAfstemning(id: number) {
   return afstemning;
 }
 
-async function getAktør(id: number) {
+async function getAktør(id: number): Promise<Aktør | undefined> {
   let aktør = state.aktørMap.get(id);
 
   if (aktør) {
@@ -95,6 +103,8 @@ async function getAktør(id: number) {
     state.aktørMap.set(aktør.id, aktør);
     return aktør;
   }
+
+  return undefined;
 }
 
 async function getLatestAfstemningId() {
@@ -124,11 +134,13 @@ async function populateStateFromStorage() {
   state.latestAfstemningId = loadLatestAfstemningId();
 
   const afstemningList = loadAfstemningList();
+  // eslint-disable-next-line no-unused-expressions
   afstemningList?.forEach((afstemning) => {
     state.afstemningMap.set(afstemning.id, afstemning);
   });
 
   const aktørList = loadAktørList();
+  // eslint-disable-next-line no-unused-expressions
   aktørList?.forEach((aktør) => {
     state.aktørMap.set(aktør.id, aktør);
   });

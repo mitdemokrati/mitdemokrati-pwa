@@ -1,7 +1,7 @@
 export const mapStemme = ({
   afstemningid,
   aktørid,
-  typeid
+  typeid,
 }: Stemme): Stemme => {
   return { aktørid, afstemningid, typeid };
 };

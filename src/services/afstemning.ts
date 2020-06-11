@@ -19,9 +19,9 @@ const PREVIOUS_AFSTEMNING_URL = encodeURI(
   "https://oda.ft.dk/api/Afstemning?$expand=Møde,Sagstrin/Sag&$orderby=Møde/dato desc,id desc&$top=1&$select=id,Møde/dato,Sagstrin/Sag/id&$filter=typeid eq 1 and Møde/dato le DateTime'dateTimePlaceholder' and id lt idPlaceholder"
 );
 
-export const fetchAfstemning = async (
+export async function fetchAfstemning(
   afstemningId: number
-): Promise<Afstemning> => {
+): Promise<Afstemning> {
   const { data } = await axios.request<Afstemning>({
     url: AFSTEMNING_URL.replace('idPlaceholder', afstemningId.toString()),
   });
@@ -65,11 +65,9 @@ export const fetchAfstemning = async (
     forslagStillerId,
     previousAfstemningId,
   });
-};
+}
 
-export const fetchForslagStillerId = async (
-  sagsId: number
-): Promise<number> => {
+export async function fetchForslagStillerId(sagsId: number): Promise<number> {
   const { data } = await axios.request<AfstemningStillerResponse>({
     url: AFSTEMNING_STILLER_ID_URL.replace(
       'sagsIdPlaceholder',
@@ -78,20 +76,20 @@ export const fetchForslagStillerId = async (
   });
 
   return data?.value[0]?.aktørid;
-};
+}
 
-export const fetchLatestAfstemningId = async (): Promise<AfstemningId> => {
+export async function fetchLatestAfstemningId(): Promise<AfstemningId> {
   const { data } = await axios.request<LatestIdResponse>({
     url: LATEST_AFSTEMNING_ID_URL,
   });
 
   return parseAfstemningId(data);
-};
+}
 
-export const fetchPreviousAfstemning = async (
+export async function fetchPreviousAfstemning(
   afstemningId: number,
   afstemningDate: string
-): Promise<AfstemningId> => {
+): Promise<AfstemningId> {
   const { data } = await axios.request<LatestIdResponse>({
     url: PREVIOUS_AFSTEMNING_URL.replace(
       'dateTimePlaceholder',
@@ -100,4 +98,4 @@ export const fetchPreviousAfstemning = async (
   });
 
   return parseAfstemningId(data);
-};
+}

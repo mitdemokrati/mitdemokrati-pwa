@@ -4,6 +4,7 @@
     "jsx": "react",
     "lib": ["ESNext", "DOM"],
     "module": "ESNext",
+    "moduleResolution": "node",
     "strict": true,
     "target": "ES2019"
   }
