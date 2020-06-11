@@ -16,7 +16,7 @@ const getKey = (key: string): string => `${STORAGE_KEY}/${key}`;
 export function get(key: string): any | null {
   const stored = storage.getItem(getKey(key));
 
-  return stored && JSON.parse(decompressFromUTF16(stored));
+  return stored && JSON.parse(decompressFromUTF16(stored) ?? '');
 }
 
 export function set(key: string, value: string | object | Array<any>) {
