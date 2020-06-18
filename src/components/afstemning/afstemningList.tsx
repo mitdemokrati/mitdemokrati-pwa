@@ -10,10 +10,10 @@ type AfstemningListProps = {
 
 export const AfstemningList = ({ afstemningList }: AfstemningListProps) => {
   return (
-    <div className="afstemning-list">
+    <section className="afstemning-list">
       {afstemningList.map((afstemning) => (
         <Afstemning key={afstemning.id} afstemning={afstemning} />
       ))}
-    </div>
+    </section>
   );
 };

@@ -1,6 +1,13 @@
+@import '../../index.less';
+
 .afstemning {
+  &:extend(.centered, .column);
+
+  width: 100%;
+
   &__button {
     border: 1px solid grey;
     background-color: transparent;
+    width: 100%;
   }
 }
