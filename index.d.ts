@@ -5,6 +5,7 @@ type Afstemning = FTEntity & {
   'Stemme@odata.nextLink'?: string;
   forslagStillerId?: number;
   id: number;
+  konklusion: string;
   previousAfstemningId?: AfstemningId;
   vedtaget: boolean;
 };
