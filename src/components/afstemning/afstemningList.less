@@ -1,8 +1,10 @@
 @import '../../index.less';
 
 .afstemning-list {
-  &:extend(.centered, .column);
+  &:extend(.column, .centered.column);
 
+  box-sizing: border-box;
+  padding: 0 0.5rem;
   width: 100%;
 
   .afstemning {

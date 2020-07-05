@@ -1,19 +1,17 @@
 .column {
   display: flex;
   flex-direction: column;
+
+  &.centered {
+    align-items: center;
+  }
 }
 
 .row {
   display: flex;
   flex-direction: row;
-}
 
-.centered {
-  &.column {
-    align-items: center;
-  }
-
-  &.row {
+  &.centered {
     justify-content: center;
   }
 }

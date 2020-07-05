@@ -5,7 +5,7 @@
 
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss: https://oda.ft.dk;"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss: https://oda.ft.dk/api/;"
     />
 
     <meta charset="utf-8" />
@@ -30,12 +30,12 @@
       }
 
       .loader {
+        animation: spin 2s linear infinite;
         border: 4px solid #f3f3f3; /* Light grey */
         border-top: 4px solid #3498db; /* Blue */
         border-radius: 50%;
         width: 32px;
         height: 32px;
-        animation: spin 2s linear infinite;
       }
 
       @keyframes spin {

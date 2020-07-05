@@ -1,4 +1,15 @@
-type Afstemning = FTEntity & {
+type Afstemning = {
+  dato: string;
+  forslagStillerId?: number;
+  id: number;
+  konklusion: string;
+  resume: string;
+  stemmeList: Stemme[];
+  titel: string;
+  vedtaget: boolean;
+};
+
+type FTAfstemning = FTEntity & {
   Sagstrin: Sagstrin;
   Møde: Møde;
   Stemme: Stemme[];
@@ -35,7 +46,7 @@ type Aktør = FTEntity & {
 type AktørPartyMap = Map<number, string>;
 
 type ApplicationState = {
-  afstemningMap: Map<number, Afstemning>;
+  afstemningMap: Map<number, FTAfstemning>;
   aktørMap: Map<number, Aktør>;
   latestAfstemningId?: AfstemningId;
 };
@@ -43,6 +54,10 @@ type ApplicationState = {
 type FTEntity = {
   shouldUpdate?: boolean;
   version?: number;
+};
+
+type FTResponse<T> = {
+  value: [T];
 };
 
 type LatestIdResponse = {
@@ -65,6 +80,7 @@ type PartyVoteSpread = {
 type Sag = {
   id: number;
   titel: string;
+  titelkort: string;
   resume: string;
 };
 
@@ -75,7 +91,6 @@ type Sagstrin = {
 
 type Stemme = {
   typeid: number;
-  afstemningid: number;
   aktørid: number;
 };
 

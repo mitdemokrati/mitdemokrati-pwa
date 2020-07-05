@@ -5,11 +5,11 @@ const AFSTEMNING_LIST_KEY = 'afstemning_list';
 const AKTØR_LIST_KEY = 'aktør_list';
 const LATEST_AFSTEMNING_ID_KEY = 'latest_afstemning_id';
 
-export function loadAfstemning(id: number): Afstemning | undefined {
+export function loadAfstemning(id: number): FTAfstemning | undefined {
   return get(`${AFSTEMNING_KEY}${id}`);
 }
 
-export function loadAfstemningList(): Afstemning[] | undefined {
+export function loadAfstemningList(): FTAfstemning[] | undefined {
   return get(AFSTEMNING_LIST_KEY);
 }
 
@@ -21,11 +21,11 @@ export function loadLatestAfstemningId(): AfstemningId | undefined {
   return get(LATEST_AFSTEMNING_ID_KEY);
 }
 
-export function saveAfstemning(afstemning: Afstemning) {
+export function saveAfstemning(afstemning: FTAfstemning) {
   set(`${AFSTEMNING_KEY}${afstemning.id}`, afstemning);
 }
 
-export function saveAfstemningList(afstemningList: Afstemning[]) {
+export function saveAfstemningList(afstemningList: FTAfstemning[]) {
   set(AFSTEMNING_LIST_KEY, afstemningList);
 }
 

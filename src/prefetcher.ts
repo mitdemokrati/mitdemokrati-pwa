@@ -14,7 +14,7 @@ import {
 
 const START_TIME = process.hrtime();
 
-const afstemningList: Afstemning[] = [];
+const afstemningList: FTAfstemning[] = [];
 
 axiosRetry(axios, { retries: 3, retryDelay: axiosRetry.exponentialDelay });
 axios.create({

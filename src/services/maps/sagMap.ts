@@ -1,3 +1,3 @@
-export const mapSag = ({ id, titel, resume }: Sag): Sag => {
-  return { id, titel, resume };
+export const mapSag = ({ id, titel, titelkort, resume }: Sag): Sag => {
+  return { id, titel, titelkort, resume };
 };

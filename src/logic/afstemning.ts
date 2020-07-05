@@ -20,7 +20,7 @@ const state: ApplicationState = {
 
 export async function getNewestAfstemningList(
   count: number
-): Promise<Afstemning[]> {
+): Promise<FTAfstemning[]> {
   populateStateFromStorage();
 
   let currentAfstemningId = await fetchLatestAfstemningId();
@@ -62,7 +62,7 @@ async function getLatestAfstemning() {
   saveAfstemningList(Array.from(state.afstemningMap.values()));
 }
 
-async function getAfstemning(id: number): Promise<Afstemning | undefined> {
+async function getAfstemning(id: number): Promise<FTAfstemning | undefined> {
   let afstemning = state.afstemningMap.get(id);
 
   if (afstemning) {

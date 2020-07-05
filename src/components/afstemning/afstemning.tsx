@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+import { Stemme } from '../stemme/stemme';
+import { parseDateToLocale } from '../../utility/dateHelper';
+
 import './afstemning.less';
 
 type AfstemningProps = {
@@ -12,29 +15,16 @@ export const Afstemning = ({ afstemning }: AfstemningProps) => {
   const toggleSection = visibility ? (
     <>
       <p>
-        {afstemning.Sagstrin?.Sag?.resume ||
-          'Ingen yderligere information fra Folketinget'}
+        {afstemning.resume || 'Ingen yderligere information fra Folketinget'}
       </p>
 
       <p>Forslaget er opstillet af {afstemning.forslagStillerId}</p>
 
-      <p>Forslaget blev {afstemning.vedtaget ? 'vedtaget' : 'forkastet'}</p>
-      <p>
-        For stemmer:{' '}
-        {afstemning.Stemme.filter((stemme) => stemme.typeid === 1).length}
-      </p>
-      <p>
-        Imod stemmer:{' '}
-        {afstemning.Stemme.filter((stemme) => stemme.typeid === 2).length}
-      </p>
-      <p>
-        Blank stemmer:{' '}
-        {afstemning.Stemme.filter((stemme) => stemme.typeid === 3).length}
-      </p>
-      <p>
-        Fraværende stemmer:{' '}
-        {afstemning.Stemme.filter((stemme) => stemme.typeid === 4).length}
-      </p>
+      <Stemme
+        konklusion={afstemning.konklusion}
+        stemmeList={afstemning.stemmeList}
+        vedtaget={afstemning.vedtaget}
+      />
     </>
   ) : null;
 
@@ -46,13 +36,13 @@ export const Afstemning = ({ afstemning }: AfstemningProps) => {
         type="button"
       >
         <p>
-          {afstemning.Møde?.dato} - {afstemning.id}
+          {parseDateToLocale(afstemning.dato)} - {afstemning.id}
         </p>
 
-        <h3>{afstemning.Sagstrin?.Sag?.titel}</h3>
-      </button>
+        <h3>{afstemning.titel}</h3>
 
-      {toggleSection}
+        {toggleSection}
+      </button>
     </article>
   );
 };

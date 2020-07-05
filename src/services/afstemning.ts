@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { mapAfstemning } from './maps/afstemningMap';
+import { mapOldAfstemning } from './maps/afstemningMap';
 import { parseAfstemningId } from '../utility/parseAfstemningId';
 
 const LATEST_AFSTEMNING_ID_URL = encodeURI(
@@ -21,8 +21,8 @@ const PREVIOUS_AFSTEMNING_URL = encodeURI(
 
 export async function fetchAfstemning(
   afstemningId: number
-): Promise<Afstemning> {
-  const { data } = await axios.request<Afstemning>({
+): Promise<FTAfstemning> {
+  const { data } = await axios.request<FTAfstemning>({
     url: AFSTEMNING_URL.replace('idPlaceholder', afstemningId.toString()),
   });
 
@@ -47,7 +47,7 @@ export async function fetchAfstemning(
       previousAfstemningIdPromise,
     ]);
 
-    return mapAfstemning({
+    return mapOldAfstemning({
       ...data,
       Stemme: [...data.Stemme, ...stemmeData.value],
       forslagStillerId,
@@ -60,7 +60,7 @@ export async function fetchAfstemning(
     previousAfstemningIdPromise,
   ]);
 
-  return mapAfstemning({
+  return mapOldAfstemning({
     ...data,
     forslagStillerId,
     previousAfstemningId,
