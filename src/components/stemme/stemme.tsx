@@ -20,10 +20,10 @@ export const Stemme = ({ konklusion, stemmeList, vedtaget }: StemmeProps) => {
       <p>Forslaget blev {vedtaget ? 'vedtaget' : 'forkastet'}</p>
 
       <div>
-        <p>For stemmer: {voteSpread.for}</p>
-        <p>Imod stemmer: {voteSpread.imod}</p>
-        <p>Blank stemmer: {voteSpread.blank}</p>
-        <p>Fraværende stemmer: {voteSpread.fraværende}</p>
+        <p>For: {voteSpread.for}</p>
+        <p>Imod: {voteSpread.imod}</p>
+        <p>Blanke: {voteSpread.blank}</p>
+        <p>Fraværende: {voteSpread.fraværende}</p>
       </div>
     </>
   );

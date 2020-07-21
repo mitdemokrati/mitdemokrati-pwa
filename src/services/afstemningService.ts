@@ -11,20 +11,24 @@ const PREVIOUS_AFSTEMNING_URL = encodeURI(
 );
 
 const AFSTEMNING_STILLER_ID_URL = encodeURI(
-  'https://oda.ft.dk/api/SagAktør?$filter=sagid eq sagsIdPlaceholder and (rolleid eq 19 or rolleid eq 16)&$select=aktørid'
+  'https://oda.ft.dk/api/SagAktør?$select=aktørid,sagid&$filter=(rolleid eq 19 or rolleid eq 16) and (sagsIdPlaceholder)'
 );
 
-export const fetchLatestAfstemning = async () => {
+export const fetchLatestAfstemningList = async (count: number = 1) => {
   const { data } = await axios.request<FTResponse<FTAfstemning>>({
-    url: LATEST_AFSTEMNING_URL,
+    url: LATEST_AFSTEMNING_URL.replace('top=1', `top=${count}`),
   });
 
-  const ftAfstemning = data.value[0];
+  const ftAfstemningList = data.value;
 
-  return enrichAndParseAfstemning(ftAfstemning);
+  return Promise.all(
+    ftAfstemningList.map((ftAfstemning) =>
+      enrichAndParseAfstemning(ftAfstemning)
+    )
+  );
 };
 
-export const fetchPreviousAfstemning = async (afstemning: Afstemning) => {
+export const fetchPreviousAfstemningList = async (afstemning: Afstemning) => {
   const url = PREVIOUS_AFSTEMNING_URL.replace(
     'dateTimePlaceholder',
     afstemning.dato
@@ -34,39 +38,39 @@ export const fetchPreviousAfstemning = async (afstemning: Afstemning) => {
     url,
   });
 
-  const ftAfstemning = data.value[0];
+  const ftAfstemningList = data.value;
 
-  return enrichAndParseAfstemning(ftAfstemning);
+  return Promise.all(
+    ftAfstemningList.map((ftAfstemning) =>
+      enrichAndParseAfstemning(ftAfstemning)
+    )
+  );
+};
+
+export const fetchForslagStillerIdList = async (sagsIdList: number[]) => {
+  const sagIdMatchString = sagsIdList.reduce((string, id, index) => {
+    return index === 0 ? `sagid eq ${id}` : `${string} or sagid eq ${id}`;
+  }, '');
+
+  const { data } = await axios.request<AfstemningStillerResponse>({
+    url: AFSTEMNING_STILLER_ID_URL.replace(
+      'sagsIdPlaceholder',
+      sagIdMatchString
+    ),
+  });
+
+  return data?.value;
 };
 
 async function enrichAndParseAfstemning(ftAfstemning: FTAfstemning) {
-  const [forslagStillerId, stemmeData] = await fetchAdditionalAfstemningData(
-    ftAfstemning
+  const stemmeList = await fetchStemmeList(
+    ftAfstemning['Stemme@odata.nextLink']
   );
 
   return mapAfstemning({
     ...ftAfstemning,
-    Stemme: [...ftAfstemning.Stemme, ...stemmeData.value],
-    forslagStillerId,
+    Stemme: [...ftAfstemning.Stemme, ...stemmeList.value],
   });
-}
-
-async function fetchAdditionalAfstemningData(ftAfstemning: FTAfstemning) {
-  return Promise.all([
-    fetchForslagStillerId(ftAfstemning.Sagstrin.Sag.id),
-    fetchStemmeList(ftAfstemning['Stemme@odata.nextLink']),
-  ]);
-}
-
-async function fetchForslagStillerId(sagsId: number) {
-  const { data } = await axios.request<AfstemningStillerResponse>({
-    url: AFSTEMNING_STILLER_ID_URL.replace(
-      'sagsIdPlaceholder',
-      sagsId.toString()
-    ),
-  });
-
-  return data?.value[0]?.aktørid;
 }
 
 async function fetchStemmeList(stemmeListUrl: string | undefined) {

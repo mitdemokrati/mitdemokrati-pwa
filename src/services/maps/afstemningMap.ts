@@ -30,6 +30,7 @@ export const mapAfstemning = (ftAfstemning: FTAfstemning): Afstemning => ({
   id: ftAfstemning.id,
   konklusion: ftAfstemning.konklusion,
   resume: ftAfstemning.Sagstrin.Sag.resume,
+  sagId: ftAfstemning.Sagstrin.Sag.id,
   stemmeList: ftAfstemning.Stemme,
   titel: ftAfstemning.Sagstrin.Sag.titelkort,
   vedtaget: ftAfstemning.vedtaget,

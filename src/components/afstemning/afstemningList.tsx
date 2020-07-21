@@ -1,14 +1,16 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { selectAfstemningMap } from '../../ducks/afstemning/afstemningSelectors';
 
 import { Afstemning } from './afstemning';
 
 import './afstemningList.less';
 
-type AfstemningListProps = {
-  afstemningList: Afstemning[];
-};
+export const AfstemningList = () => {
+  const afstemningMap = useSelector(selectAfstemningMap);
+  const afstemningList = [...afstemningMap.values()];
 
-export const AfstemningList = ({ afstemningList }: AfstemningListProps) => {
   return (
     <section className="afstemning-list">
       {afstemningList.map((afstemning) => (

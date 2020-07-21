@@ -8,6 +8,7 @@
   "scripts": {
     "start": "parcel ./src/index.html",
     "build": "parcel build --target=browser ./src/index.html",
+    "build:analyze": "cross-env PARCEL_BUNDLE_ANALYZER=1 parcel build --target=browser ./src/index.html",
     "build:prefetcher": "parcel build --target=server ./src/prefetcher.ts",
     "lint": "npm-run-all -p  lint:prettier lint:es lint:style",
     "lint:es": "eslint . --ext .ts,.tsx",
@@ -56,7 +57,12 @@
     "axios-retry": "^3.1.8",
     "lz-string": "^1.4.4",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "react-window": "^1.8.5",
+    "recharts": "^2.0.0-beta.6",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.10.1",
@@ -66,8 +72,10 @@
     "@types/lz-string": "^1.3.34",
     "@types/react": "^16.9.38",
     "@types/react-dom": "^16.9.8",
+    "@types/react-redux": "^7.1.9",
     "@typescript-eslint/eslint-plugin": "^3.3.0",
     "@typescript-eslint/parser": "^3.3.0",
+    "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.11.0",

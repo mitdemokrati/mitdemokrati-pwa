@@ -67,5 +67,7 @@ function parseCountSubstring(string: string, indexKey: string) {
 
   const subString = string.substring(startIndex, endIndex);
 
-  return parseInt(subString, 10);
+  const parsedCount = parseInt(subString, 10);
+
+  return Number.isNaN(parsedCount) ? 0 : parsedCount;
 }

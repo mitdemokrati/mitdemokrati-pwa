@@ -1,9 +1,10 @@
 type Afstemning = {
   dato: string;
-  forslagStillerId?: number;
+  forslagStillerId?: number[];
   id: number;
   konklusion: string;
   resume: string;
+  sagId: number;
   stemmeList: Stemme[];
   titel: string;
   vedtaget: boolean;
@@ -14,7 +15,7 @@ type FTAfstemning = FTEntity & {
   Møde: Møde;
   Stemme: Stemme[];
   'Stemme@odata.nextLink'?: string;
-  forslagStillerId?: number;
+  forslagStillerId?: number[];
   id: number;
   konklusion: string;
   previousAfstemningId?: AfstemningId;
@@ -29,6 +30,7 @@ type AfstemningId = {
 
 type AfstemningStillerResponse = {
   value: {
+    sagid: number;
     aktørid: number;
   }[];
 };
@@ -90,6 +92,7 @@ type Sagstrin = {
 };
 
 type Stemme = {
+  afstemningid: number;
   typeid: number;
   aktørid: number;
 };
