@@ -1,6 +1,11 @@
 import { IApplicationState } from '../store';
 
-export const selectAfstemning = (state: IApplicationState) => state?.afstemning;
+export const selectAfstemningState = (state: IApplicationState) =>
+  state?.afstemning;
 
 export const selectAfstemningMap = (state: IApplicationState) =>
-  selectAfstemning(state)?.afstemningMap;
+  selectAfstemningState(state)?.afstemningMap;
+
+export const selectAfstemningList = (state: IApplicationState) => [
+  ...selectAfstemningMap(state).values(),
+];

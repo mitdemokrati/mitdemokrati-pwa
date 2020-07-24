@@ -1,61 +1,48 @@
-import {
-  fetchForslagStillerIdList,
-  fetchLatestAfstemningList,
-} from '../services/afstemningService';
+import { fetchLatestAfstemningList } from '../services/afstemningService';
+import { fetchForslagStillerIdList } from '../services/forslagStillerService';
+import { mapArray } from '../utility/misc';
 
-type AfstemningMap = Map<number, Afstemning>;
-type ApplicationState = {
-  afstemningMap: AfstemningMap;
-};
-const state: ApplicationState = {
-  afstemningMap: new Map(),
+export const loadAfstemningList = async (count: number) => {
+  return fetchLatestAfstemningList(count);
 };
 
-const AFSTEMNING_TO_FETCH = 15;
+export const enrichAfstemningList = async (afstemningList: Afstemning[]) => {
+  const forslagStillerList = await getAfstemningForslagStiller(afstemningList);
 
-export const getState = () => state;
-
-export const populateAfstemningList = async () => {
-  const afstemningMap = await fetchLatestAfstemningList(AFSTEMNING_TO_FETCH);
-
-  afstemningMap.forEach((afstemning) =>
-    state.afstemningMap.set(afstemning.id, afstemning)
-  );
-
-  enrichAfstemningList();
+  return matchForslagStillerWithAfstemning(afstemningList, forslagStillerList);
 };
 
-async function enrichAfstemningList() {
-  const afstemningWithForslagStillerMap = await getAfstemningForslagStiller(
-    state.afstemningMap
-  );
-
-  state.afstemningMap = new Map(afstemningWithForslagStillerMap);
-}
-
-async function getAfstemningForslagStiller(afstemningMap: AfstemningMap) {
-  const afstemningList = [...afstemningMap.values()];
-
+async function getAfstemningForslagStiller(afstemningList: Afstemning[]) {
   const missingForslagStillerList = afstemningList.filter(
     (afstemning) => !afstemning.forslagStillerId
   );
 
   if (missingForslagStillerList.length < 1) {
-    return afstemningMap;
+    return [];
   }
 
   const sagIdList = missingForslagStillerList.map(
     (afstemning) => afstemning.sagId
   );
 
-  const forslagStillerList = await fetchForslagStillerIdList(sagIdList);
+  return fetchForslagStillerIdList(sagIdList);
+}
 
+function matchForslagStillerWithAfstemning(
+  afstemningList: Afstemning[],
+  forslagStillerList: { sagid: number; aktørid: number }[]
+) {
+  if (afstemningList.length < 1 || forslagStillerList.length < 1) {
+    return afstemningList;
+  }
+
+  // Map all forslagStillerIds to sagId
   const forslagStillerMap: Map<number, number[]> = forslagStillerList.reduce(
     (map, forslagStiller) => {
-      const afstemningForslagStillerList = map.get(forslagStiller.sagid) || [];
+      const forslagStillerIdList = map.get(forslagStiller.sagid) || [];
 
       map.set(forslagStiller.sagid, [
-        ...afstemningForslagStillerList,
+        ...forslagStillerIdList,
         forslagStiller.aktørid,
       ]);
 
@@ -64,28 +51,21 @@ async function getAfstemningForslagStiller(afstemningMap: AfstemningMap) {
     new Map()
   );
 
-  const afstemningSagIdMap: AfstemningMap = afstemningList.reduce(
-    (map, afstemning) => {
-      map.set(afstemning.sagId, afstemning);
-      return map;
-    },
-    new Map()
-  );
+  // Map afstemning to sagId
+  const afstemningMap = mapArray(afstemningList, 'sagId') as Map<
+    number,
+    Afstemning
+  >;
 
+  // Update afstemning in map with forslagStillerIdList
   forslagStillerMap.forEach((forslagStillerIdList, sagid) => {
-    const afstemning = afstemningSagIdMap.get(sagid)!;
+    const afstemning = afstemningMap.get(sagid)!;
 
     afstemning.forslagStillerId = forslagStillerIdList;
 
-    afstemningSagIdMap.set(sagid, afstemning);
+    afstemningMap.set(sagid, afstemning);
   });
 
-  const newAfstemningMap: AfstemningMap = [
-    ...afstemningSagIdMap.values(),
-  ].reduce((map, afstemning) => {
-    map.set(afstemning.id, afstemning);
-    return map;
-  }, new Map());
-
-  return newAfstemningMap;
+  // Return list of afstemningMap values
+  return Array.from(afstemningMap.values());
 }

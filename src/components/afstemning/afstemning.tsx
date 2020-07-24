@@ -4,6 +4,7 @@ import { Stemme } from '../stemme/stemme';
 import { parseDateToLocale } from '../../utility/dateHelper';
 
 import './afstemning.less';
+import { ForslagStiller } from '../forslagstiller/forslagStiller';
 // import { PieChart } from '../charts/piechart';
 // import {
 //   parseVoteSpreadFromKonklusion,
@@ -23,7 +24,7 @@ export const Afstemning = ({ afstemning }: AfstemningProps) => {
         {afstemning.resume || 'Ingen yderligere information fra Folketinget'}
       </p>
 
-      <p>Forslaget er opstillet af {afstemning.forslagStillerId?.join(', ')}</p>
+      <ForslagStiller forslagStillerIdList={afstemning.forslagStillerId} />
 
       <Stemme
         konklusion={afstemning.konklusion}

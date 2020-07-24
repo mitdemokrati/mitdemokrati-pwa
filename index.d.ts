@@ -9,10 +9,34 @@ type Afstemning = {
   titel: string;
   vedtaget: boolean;
 };
+type AfstemningMap = Map<number, Afstemning>;
 
-type FTAfstemning = FTEntity & {
-  Sagstrin: Sagstrin;
-  Møde: Møde;
+type AfstemningId = {
+  dato: string;
+  id: number;
+  sagsId: number;
+};
+
+type AfstemningStiller = {
+  sagid: number;
+  aktørid: number;
+};
+
+type Aktør = {
+  id: number;
+  typeid: number;
+  navn: string;
+  fornavn: string;
+  efternavn: string;
+  biografi?: string;
+  parti?: string;
+};
+type AktørMap = Map<number, Aktør>;
+type AktørPartyMap = Map<number, string>;
+
+type FTAfstemning = {
+  Sagstrin: FTSagstrin;
+  Møde: FTMøde;
   Stemme: Stemme[];
   'Stemme@odata.nextLink'?: string;
   forslagStillerId?: number[];
@@ -22,44 +46,21 @@ type FTAfstemning = FTEntity & {
   vedtaget: boolean;
 };
 
-type AfstemningId = {
-  dato: string;
+type FTSag = {
   id: number;
-  sagsId: number;
+  titel: string;
+  titelkort: string;
+  resume: string;
 };
 
-type AfstemningStillerResponse = {
-  value: {
-    sagid: number;
-    aktørid: number;
-  }[];
-};
-
-type Aktør = FTEntity & {
+type FTSagstrin = {
+  Sag: FTSag;
   id: number;
-  typeid: number;
-  navn: string;
-  fornavn: string;
-  efternavn: string;
-  biografi?: string;
-  parti?: string;
-};
-
-type AktørPartyMap = Map<number, string>;
-
-type ApplicationState = {
-  afstemningMap: Map<number, FTAfstemning>;
-  aktørMap: Map<number, Aktør>;
-  latestAfstemningId?: AfstemningId;
-};
-
-type FTEntity = {
-  shouldUpdate?: boolean;
-  version?: number;
 };
 
 type FTResponse<T> = {
-  value: [T];
+  value: T[];
+  'odata.nextLink': string | undefined;
 };
 
 type LatestIdResponse = {
@@ -70,7 +71,7 @@ type LatestIdResponse = {
   }[];
 };
 
-type Møde = {
+type FTMøde = {
   id: number;
   dato: string;
 };
@@ -79,35 +80,11 @@ type PartyVoteSpread = {
   [party: string]: VoteSpread;
 };
 
-type Sag = {
-  id: number;
-  titel: string;
-  titelkort: string;
-  resume: string;
-};
-
-type Sagstrin = {
-  Sag: Sag;
-  id: number;
-};
-
 type Stemme = {
   afstemningid: number;
   typeid: number;
   aktørid: number;
 };
-
-type StemmeResponse = {
-  value: Stemme[];
-  'odata.nextLink': string | undefined;
-};
-
-declare enum VoteTypeEnum {
-  For,
-  Imod,
-  Blank,
-  Fraværende,
-}
 
 type VoteSpread = {
   for: number;
