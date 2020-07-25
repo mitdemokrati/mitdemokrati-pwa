@@ -1,6 +1,7 @@
+parcel-bundle-reports
 node_modules
 coverage
-data
 dist
 
+.vs-code
 .parcel-cache
