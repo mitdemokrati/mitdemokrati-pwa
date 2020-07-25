@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Stemme } from '../stemme/stemme';
-import { parseDateToLocale } from '../../utility/dateHelper';
+import { parseDateToLocale } from '../../utility/date';
 
 import './afstemning.less';
 import { ForslagStiller } from '../forslagstiller/forslagStiller';
