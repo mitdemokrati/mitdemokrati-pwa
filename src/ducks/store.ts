@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
 import {
@@ -18,4 +18,5 @@ const combinedReducers = combineReducers<IApplicationState>({
   aktør: aktørReducer,
 });
 
-export const reduxStore = createStore(combinedReducers, applyMiddleware(thunk));
+export const getReduxStore = () =>
+  createStore(combinedReducers, applyMiddleware(thunk));

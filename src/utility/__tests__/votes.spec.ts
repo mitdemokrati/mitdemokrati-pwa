@@ -1,4 +1,4 @@
-import { calculateVoteSpread, calculatePartyVoteSpread } from './votes';
+import { calculateVoteSpread, calculatePartyVoteSpread } from '../votes';
 
 describe('the calculateVoteSpread method', () => {
   const defaultVoteSpread = {

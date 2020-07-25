@@ -1,3 +1,5 @@
+/* istanbul-ignore-file */
+
 export const STORAGE_KEY = 'mit_demokrati';
 
 // Keep this <=100 because of dumb pagination of oda.ft.dk/api results

@@ -1,4 +1,4 @@
-import { parseParty } from '../../utility/parseParty';
+import { parseParty } from '../../utility/party';
 
 export const mapAktør = ({
   id,

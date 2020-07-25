@@ -1,14 +1,14 @@
+import { Store } from 'redux';
 import { INITIAL_AFSTEMNING_DISPLAY_COUNT } from '../config';
-import { reduxStore } from '../ducks/store';
 import { getNewestAfstemningList } from '../ducks/afstemning/afstemningThunks';
 
-export const setupRedux = () => {
+export const populateStore = (store: Store) => {
   // Load initial display data via async thunk
   getNewestAfstemningList(INITIAL_AFSTEMNING_DISPLAY_COUNT)(
-    reduxStore.dispatch,
-    reduxStore.getState,
+    store.dispatch,
+    store.getState,
     {}
   );
 
-  return reduxStore;
+  return store;
 };
