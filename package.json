@@ -6,7 +6,6 @@
   "author": "Andreas Goodstein <andreasgoodstein@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "parcel ./src/index.html",
     "build": "parcel build --target=browser ./src/index.html",
     "build:analyze": "cross-env PARCEL_BUNDLE_ANALYZER=1 parcel build --target=browser ./src/index.html",
     "build:prefetcher": "parcel build --target=server ./src/prefetcher.ts",
@@ -14,6 +13,8 @@
     "lint:es": "eslint . --ext .ts,.tsx",
     "lint:prettier": "prettier -c .",
     "lint:style": "stylelint **/*.less",
+    "prebuild": "rimraf dist",
+    "start": "parcel ./src/index.html",
     "test": "jest --coverage"
   },
   "husky": {
