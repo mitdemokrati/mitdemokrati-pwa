@@ -1,9 +1,19 @@
-import { fetchLatestAfstemningList } from '../services/afstemningService';
+import {
+  fetchLatestAfstemningList,
+  fetchPreviousAfstemningList,
+} from '../services/afstemningService';
 import { fetchForslagStillerIdList } from '../services/forslagStillerService';
 import { mapArray } from '../utility/misc';
 
-export const loadAfstemningList = async (count: number) => {
+export const loadAfstemningList = async (count?: number) => {
   return fetchLatestAfstemningList(count);
+};
+
+export const loadPreviousAfstemningList = async (
+  oldAfstemning: Afstemning,
+  count?: number
+) => {
+  return fetchPreviousAfstemningList(oldAfstemning, count);
 };
 
 export const enrichAfstemningList = async (afstemningList: Afstemning[]) => {

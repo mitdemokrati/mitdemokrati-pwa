@@ -4,14 +4,15 @@
   &:extend(.column, .column.centered);
 
   box-sizing: border-box;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
   width: 100%;
 
   .afstemning {
     padding-bottom: 0.5rem;
+  }
 
-    &:last-child {
-      padding-bottom: 0;
-    }
+  footer {
+    display: grid;
+    place-items: center;
   }
 }

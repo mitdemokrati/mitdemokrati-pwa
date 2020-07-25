@@ -4,5 +4,6 @@ export const setupAxios = async () => {
     import('axios-retry'),
   ]);
 
+  // @ts-ignore
   axiosRetry(axios, { retries: 3, retryDelay: axiosRetry.exponentialDelay });
 };

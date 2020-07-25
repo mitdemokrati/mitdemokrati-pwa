@@ -1,7 +1,10 @@
 import React, { Suspense } from 'react';
 
+// @ts-ignore
 const Cell = React.lazy(() => import('recharts/lib/component/Cell'));
+// @ts-ignore
 const Pie = React.lazy(() => import('recharts/lib/polar/Pie'));
+// @ts-ignore
 const ReactPieChart = React.lazy(() => import('recharts/lib/chart/PieChart'));
 
 type PieChartProps = {

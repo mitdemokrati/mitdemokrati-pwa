@@ -1,4 +1,15 @@
+/* istanbul-ignore-file */
 /* eslint-disable */
+
+/*
+  Experimental node.js program to fetch and zip all the
+  data from oda.ft.dk/api
+
+  Might resume work on it in the future, but for now
+  direct client requests are working fine
+
+  Change file extension back to .ts if work resumes
+*/
 
 import fs from 'fs';
 import http from 'http';
