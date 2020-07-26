@@ -5,5 +5,5 @@ export const parseDateToLocale = (dateString: string) => {
 
   const date = new Date(Date.parse(dateString));
 
-  return date.toLocaleString('da-DK');
+  return date.toLocaleDateString('da-DK');
 };

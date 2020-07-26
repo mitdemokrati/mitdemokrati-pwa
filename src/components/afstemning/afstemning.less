@@ -5,10 +5,42 @@
 
   width: 100%;
 
+  h3 {
+    margin: 0;
+    padding: 0.5rem 0;
+  }
+
   &__button {
     border: 1px solid grey;
     border-radius: 5px;
     background-color: transparent;
     width: 100%;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__header {
+    &:extend(.row);
+
+    align-items: start;
+    justify-content: space-between;
+    padding: 0.5rem 0 0 0;
+
+    p {
+      margin: 0;
+    }
+
+    &--pie {
+      &:extend(.row);
+
+      align-self: start;
+      justify-content: center;
+
+      span {
+        padding: 0 0.5rem;
+      }
+    }
   }
 }

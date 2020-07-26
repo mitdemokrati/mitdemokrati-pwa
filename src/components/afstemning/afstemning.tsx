@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 
-import { Stemme } from '../stemme/stemme';
 import { parseDateToLocale } from '../../utility/date';
+import {
+  parseVoteSpreadFromKonklusion,
+  parseVoteSpreadFromStemmeList,
+} from '../../utility/afstemning';
+
+// import { PieChart } from '../charts/piechart';
+import { Stemme } from '../stemme/stemme';
+import { ForslagStiller } from '../forslagstiller/forslagStiller';
+import { SmallPie } from '../charts/smallpie';
 
 import './afstemning.less';
-import { ForslagStiller } from '../forslagstiller/forslagStiller';
-// import { PieChart } from '../charts/piechart';
-// import {
-//   parseVoteSpreadFromKonklusion,
-//   parseVoteSpreadFromStemmeList,
-// } from '../../utility/afstemningHelper';
 
 type AfstemningProps = {
   afstemning: Afstemning;
@@ -17,6 +19,11 @@ type AfstemningProps = {
 
 export const Afstemning = ({ afstemning }: AfstemningProps) => {
   const [visibility, toggleVisibility] = useState(false);
+
+  const voteSpread =
+    afstemning.stemmeList.length > 0
+      ? parseVoteSpreadFromStemmeList(afstemning.stemmeList)
+      : parseVoteSpreadFromKonklusion(afstemning.konklusion);
 
   const toggleSection = visibility ? (
     <>
@@ -29,7 +36,6 @@ export const Afstemning = ({ afstemning }: AfstemningProps) => {
       <Stemme
         konklusion={afstemning.konklusion}
         stemmeList={afstemning.stemmeList}
-        vedtaget={afstemning.vedtaget}
       />
     </>
   ) : null;
@@ -41,22 +47,22 @@ export const Afstemning = ({ afstemning }: AfstemningProps) => {
         onClick={() => toggleVisibility(!visibility)}
         type="button"
       >
-        <p>
-          {parseDateToLocale(afstemning.dato)} - {afstemning.id}
-        </p>
+        <div className="afstemning__header">
+          <p>{parseDateToLocale(afstemning.dato)}</p>
+
+          <div className="afstemning__header--pie">
+            <span>{afstemning.vedtaget ? 'Vedtaget' : 'Forkastet'}</span>
+
+            <SmallPie voteSpread={voteSpread} size={30} />
+          </div>
+        </div>
 
         <h3>{afstemning.titel}</h3>
 
         {toggleSection}
       </button>
 
-      {/* <PieChart
-        voteSpread={
-          afstemning.stemmeList.length > 0
-            ? parseVoteSpreadFromStemmeList(afstemning.stemmeList)
-            : parseVoteSpreadFromKonklusion(afstemning.konklusion)
-        }
-      /> */}
+      {/* <PieChart voteSpread={voteSpread} /> */}
     </article>
   );
 };
