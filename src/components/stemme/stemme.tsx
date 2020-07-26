@@ -2,7 +2,7 @@ import React from 'react';
 import {
   parseVoteSpreadFromKonklusion,
   parseVoteSpreadFromStemmeList,
-} from '../../utility/afstemningHelper';
+} from '../../utility/afstemning';
 
 type StemmeProps = {
   konklusion: string;

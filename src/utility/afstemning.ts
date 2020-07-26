@@ -1,21 +1,23 @@
 const BLANK_KEY = 'hverken for eller imod stemte';
-const FOR_KEY = 'For stemte';
+const FOR_KEY = 'for stemte';
 const IMOD_KEY = 'imod stemte';
 const TOTAL_VOTES = 179;
 
 export const parseVoteSpreadFromKonklusion = (
   konklusion: string
 ): VoteSpread => {
-  const blankCount = konklusion.includes(BLANK_KEY)
-    ? parseCountSubstring(konklusion, BLANK_KEY)
+  const lowerCaseKonklusion = konklusion.toLowerCase();
+
+  const blankCount = lowerCaseKonklusion.includes(BLANK_KEY)
+    ? parseCountSubstring(lowerCaseKonklusion, BLANK_KEY)
     : 0;
 
-  const forCount = konklusion.includes(FOR_KEY)
-    ? parseCountSubstring(konklusion, FOR_KEY)
+  const forCount = lowerCaseKonklusion.includes(FOR_KEY)
+    ? parseCountSubstring(lowerCaseKonklusion, FOR_KEY)
     : 0;
 
-  const imodCount = konklusion.includes(IMOD_KEY)
-    ? parseCountSubstring(konklusion, IMOD_KEY)
+  const imodCount = lowerCaseKonklusion.includes(IMOD_KEY)
+    ? parseCountSubstring(lowerCaseKonklusion, IMOD_KEY)
     : 0;
 
   const fraværendeCount = TOTAL_VOTES - blankCount - forCount - imodCount;
@@ -63,7 +65,10 @@ export const parseVoteSpreadFromStemmeList = (
 function parseCountSubstring(string: string, indexKey: string) {
   const keyStart = string.indexOf(indexKey);
   const startIndex = string.indexOf(' ', keyStart + indexKey.length);
-  const endIndex = string.indexOf(' ', startIndex + 1);
+
+  // Use space after startIndex or end of string as endIndex, respectively
+  let endIndex = string.indexOf(' ', startIndex + 1);
+  endIndex = endIndex !== -1 ? endIndex : string.length;
 
   const subString = string.substring(startIndex, endIndex);
 
