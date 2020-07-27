@@ -1,10 +1,11 @@
-import { ThunkAction } from 'redux-thunk';
 import { AnyAction } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 
 import { addAktørList } from './aktørActions';
 import { selectAktørMap } from './aktørSelectors';
 import { IApplicationState } from '../store';
 import { loadAktørList } from '../../logic/aktørLogic';
+import { filterNotInMap } from '../../utility/misc';
 
 // Thunks
 export const getAktørList = (
@@ -13,11 +14,10 @@ export const getAktørList = (
   dispatch,
   getState
 ) => {
-  const stateAktørMap = selectAktørMap(getState());
+  const state = getState();
+  const stateAktørMap = selectAktørMap(state);
 
-  const missingAktørIdList = aktørIdList.filter(
-    (aktørId) => !stateAktørMap.has(aktørId)
-  );
+  const missingAktørIdList = filterNotInMap(aktørIdList, stateAktørMap);
 
   if (missingAktørIdList.length < 1) {
     return;

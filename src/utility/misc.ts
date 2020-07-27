@@ -5,6 +5,9 @@ export const chunkArray = <T>(array: T[], chunkSize: number) => {
   return chunk(array, chunkSize);
 };
 
+export const filterNotInMap = <T>(array: number[], map: Map<number, T>) =>
+  array.filter((key) => !map.has(key));
+
 export const mapArray = <T extends object>(array: T[], key: keyof T) => {
   return array.reduce((map, item) => {
     if (map.has(item[key])) {

@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-unresolved
 import chunk from 'lodash/chunk';
-import { chunkArray, mapArray, uniqueArray } from '../misc';
+import { chunkArray, mapArray, uniqueArray, filterNotInMap } from '../misc';
 
 jest.mock('lodash/chunk', () => ({
   default: jest.fn(),
@@ -19,6 +19,26 @@ describe('the chunkArray utility method', () => {
 
     expect(chunk).toHaveBeenCalledTimes(1);
     expect(chunk).toHaveBeenCalledWith(testArray, 2);
+  });
+});
+
+describe('the filterNotInMap utility method', () => {
+  it('returns empty result on empty input', () => {
+    const result = filterNotInMap([], new Map());
+
+    expect(result).toEqual([]);
+  });
+
+  it('returns only values that are not in the map', () => {
+    const list = [1, 1, 2, 3];
+    const map = new Map([
+      [2, {}],
+      [3, {}],
+    ]);
+
+    const result = filterNotInMap(list, map);
+
+    expect(result).toEqual([1, 1]);
   });
 });
 

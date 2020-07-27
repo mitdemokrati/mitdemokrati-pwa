@@ -3,40 +3,48 @@ import {
   loadAktørListFromStorage,
   saveAktørListToStorage,
 } from '../storage/storage';
-import { mapArray } from '../utility/misc';
+import { mapArray, uniqueArray, filterNotInMap } from '../utility/misc';
 
 export const loadAktørList = async (aktørIdList: number[]) => {
   if (aktørIdList.length < 1) {
     return [];
   }
 
-  const uniqueAktørIdList = Array.from(new Set(aktørIdList));
+  const storedAktørMap = mapArray(loadAktørListFromStorage(), 'id') as Map<
+    number,
+    Aktør
+  >;
 
-  const storedAktørMap = mapArray(loadAktørListFromStorage(), 'id');
-
-  const missingAktørIdList = uniqueAktørIdList.filter(
-    (aktørId) => !storedAktørMap.has(aktørId)
+  const missingAktørIdList = filterNotInMap(
+    uniqueArray(aktørIdList),
+    storedAktørMap
   );
 
   if (missingAktørIdList.length < 1) {
-    return aktørIdList
-      .map((aktørId) => storedAktørMap.get(aktørId))
-      .filter(Boolean) as Aktør[];
+    return getFilteredValuesFromMap(aktørIdList, storedAktørMap);
   }
 
-  // Get missing ids from service
-  const aktørListPromiseList = missingAktørIdList.map((aktørId) =>
-    fetchAktør(aktørId)
+  const aktørListFromService = await getAktørListFromService(
+    missingAktørIdList
   );
 
-  const aktørListFromService = await Promise.all(aktørListPromiseList);
-
+  // Add aktørList from service to map
   aktørListFromService.forEach((aktør) => storedAktørMap.set(aktør.id, aktør));
 
   // Update stored aktørList with new aktør
-  saveAktørListToStorage([...storedAktørMap.values()]);
+  saveAktørListToStorage(Array.from(storedAktørMap.values()));
 
-  return aktørIdList
-    .map((aktørId) => storedAktørMap.get(aktørId))
-    .filter(Boolean) as Aktør[];
+  return getFilteredValuesFromMap(aktørIdList, storedAktørMap);
 };
+
+function getFilteredValuesFromMap<T>(array: number[], map: Map<number, T>) {
+  return array.map((key) => map.get(key)).filter(Boolean) as T[];
+}
+
+async function getAktørListFromService(aktørIdList: number[]) {
+  const aktørListPromiseList = aktørIdList.map((aktørId) =>
+    fetchAktør(aktørId)
+  );
+
+  return Promise.all(aktørListPromiseList);
+}
