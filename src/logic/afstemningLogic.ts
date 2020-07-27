@@ -40,26 +40,14 @@ async function getAfstemningForslagStiller(afstemningList: Afstemning[]) {
 
 function matchForslagStillerWithAfstemning(
   afstemningList: Afstemning[],
-  forslagStillerList: { sagid: number; aktørid: number }[]
+  forslagStillerList: ForslagStiller[]
 ) {
   if (afstemningList.length < 1 || forslagStillerList.length < 1) {
     return afstemningList;
   }
 
   // Map all forslagStillerIds to sagId
-  const forslagStillerMap: Map<number, number[]> = forslagStillerList.reduce(
-    (map, forslagStiller) => {
-      const forslagStillerIdList = map.get(forslagStiller.sagid) || [];
-
-      map.set(forslagStiller.sagid, [
-        ...forslagStillerIdList,
-        forslagStiller.aktørid,
-      ]);
-
-      return map;
-    },
-    new Map()
-  );
+  const forslagStillerMap = getForslagStillerMap(forslagStillerList);
 
   // Map afstemning to sagId
   const afstemningMap = mapArray(afstemningList, 'sagId') as Map<
@@ -76,6 +64,20 @@ function matchForslagStillerWithAfstemning(
     afstemningMap.set(sagid, afstemning);
   });
 
-  // Return list of afstemningMap values
   return Array.from(afstemningMap.values());
+}
+
+function getForslagStillerMap(
+  forslagStillerList: ForslagStiller[]
+): Map<number, number[]> {
+  return forslagStillerList.reduce((map, forslagStiller) => {
+    const forslagStillerIdList = map.get(forslagStiller.sagid) || [];
+
+    map.set(forslagStiller.sagid, [
+      ...forslagStillerIdList,
+      forslagStiller.aktørid,
+    ]);
+
+    return map;
+  }, new Map());
 }

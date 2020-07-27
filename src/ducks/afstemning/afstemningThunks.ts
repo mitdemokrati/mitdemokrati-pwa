@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { ThunkAction } from 'redux-thunk';
 
 import { addAfstemningList } from './afstemningActions';
 import { IApplicationState } from '../store';
@@ -9,6 +9,7 @@ import {
   loadAfstemningList,
   loadPreviousAfstemningList,
 } from '../../logic/afstemningLogic';
+import { uniqueArray } from '../../utility/misc';
 
 // Thunks
 export const getNewestAfstemningList = (
@@ -19,8 +20,7 @@ export const getNewestAfstemningList = (
   const afstemningList = await loadAfstemningList(count);
 
   dispatch(addAfstemningList(afstemningList));
-
-  getEnrichedAfstemningList(afstemningList, dispatch);
+  dispatch(getEnrichedAfstemningList(afstemningList));
 };
 
 export const getPreviousAfstemningList = (
@@ -35,37 +35,37 @@ export const getPreviousAfstemningList = (
   );
 
   dispatch(addAfstemningList(afstemningList));
-
-  getEnrichedAfstemningList(afstemningList, dispatch);
+  dispatch(getEnrichedAfstemningList(afstemningList));
 };
 
-async function getEnrichedAfstemningList(
-  afstemningList: Afstemning[],
-  dispatch: ThunkDispatch<IApplicationState, {}, AnyAction>
-) {
-  const enrichedAfstemningList = await enrichAfstemningList(afstemningList);
+function getEnrichedAfstemningList(
+  afstemningList: Afstemning[]
+): ThunkAction<Promise<void>, IApplicationState, {}, AnyAction> {
+  return async (dispatch) => {
+    const enrichedAfstemningList = await enrichAfstemningList(afstemningList);
 
-  dispatch(addAfstemningList(enrichedAfstemningList));
+    dispatch(addAfstemningList(enrichedAfstemningList));
 
-  const uniqueAktørIdList = getUniqueAktørIdList(enrichedAfstemningList);
+    const uniqueAktørIdList = getUniqueAktørIdList(enrichedAfstemningList);
 
-  dispatch(getAktørList(uniqueAktørIdList));
+    dispatch(getAktørList(uniqueAktørIdList));
+  };
 }
 
 function getUniqueAktørIdList(afstemningList: Afstemning[]) {
-  const forslagStillerIdList = afstemningList
-    .map((afstemning) => afstemning.forslagStillerId || [])
+  const allAktørIdList = afstemningList
+    .map(getAllAktørIdList)
     .flat()
     .filter(Boolean);
 
-  const stemmeAktørIdList = afstemningList
-    .map((afstemning) => afstemning.stemmeList.map((stemme) => stemme.aktørid))
-    .flat()
-    .filter(Boolean);
-
-  const uniqueAktørIdList = Array.from(
-    new Set([...forslagStillerIdList, ...stemmeAktørIdList])
-  );
+  const uniqueAktørIdList = uniqueArray(allAktørIdList);
 
   return uniqueAktørIdList;
+}
+
+function getAllAktørIdList(afstemning: Afstemning) {
+  return [
+    ...(afstemning.forslagStillerId || []),
+    ...afstemning.stemmeList.map((stemme) => stemme.aktørid),
+  ];
 }

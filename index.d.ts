@@ -34,6 +34,11 @@ type Aktør = {
 type AktørMap = Map<number, Aktør>;
 type AktørPartyMap = Map<number, string>;
 
+type ForslagStiller = {
+  aktørid: number;
+  sagid: number;
+};
+
 type FTAfstemning = {
   Sagstrin: FTSagstrin;
   Møde: FTMøde;
