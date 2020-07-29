@@ -8,6 +8,11 @@ module.exports = {
       functions: 6,
     },
   },
+  moduleNameMapper: {
+    '^react$': 'preact/compat',
+    '^react-dom/test-utils$': 'preact/test-utils',
+    '^react-dom$': 'preact/compat',
+  },
   preset: 'ts-jest',
   setupFilesAfterEnv: ['./jest.setup.ts'],
   testEnvironment: 'jsdom',
