@@ -19,6 +19,7 @@ export const SmallPie = ({ voteSpread, size = 100 }: SmallPieProps) => {
       data={data}
       lineWidth={70}
       paddingAngle={2}
+      radius={48}
       segmentsShift={2}
       startAngle={270}
       style={pieChartStyle}

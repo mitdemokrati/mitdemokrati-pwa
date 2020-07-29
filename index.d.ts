@@ -81,6 +81,11 @@ type FTMøde = {
   dato: string;
 };
 
+type Party = {
+  letter: string;
+  name: string;
+};
+
 type PartyVoteSpread = {
   [party: string]: VoteSpread;
 };

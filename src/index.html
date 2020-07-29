@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="da">
   <head>
-    <title>MitDemokrati</title>
-
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss: https://oda.ft.dk/api/;"
     />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="Referrer-Policy" content="no-referrer" />
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -16,6 +17,12 @@
       name="description"
       content="Se hvad dine politikere stemmer i Folketinget"
     />
+    <meta
+      name="keywords"
+      content="christiansborg, demokrati, folketinget, gennemsigtighed, politik, politikere, stemmer"
+    />
+
+    <title>MitDemokrati</title>
 
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
 
@@ -74,7 +81,9 @@
 
     <main class="mitdemokrati-pwa">
       <span class="splash"></span>
+
       <p>Se hvad dine politikere stemmer i Folketinget</p>
+
       <div class="loading"></div>
     </main>
 
