@@ -91,6 +91,10 @@ function parseSubstringParty(string: string, key: string) {
 }
 
 function parseSubstringNumber(string: string, key: string) {
+  if (!string.includes(key)) {
+    return 0;
+  }
+
   const subString = getSubstringKeyWithSpaces(string, key);
 
   const parsedCount = parseInt(subString, 10);
