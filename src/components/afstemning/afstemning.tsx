@@ -6,7 +6,6 @@ import {
   parseVoteSpreadFromStemmeList,
 } from '../../utility/afstemning';
 
-// import { PieChart } from '../charts/piechart';
 import { Stemme } from '../stemme/stemme';
 import { ForslagStiller } from '../forslagstiller/forslagStiller';
 import { SmallPie } from '../charts/smallpie';
@@ -61,8 +60,6 @@ export const Afstemning = ({ afstemning }: AfstemningProps) => {
 
         {toggleSection}
       </button>
-
-      {/* <PieChart voteSpread={voteSpread} /> */}
     </article>
   );
 };
