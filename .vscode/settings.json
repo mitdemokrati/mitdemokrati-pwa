@@ -29,5 +29,6 @@
     "titel",
     "vedtaget"
   ],
-  "deno.enable": false
+  "deno.enable": false,
+  "eslint.enable": true
 }

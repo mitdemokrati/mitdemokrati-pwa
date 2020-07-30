@@ -31,10 +31,7 @@
         "tsx": "never"
       }
     ],
-    "import/no-extraneous-dependencies": [
-      "error",
-      { "devDependencies": ["**/*.spec.ts", "**/*.spec.tsx"] }
-    ],
+    "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",
     "no-use-before-define": ["error", { "functions": false }],
     "no-unused-vars": "off",
