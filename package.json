@@ -6,9 +6,10 @@
   "author": "Andreas Goodstein <andreasgoodstein@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "parcel build --target=browser ./src/index.html",
+    "build": "npm-run-all -p build:parcel copy:static",
+    "build:parcel": "parcel build --target=browser ./src/index.html",
     "build:analyze": "cross-env PARCEL_BUNDLE_ANALYZER=1 parcel build --target=browser ./src/index.html",
-    "build:prefetcher": "parcel build --target=server ./src/prefetcher.ts",
+    "copy:static": "cp-cli ./src/static ./dist",
     "lint": "npm-run-all -p lint:prettier lint:es lint:style",
     "lint:es": "eslint . --ext .ts,.tsx",
     "lint:prettier": "prettier -c .",
@@ -31,8 +32,8 @@
     "*.less": "stylelint"
   },
   "source": [
-    "./src/prefetcher.ts",
-    "./src/index.html"
+    "./src/index.html",
+    "./src/static"
   ],
   "targets": {
     "browser": {
@@ -45,13 +46,10 @@
           "not < 1%"
         ]
       }
-    },
-    "server": {
-      "context": "node",
-      "engines": {
-        "node": "12.x"
-      }
     }
+  },
+  "staticFiles": {
+    "staticPath": "./src/static"
   },
   "alias": {
     "react": "preact/compat",
@@ -61,6 +59,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "axios-retry": "^3.1.8",
+    "cp-cli": "^2.0.0",
     "lodash": "^4.17.19",
     "lz-string": "^1.4.4",
     "memize": "^1.1.0",
@@ -98,6 +97,7 @@
     "lint-staged": "^10.2.11",
     "npm-run-all": "^4.1.5",
     "parcel": "2.0.0-beta.1",
+    "parcel-plugin-static-files-copy": "^2.4.3",
     "prettier": "^2.0.5",
     "react-test-renderer": "^16.13.1",
     "stylelint": "^13.6.1",
