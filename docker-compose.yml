@@ -1,25 +1,25 @@
-version: '3'
+version: "3"
 services:
   install:
-    image: node:12
+    image: node:14
     working_dir: /app
-    command: 'yarn install --silent --no-progress'
+    command: "yarn install"
     volumes:
       - ./:/app
       - /app/.git
 
   build:
-    image: node:12
+    image: node:14
     working_dir: /app
-    command: 'yarn run build'
+    command: "yarn build"
     volumes:
       - ./:/app
       - /app/.git
 
   start:
-    image: node:12
+    image: node:14
     working_dir: /app
-    command: 'yarn start'
+    command: "yarn start"
     ports:
       - 1234:1234
       - 12345:12345
