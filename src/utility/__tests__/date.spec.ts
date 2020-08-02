@@ -11,7 +11,7 @@ describe('the parseDateToLocale utility method', () => {
 
   it('parses the input and returns danish locale date string', () => {
     const input = '2000-01-01T12:00:00Z';
-    const expected = '1/1/2000';
+    const expected = '1.1.2000';
 
     const result = parseDateToLocale(input);
 

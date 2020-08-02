@@ -1,5 +1,7 @@
 import memize from 'memize';
 
+const danishFormatter = new Intl.DateTimeFormat('da');
+
 export const parseDateToLocale = memize((dateString: string) => {
   if (!dateString) {
     return '';
@@ -7,5 +9,5 @@ export const parseDateToLocale = memize((dateString: string) => {
 
   const date = new Date(Date.parse(dateString));
 
-  return date.toLocaleDateString('da-DK');
+  return danishFormatter.format(date);
 });
