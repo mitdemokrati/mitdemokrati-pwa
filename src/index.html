@@ -37,9 +37,26 @@
         width: 100%;
       }
 
+      a,
+      a:active,
+      a:focus,
+      a:hover {
+        text-decoration: none;
+        color: black;
+      }
+
       h1 {
         margin: 0;
-        padding: 0.5rem 0 0 0;
+      }
+
+      header {
+        align-items: center;
+        border-bottom: 1px solid lightgrey;
+        box-shadow: 0 1px 3px 0 rgba(33, 33, 33, 0.1);
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
       }
 
       .mitdemokrati-pwa {
@@ -51,6 +68,12 @@
         width: 100%;
       }
 
+      .mitdemokrati-pwa img {
+        height: 200px;
+        padding: 20vh 0 0 25px;
+        width: 200px;
+      }
+
       .loading {
         animation: spin 2s linear infinite;
         border: 4px solid #f3f3f3; /* Light grey */
@@ -58,10 +81,6 @@
         border-radius: 50%;
         width: 32px;
         height: 32px;
-      }
-
-      .splash {
-        margin-top: 30vh;
       }
 
       @keyframes spin {
@@ -76,10 +95,12 @@
     </style>
   </head>
   <body>
-    <h1>Mit Demokrati</h1>
+    <header>
+      <h1>Mit Demokrati</h1>
+    </header>
 
     <main class="mitdemokrati-pwa">
-      <span class="splash"></span>
+      <img src="./assets/splash.png" />
 
       <p>Se hvad dine politikere stemmer i Folketinget</p>
 
