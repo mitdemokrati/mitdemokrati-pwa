@@ -1,6 +1,12 @@
 // eslint-disable-next-line import/no-unresolved
 import chunk from 'lodash/chunk';
-import { chunkArray, mapArray, uniqueArray, filterNotInMap } from '../misc';
+import {
+  chunkArray,
+  mapArray,
+  uniqueArray,
+  filterNotInMap,
+  groupBy,
+} from '../misc';
 
 jest.mock('lodash/chunk', () => ({
   default: jest.fn(),
@@ -39,6 +45,26 @@ describe('the filterNotInMap utility method', () => {
     const result = filterNotInMap(list, map);
 
     expect(result).toEqual([1, 1]);
+  });
+});
+
+describe('the groupBy utility method', () => {
+  it('returns empty map on empty input', () => {
+    const result = groupBy([], '');
+
+    expect(result).toEqual(new Map());
+  });
+
+  it('returns map of itemLists groups by key', () => {
+    const expected = new Map([
+      [1, testArray.slice(0, 2)],
+      [2, testArray.slice(2, 3)],
+      [3, testArray.slice(3, 4)],
+    ]);
+
+    const result = groupBy(testArray, 'id');
+
+    expect(result).toEqual(expected);
   });
 });
 
