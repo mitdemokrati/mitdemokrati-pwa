@@ -74,10 +74,15 @@ export const parsePartySpreadFromKonklusion = (konklusion: string) => {
 };
 
 function parseSubstringParty(string: string, key: string) {
+  if (!string.includes(key)) {
+    return [];
+  }
+
   const keyStart = string.indexOf(key);
 
   const startIndex = string.indexOf('(', keyStart + key.length) + 1;
-  if (startIndex < 1) {
+  const cutoffIndex = string.indexOf(',', keyStart + key.length);
+  if (startIndex < 1 || (startIndex > cutoffIndex && cutoffIndex >= 0)) {
     return [];
   }
 
@@ -144,5 +149,5 @@ function capitalizeOnlyFirstLetter(string: string) {
 }
 
 function replaceNoPartyLetter(string: string) {
-  return string.replace(`(${NO_PARTY_LETTER.toLowerCase()}`, ' (Løsgænger)');
+  return string.replace(`(${NO_PARTY_LETTER.toLowerCase()}`, '(Løsgænger)');
 }

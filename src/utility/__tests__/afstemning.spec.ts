@@ -1,4 +1,5 @@
 import {
+  parsePartySpreadFromKonklusion,
   parseVoteSpreadFromKonklusion,
   parseVoteSpreadFromStemmeList,
 } from '../afstemning';
@@ -14,7 +15,7 @@ describe('the parseVoteSpreadFromKonklusion utility method', () => {
 
   it('parses a full konklusion string into the correct VoteSpread object', () => {
     const konklusion =
-      'TestStringFiller For stemte 79 imod stemte 30 og hverken for eller imod stemte 20 MoreTestFiller';
+      'TestStringFiller For stemte 79, imod stemte 30, og hverken for eller imod stemte 20 MoreTestFiller';
     const expected = {
       for: 79,
       imod: 30,
@@ -74,6 +75,43 @@ describe('the parseVoteSpreadFromStemmeList utility method', () => {
     };
 
     const result = parseVoteSpreadFromStemmeList(stemmeList);
+
+    expect(result).toEqual(expected);
+  });
+});
+
+describe('the parsePartySpreadFromKonklusion utility method', () => {
+  it('parses an empty string into an empty PartySpread', () => {
+    const result = parsePartySpreadFromKonklusion('');
+
+    expect(result).toEqual({ for: [], imod: [], blank: [] });
+  });
+
+  it('parses konklusion with some parties into correct PartySpread', () => {
+    const input =
+      'for stemte x (V og DF), imod stemte y (S, SF), hverken for eller imod stemte z (Ø)';
+    const expected = {
+      for: ['V', 'DF'],
+      imod: ['S', 'SF'],
+      blank: ['Ø'],
+    };
+
+    const result = parsePartySpreadFromKonklusion(input);
+
+    expect(result).toEqual(expected);
+  });
+
+  it('parses konklusion with an aktør outside a party', () => {
+    const input =
+      'for stemte x (S og Test Testman (UFG)), imod stemte 0, hverken for eller imod stemte y (SF)';
+
+    const expected = {
+      for: ['S', 'Test Testman (Løsgænger)'],
+      imod: [],
+      blank: ['SF'],
+    };
+
+    const result = parsePartySpreadFromKonklusion(input);
 
     expect(result).toEqual(expected);
   });
