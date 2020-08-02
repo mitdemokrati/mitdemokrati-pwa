@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { parseDateToLocale } from '../../utility/date';
 import {
   parseVoteSpreadFromKonklusion,
   parseVoteSpreadFromStemmeList,
@@ -47,8 +46,6 @@ export const Afstemning = ({ afstemning }: AfstemningProps) => {
         type="button"
       >
         <div className="afstemning__header">
-          <p>{parseDateToLocale(afstemning.dato)}</p>
-
           <div className="afstemning__header--pie">
             <span>{afstemning.vedtaget ? 'Vedtaget' : 'Forkastet'}</span>
 

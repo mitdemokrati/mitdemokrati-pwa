@@ -1,11 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Virtuoso } from 'react-virtuoso';
+import { GroupedVirtuoso } from 'react-virtuoso';
 
+import { groupBy } from '../../utility/misc';
 import { selectAfstemningList } from '../../ducks/afstemning/afstemningSelectors';
 import { getPreviousAfstemningList } from '../../ducks/afstemning/afstemningThunks';
 
 import { Loading } from '../loading/loading';
+import { AfstemningGroup } from './afstemningGroup';
 import { Afstemning } from './afstemning';
 
 import './afstemningList.less';
@@ -16,10 +18,25 @@ export const AfstemningList = () => {
   const afstemningList = useSelector(selectAfstemningList);
   const dispatch = useDispatch();
 
+  const afstemningGroups = groupBy(afstemningList, 'dato');
+
+  const groupSizeList = Array.from(afstemningGroups.entries()).map(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    ([group, list]) => list.length
+  );
+
   const getAfstemningRow = (index: number) => {
     const afstemning = afstemningList[index];
 
     return <Afstemning key={afstemning.id} afstemning={afstemning} />;
+  };
+
+  const getGroupHeader = (index: number) => {
+    return (
+      <AfstemningGroup
+        groupHeader={Array.from(afstemningGroups.keys())[index]}
+      />
+    );
   };
 
   const lastAfstemning = afstemningList.slice(-1)[0];
@@ -31,14 +48,32 @@ export const AfstemningList = () => {
 
   return (
     <section className="afstemning-list">
-      <Virtuoso
+      <GroupedVirtuoso
         endReached={loadMoreAfstemning}
         footer={() => <Loading text="Henter afstemninger" />}
         item={getAfstemningRow}
+        group={getGroupHeader}
+        groupCounts={groupSizeList}
         overscan={300}
         style={{ width: '100%', height: '89vh' }}
-        totalCount={afstemningList.length}
       />
     </section>
   );
 };
+
+// function getAfstemningGroups(
+//   afstemningList: Afstemning[]
+// ): (string | Afstemning)[] {
+//   const groupedAfstemningMap = groupBy(afstemningList, 'dato');
+
+//   const dateGroups = [...groupedAfstemningMap.keys()];
+
+//   const result: (string | Afstemning)[] = [];
+
+//   dateGroups.forEach((group) => {
+//     result.push(group);
+//     result.push(...(groupedAfstemningMap.get(group) || []));
+//   });
+
+//   return result;
+// }
