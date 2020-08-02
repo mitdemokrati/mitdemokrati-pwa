@@ -5,6 +5,7 @@ import { Virtuoso } from 'react-virtuoso';
 import { selectAfstemningList } from '../../ducks/afstemning/afstemningSelectors';
 import { getPreviousAfstemningList } from '../../ducks/afstemning/afstemningThunks';
 
+import { Loading } from '../loading/loading';
 import { Afstemning } from './afstemning';
 
 import './afstemningList.less';
@@ -32,7 +33,7 @@ export const AfstemningList = () => {
     <section className="afstemning-list">
       <Virtuoso
         endReached={loadMoreAfstemning}
-        footer={() => <div className="loading" />}
+        footer={() => <Loading text="Henter afstemninger" />}
         item={getAfstemningRow}
         overscan={300}
         style={{ width: '100%', height: '89vh' }}
