@@ -2,8 +2,9 @@
   "name": "mitdemokrati-pwa",
   "version": "0.1.0",
   "browser": "./dist/index.html",
-  "server": "./dist/prefetcher.js",
   "author": "Andreas Goodstein <andreasgoodstein@gmail.com>",
+  "homepage": "https://mitdemokrati.com",
+  "repository": "github:mitdemokrati/mitdemokrati-pwa",
   "license": "MIT",
   "scripts": {
     "build": "npm-run-all -p build:parcel copy:static",
@@ -37,7 +38,6 @@
   ],
   "targets": {
     "browser": {
-      "context": "browser",
       "engines": {
         "browsers": [
           "last 3 versions",
