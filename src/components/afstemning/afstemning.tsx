@@ -10,6 +10,7 @@ import { ForslagStiller } from '../forslagstiller/forslagStiller';
 import { SmallPie } from '../charts/smallpie';
 
 import './afstemning.less';
+import { StemmeCount } from '../stemme/stemmeCount';
 
 type AfstemningProps = {
   afstemning: Afstemning;
@@ -46,9 +47,11 @@ export const Afstemning = ({ afstemning }: AfstemningProps) => {
         type="button"
       >
         <div className="afstemning__header">
-          <div className="afstemning__header--pie">
-            <span>{afstemning.vedtaget ? 'Vedtaget' : 'Forkastet'}</span>
+          <span>{afstemning.vedtaget ? 'Vedtaget' : 'Forkastet'}</span>
 
+          <StemmeCount voteSpread={voteSpread} />
+
+          <div className="afstemning__header--pie">
             <SmallPie voteSpread={voteSpread} size={30} />
           </div>
         </div>
