@@ -102,3 +102,5 @@ type VoteSpread = {
   blank: number;
   fraværende: number;
 };
+
+declare module '*.png';
