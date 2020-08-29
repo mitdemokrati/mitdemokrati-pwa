@@ -21,11 +21,7 @@ export const Stemme = ({ konklusion, stemmeList }: StemmeProps) => {
           <p>
             <b>For</b>
           </p>
-          <div>
-            {partySpread.for.map((letter) => (
-              <PartyLogo partyLetter={letter} />
-            ))}
-          </div>
+          <div>{partySpread.for.map(mapPartyLetter)}</div>
         </div>
       ) : null}
 
@@ -34,11 +30,7 @@ export const Stemme = ({ konklusion, stemmeList }: StemmeProps) => {
           <p>
             <b>Imod</b>
           </p>
-          <p>
-            {partySpread.imod.map((letter) => (
-              <PartyLogo partyLetter={letter} />
-            ))}
-          </p>
+          <p>{partySpread.imod.map(mapPartyLetter)}</p>
         </div>
       ) : null}
 
@@ -47,13 +39,13 @@ export const Stemme = ({ konklusion, stemmeList }: StemmeProps) => {
           <p>
             <b>Blank</b>
           </p>
-          <p>
-            {partySpread.blank.map((letter) => (
-              <PartyLogo partyLetter={letter} />
-            ))}
-          </p>
+          <p>{partySpread.blank.map(mapPartyLetter)}</p>
         </div>
       ) : null}
     </div>
   );
 };
+
+function mapPartyLetter(letter: string) {
+  return <PartyLogo partyLetter={letter} />;
+}
