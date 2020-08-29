@@ -55,7 +55,7 @@ export const AfstemningList = () => {
         group={getGroupHeader}
         groupCounts={groupSizeList}
         overscan={300}
-        style={{ width: '100%', height: '89vh' }}
+        style={{ width: '100%', height: 'calc(100vh - 48px)' }}
       />
     </section>
   );
