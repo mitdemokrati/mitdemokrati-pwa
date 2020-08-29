@@ -1,8 +1,13 @@
 @import '../../index.less';
 
 .afstemning {
+  // prettier-ignore
   &:extend(.column, .column.centered);
 
+  background-color: white;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  box-sizing: border-box;
   width: 100%;
 
   h3 {
@@ -11,9 +16,8 @@
   }
 
   &__button {
-    border: 1px solid grey;
-    border-radius: 5px;
     background-color: transparent;
+    border: none;
     width: 100%;
 
     &:focus {

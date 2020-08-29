@@ -60,20 +60,3 @@ export const AfstemningList = () => {
     </section>
   );
 };
-
-// function getAfstemningGroups(
-//   afstemningList: Afstemning[]
-// ): (string | Afstemning)[] {
-//   const groupedAfstemningMap = groupBy(afstemningList, 'dato');
-
-//   const dateGroups = [...groupedAfstemningMap.keys()];
-
-//   const result: (string | Afstemning)[] = [];
-
-//   dateGroups.forEach((group) => {
-//     result.push(group);
-//     result.push(...(groupedAfstemningMap.get(group) || []));
-//   });
-
-//   return result;
-// }
