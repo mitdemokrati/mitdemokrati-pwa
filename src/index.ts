@@ -1,4 +1,4 @@
-// import './index.less';
+import './index.less';
 import { setupAxios } from './utility/setupAxios';
 
 const asyncResources = Promise.all([import('react-dom'), import('./app')]);

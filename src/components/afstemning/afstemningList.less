@@ -4,10 +4,34 @@
   // prettier-ignore
   &:extend(.column, .column.centered);
 
-  background-color: rgb(245, 245, 245);
   box-sizing: border-box;
-  padding: 0.5rem 0.5rem 0 0.5rem;
+  padding: 0.5rem 0 0 0.5rem;
   width: 100%;
+
+  // Target React-Virtuoso scrollbar
+  > div {
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: lightgrey;
+      border: 2px solid rgb(245, 245, 245);
+      border-radius: 10px;
+    }
+  }
+
+  // Target .afstemning wrapping div element inside React-Virtuoso list
+  > div > div > div > div {
+    margin-right: 0.3rem;
+
+    // Firefox spaces these nested divs differently for some reason
+    @supports (-moz-appearance: none) {
+      margin-right: 0.6rem;
+    }
+  }
 
   .afstemning {
     margin-bottom: 0.5rem;

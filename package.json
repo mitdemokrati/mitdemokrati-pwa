@@ -15,7 +15,7 @@
     "lint:es": "eslint . --ext .ts,.tsx",
     "lint:prettier": "prettier -c .",
     "lint:style": "stylelint **/*.less",
-    "prebuild": "rimraf dist",
+    "prebuild": "rimraf dist .parcel-cache",
     "start": "parcel ./src/index.html",
     "test": "jest --coverage"
   },

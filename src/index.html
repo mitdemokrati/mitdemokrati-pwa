@@ -57,6 +57,14 @@
         z-index: 1;
       }
 
+      main {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 39px);
+        width: 100%;
+      }
+
       .mitdemokrati-pwa {
         align-items: center;
         display: flex;
@@ -97,12 +105,14 @@
       <h1>Mit Demokrati</h1>
     </header>
 
-    <main class="mitdemokrati-pwa">
-      <img src="./assets/splash.png" />
+    <main>
+      <div class="mitdemokrati-pwa">
+        <img src="./assets/splash.png" />
 
-      <p>Se hvad dine politikere stemmer i Folketinget</p>
+        <p>Se hvad dine politikere stemmer i Folketinget</p>
 
-      <div class="loading"></div>
+        <div class="loading"></div>
+      </div>
     </main>
 
     <script defer src="./index.ts"></script>
