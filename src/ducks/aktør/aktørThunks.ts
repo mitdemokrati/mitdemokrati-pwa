@@ -5,6 +5,7 @@ import { addAktørList } from './aktørActions';
 import { selectAktørMap } from './aktørSelectors';
 import { IApplicationState } from '../store';
 import { loadAktørList } from '../../logic/aktørLogic';
+import { loadAktørListFromStorage } from '../../storage/storage';
 import { filterNotInMap } from '../../utility/misc';
 
 // Thunks
@@ -24,6 +25,17 @@ export const getAktørList = (
   }
 
   const aktørList = await loadAktørList(missingAktørIdList);
+
+  dispatch(addAktørList(aktørList));
+};
+
+export const populateAktørList = (): ThunkAction<
+  Promise<void>,
+  IApplicationState,
+  {},
+  AnyAction
+> => async (dispatch) => {
+  const aktørList = await loadAktørListFromStorage();
 
   dispatch(addAktørList(aktørList));
 };

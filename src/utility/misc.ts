@@ -6,9 +6,10 @@ export const chunkArray = <T>(array: T[], chunkSize: number) => {
 };
 
 export const filterNotInMap = <T>(array: number[], map: Map<number, T>) =>
-  array.filter((key) => !map.has(key));
+  array && map && array.filter((key) => !map.has(key));
 
 export const groupBy = <T>(array: T[], key: keyof T): Map<string, T[]> =>
+  array &&
   array.reduce((map, item) => {
     const group = map.get(item[key]) || [];
 
@@ -17,8 +18,9 @@ export const groupBy = <T>(array: T[], key: keyof T): Map<string, T[]> =>
     return map;
   }, new Map());
 
-export const mapArray = <T extends object>(array: T[], key: keyof T) => {
-  return array.reduce((map, item) => {
+export const mapArray = <T extends object>(array: T[], key: keyof T) =>
+  array &&
+  array.reduce((map, item) => {
     if (map.has(item[key])) {
       throw Error("MitDemokrati: mapArray can't handle duplicate keys");
     }
@@ -26,8 +28,6 @@ export const mapArray = <T extends object>(array: T[], key: keyof T) => {
     map.set(item[key], item);
     return map;
   }, new Map<unknown, T>());
-};
 
-export const uniqueArray = <T extends string | number>(array: T[]) => {
-  return Array.from(new Set(array));
-};
+export const uniqueArray = <T extends string | number>(array: T[]) =>
+  array && Array.from(new Set(array));

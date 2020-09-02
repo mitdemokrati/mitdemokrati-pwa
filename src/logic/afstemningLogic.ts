@@ -5,7 +5,7 @@ import {
 import { fetchForslagStillerIdList } from '../services/forslagStillerService';
 import { mapArray } from '../utility/misc';
 
-export const loadAfstemningList = async (count?: number) => {
+export const loadAfstemningList = (count?: number) => {
   return fetchLatestAfstemningList(count);
 };
 

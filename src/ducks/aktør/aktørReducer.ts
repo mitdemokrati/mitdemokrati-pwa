@@ -24,6 +24,10 @@ export const aktørReducer = (
 
       const { aktørList } = addAktørAction.payload;
 
+      if (!aktørList) {
+        return state;
+      }
+
       aktørList.forEach((aktør) => {
         newAktørMap.set(aktør.id, aktør);
       });

@@ -10,17 +10,16 @@ export const loadAktørList = async (aktørIdList: number[]) => {
     return [];
   }
 
-  const storedAktørMap = mapArray(loadAktørListFromStorage(), 'id') as Map<
-    number,
-    Aktør
-  >;
+  const aktørList = (await loadAktørListFromStorage()) || [];
+
+  const storedAktørMap = mapArray(aktørList, 'id') as Map<number, Aktør>;
 
   const missingAktørIdList = filterNotInMap(
     uniqueArray(aktørIdList),
     storedAktørMap
   );
 
-  if (missingAktørIdList.length < 1) {
+  if (!missingAktørIdList || missingAktørIdList.length < 1) {
     return getFilteredValuesFromMap(aktørIdList, storedAktørMap);
   }
 
@@ -38,7 +37,9 @@ export const loadAktørList = async (aktørIdList: number[]) => {
 };
 
 function getFilteredValuesFromMap<T>(array: number[], map: Map<number, T>) {
-  return array.map((key) => map.get(key)).filter(Boolean) as T[];
+  return (
+    array && map && (array.map((key) => map.get(key)).filter(Boolean) as T[])
+  );
 }
 
 async function getAktørListFromService(aktørIdList: number[]) {

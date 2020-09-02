@@ -3,7 +3,7 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "jsx": "react",
-    "lib": ["ESNext", "DOM"],
+    "lib": ["ESNext", "DOM", "WebWorker"],
     "module": "ESNext",
     "moduleResolution": "node",
     "paths": {

@@ -22,6 +22,10 @@ export const afstemningReducer = (
 
       const { afstemningList } = addAfstemningListAction.payload;
 
+      if (!afstemningList) {
+        return state;
+      }
+
       const newAfstemningMap = new Map(state.afstemningMap);
 
       afstemningList.forEach((afstemning) => {
