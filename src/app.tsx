@@ -5,6 +5,7 @@ import { getReduxStore } from './ducks/store';
 import { populateStore } from './utility/setupRedux';
 
 import { AfstemningList } from './components/afstemning/afstemningList';
+import { ResetButton } from './components/button/resetButton';
 
 export const MitDemokratiApp = () => {
   const store = getReduxStore();
@@ -12,6 +13,7 @@ export const MitDemokratiApp = () => {
 
   return (
     <Provider store={store}>
+      <ResetButton />
       <AfstemningList />
     </Provider>
   );
