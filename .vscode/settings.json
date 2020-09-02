@@ -28,6 +28,7 @@
     "sagstrin",
     "stemme",
     "titel",
+    "valgkreds",
     "vedtaget"
   ],
   "deno.enable": false,

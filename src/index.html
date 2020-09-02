@@ -3,7 +3,7 @@
   <head>
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss: https://oda.ft.dk/api/;"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https://www.ft.dk/; connect-src 'self' ws: wss: https://oda.ft.dk/api/;"
     />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="Referrer-Policy" content="no-referrer" />
@@ -24,6 +24,7 @@
     <title>MitDemokrati</title>
 
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
+
     <link rel="preconnect" href="https://oda.ft.dk/api/" crossorigin />
 
     <style>
@@ -35,6 +36,7 @@
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         margin: 0;
         min-height: 100vh;
+        word-break: break-word;
         width: 100%;
       }
 

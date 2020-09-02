@@ -5,6 +5,5 @@ export const selectAktørState = (state: IApplicationState) => state?.aktør;
 export const selectAktørMap = (state: IApplicationState) =>
   selectAktørState(state)?.aktørMap;
 
-export const selectAktørList = (state: IApplicationState) => [
-  ...selectAktørMap(state).values(),
-];
+export const selectAktørList = (state: IApplicationState) =>
+  Array.from(selectAktørMap(state).values());

@@ -26,10 +26,15 @@ type Aktør = {
   id: number;
   typeid: number;
   navn: string;
+  email?: string;
   fornavn: string;
+  folketingLink?: string;
   efternavn: string;
   biografi?: string;
   parti?: string;
+  photoUrl?: string;
+  phoneNumber?: string;
+  valgkreds?: string;
 };
 type AktørMap = Map<number, Aktør>;
 type AktørPartyMap = Map<number, string>;
