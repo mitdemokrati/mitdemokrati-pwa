@@ -8,16 +8,28 @@
   border: 1px solid lightgrey;
   border-radius: 5px;
   box-sizing: border-box;
+  padding: 0.5rem;
   width: 100%;
 
   h3 {
     margin: 0;
-    padding: 0.5rem 0;
+    padding: 0 0 0.5rem 0;
+  }
+
+  > p {
+    text-align: left;
+    margin: 0.5rem 0;
+  }
+
+  &.active {
+    border: 1px solid grey;
   }
 
   &__button {
     background-color: transparent;
     border: none;
+    padding: 0;
+    text-align: start;
     width: 100%;
 
     &:focus {
@@ -26,14 +38,13 @@
   }
 
   &__header {
-    &:extend(.row);
+    &:extend(.column);
 
-    align-items: start;
+    align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 0 0 0;
 
-    p {
-      margin: 0;
+    &--status {
+      padding-right: 0.5rem;
     }
 
     &--pie {
@@ -41,10 +52,15 @@
 
       align-self: start;
       justify-content: center;
+      padding-left: 0.5rem;
+    }
 
-      span {
-        padding: 0 0.5rem;
-      }
+    &--vote {
+      &:extend(.row);
+
+      justify-content: space-between;
+      padding: 0.2rem 0 0 0;
+      width: 100%;
     }
   }
 }

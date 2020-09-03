@@ -18,10 +18,7 @@ export const SmallPie = React.memo(
     return (
       <PieChart
         data={data}
-        lineWidth={70}
-        paddingAngle={2}
-        radius={48}
-        segmentsShift={2}
+        lineWidth={66}
         startAngle={270}
         style={pieChartStyle}
       />

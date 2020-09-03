@@ -21,6 +21,7 @@ export const Stemme = ({ konklusion, stemmeList }: StemmeProps) => {
           <p>
             <b>For</b>
           </p>
+
           <div>{partySpread.for.map(mapPartyLetter)}</div>
         </div>
       ) : null}
@@ -30,7 +31,8 @@ export const Stemme = ({ konklusion, stemmeList }: StemmeProps) => {
           <p>
             <b>Imod</b>
           </p>
-          <p>{partySpread.imod.map(mapPartyLetter)}</p>
+
+          <div>{partySpread.imod.map(mapPartyLetter)}</div>
         </div>
       ) : null}
 
@@ -39,7 +41,8 @@ export const Stemme = ({ konklusion, stemmeList }: StemmeProps) => {
           <p>
             <b>Blank</b>
           </p>
-          <p>{partySpread.blank.map(mapPartyLetter)}</p>
+
+          <div>{partySpread.blank.map(mapPartyLetter)}</div>
         </div>
       ) : null}
     </div>

@@ -11,6 +11,7 @@ import { SmallPie } from '../charts/smallpie';
 
 import './afstemning.less';
 import { StemmeCount } from '../stemme/stemmeCount';
+// import { UserStemme } from '../user/userStemme';
 
 type AfstemningProps = {
   afstemning: Afstemning;
@@ -36,30 +37,40 @@ export const Afstemning = ({ afstemning }: AfstemningProps) => {
         konklusion={afstemning.konklusion}
         stemmeList={afstemning.stemmeList}
       />
+
+      {/* <UserStemme /> */}
     </>
   ) : null;
 
+  const afstemningClassName = visibility ? 'afstemning active' : 'afstemning';
+
   return (
-    <article className="afstemning">
+    <article className={afstemningClassName}>
       <button
         className="afstemning__button"
         onClick={() => toggleVisibility(!visibility)}
         type="button"
       >
         <div className="afstemning__header">
-          <span>{afstemning.vedtaget ? 'Vedtaget' : 'Forkastet'}</span>
+          <div className="row">
+            <h3>{afstemning.titel}</h3>
 
-          <StemmeCount voteSpread={voteSpread} />
+            <div className="afstemning__header--pie">
+              <SmallPie voteSpread={voteSpread} size={52} />
+            </div>
+          </div>
 
-          <div className="afstemning__header--pie">
-            <SmallPie voteSpread={voteSpread} size={30} />
+          <div className="afstemning__header--vote">
+            <span className="afstemning__header--status">
+              {afstemning.vedtaget ? 'Vedtaget' : 'Forkastet'}
+            </span>
+
+            <StemmeCount voteSpread={voteSpread} />
           </div>
         </div>
-
-        <h3>{afstemning.titel}</h3>
-
-        {toggleSection}
       </button>
+
+      {toggleSection}
     </article>
   );
 };

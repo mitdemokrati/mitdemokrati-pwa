@@ -1,22 +1,24 @@
 import React from 'react';
 
+import './stemme.less';
+
 type StemmeCountProps = {
   voteSpread: VoteSpread;
 };
 export const StemmeCount = ({ voteSpread }: StemmeCountProps) => {
   return (
-    <div>
+    <div className="stemme-count">
       {getStemmeCountElement('For', voteSpread.for)}
-      {getStemmeCountElement('Imod', voteSpread.imod)}
       {getStemmeCountElement('Blank', voteSpread.blank)}
+      {getStemmeCountElement('Imod', voteSpread.imod)}
     </div>
   );
 };
 
 function getStemmeCountElement(label: string, count: number) {
   return count > 0 ? (
-    <p>
+    <span>
       {label}: {count}
-    </p>
+    </span>
   ) : null;
 }

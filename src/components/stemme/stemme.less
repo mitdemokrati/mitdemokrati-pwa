@@ -5,13 +5,28 @@
 
   justify-content: space-between;
 
+  p {
+    margin: 0.2rem 0;
+  }
+
   div {
     padding: 0 0.1rem;
     flex: 1 1;
+
+    > div > p {
+      font-size: 12px;
+    }
   }
 
   img {
     height: 1rem;
     width: 1rem;
   }
+}
+
+.stemme-count {
+  &:extend(.row);
+
+  flex: 1 1;
+  justify-content: space-between;
 }
