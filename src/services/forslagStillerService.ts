@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { chunkArray, uniqueArray } from '../utility/misc';
+import { tryFetch } from './service';
 
 // More than this many ids, breaks the request
 const MAX_ID_COUNT_IN_REQUEST = 18;
@@ -32,12 +32,9 @@ async function fetchForslagStillerIdListChunk(sagIdList: number[]) {
     return index === 0 ? `sagid eq ${id}` : `${string} or sagid eq ${id}`;
   }, '');
 
-  const { data } = await axios.request<FTResponse<AfstemningStiller>>({
-    url: AFSTEMNING_STILLER_ID_URL.replace(
-      'sagsIdPlaceholder',
-      sagIdMatchString
-    ),
-  });
+  const response = await tryFetch<FTResponse<AfstemningStiller>>(
+    AFSTEMNING_STILLER_ID_URL.replace('sagsIdPlaceholder', sagIdMatchString)
+  );
 
-  return data?.value;
+  return response?.data?.value;
 }

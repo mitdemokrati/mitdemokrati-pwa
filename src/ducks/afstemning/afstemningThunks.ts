@@ -31,6 +31,10 @@ export const getNewestAfstemningList = (
   });
 
   loadAfstemningList(count).then((afstemningList) => {
+    if (afstemningList.length < 1) {
+      return;
+    }
+
     fromServiceLoaded = true;
     dispatch(addAfstemningList(afstemningList));
     dispatch(getEnrichedAfstemningList(afstemningList));

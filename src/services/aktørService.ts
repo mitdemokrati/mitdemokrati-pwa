@@ -1,6 +1,5 @@
-import axios from 'axios';
-
 import { mapAktør } from './maps/aktørMap';
+import { tryFetch } from './service';
 
 const AKTØR_URL = encodeURI('https://oda.ft.dk/api/Aktør(idPlaceholder)');
 
@@ -9,9 +8,15 @@ const AKTØR_PARTI_URL = encodeURI(
 );
 
 export async function fetchAktør(aktørId: number) {
-  const { data } = await axios.request<Aktør>({
-    url: AKTØR_URL.replace('idPlaceholder', aktørId.toString()),
-  });
+  const response = await tryFetch<Aktør>(
+    AKTØR_URL.replace('idPlaceholder', aktørId.toString())
+  );
+
+  const { data } = response || {};
+
+  if (!data) {
+    return {} as Aktør;
+  }
 
   const mappedAktør = mapAktør(data);
 
@@ -23,11 +28,9 @@ export async function fetchAktør(aktørId: number) {
 }
 
 export async function fetchAktørParti(aktørId: number) {
-  const { data } = await axios.request<{
-    value: [{ TilAktør: { navn: string } }];
-  }>({
-    url: AKTØR_PARTI_URL.replace('aktørIdPlaceholder', aktørId.toString()),
-  });
+  const response = await tryFetch<{ value: [{ TilAktør: { navn: string } }] }>(
+    AKTØR_PARTI_URL.replace('aktørIdPlaceholder', aktørId.toString())
+  );
 
-  return data?.value[0].TilAktør.navn;
+  return response?.data?.value[0].TilAktør.navn;
 }
