@@ -11,6 +11,8 @@ import { SmallPie } from '../charts/smallpie';
 
 import './afstemning.less';
 import { StemmeCount } from '../stemme/stemmeCount';
+import { ThumbsDown } from '../icons/thumbsDown';
+import { ThumbsUp } from '../icons/thumbsUp';
 // import { UserStemme } from '../user/userStemme';
 
 type AfstemningProps = {
@@ -62,7 +64,11 @@ export const Afstemning = ({ afstemning }: AfstemningProps) => {
 
           <div className="afstemning__header--vote">
             <span className="afstemning__header--status">
-              {afstemning.vedtaget ? 'Vedtaget' : 'Forkastet'}
+              {afstemning.vedtaget ? (
+                <ThumbsUp size={16} />
+              ) : (
+                <ThumbsDown size={16} />
+              )}
             </span>
 
             <StemmeCount voteSpread={voteSpread} />

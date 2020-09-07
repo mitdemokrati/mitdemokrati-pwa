@@ -54,9 +54,21 @@
 
       header {
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
-        text-align: center;
+        box-sizing: border-box;
         width: 100%;
         z-index: 1;
+      }
+
+      header > .title {
+        margin: 0 auto;
+        max-width: 1024px;
+        padding-left: 0.5rem;
+      }
+
+      @media screen and (min-width: 1024px) {
+        header > .title {
+          padding-left: 1rem;
+        }
       }
 
       main {
@@ -102,7 +114,9 @@
   </head>
   <body>
     <header>
-      <h1>Mit Demokrati</h1>
+      <div class="title">
+        <h1>Mit Demokrati</h1>
+      </div>
     </header>
 
     <main>

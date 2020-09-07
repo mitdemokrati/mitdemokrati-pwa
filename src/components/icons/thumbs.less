@@ -1,0 +1,17 @@
+.thumbs {
+  padding: 3px;
+  border-radius: 50%;
+}
+
+.thumbs--down {
+  &:extend(.thumbs);
+
+  background-color: red;
+  transform: scale(-1, -1);
+}
+
+.thumbs--up {
+  &:extend(.thumbs);
+
+  background-color: green;
+}
