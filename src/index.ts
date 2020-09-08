@@ -23,9 +23,3 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./serviceWorker.ts');
   });
 }
-
-// Register PWA Installer
-window.addEventListener('onbeforeinstallprompt', (e: Event) => {
-  e.preventDefault();
-  console.log(e);
-});
