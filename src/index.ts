@@ -19,7 +19,13 @@ asyncResources.then(([{ render }, { MitDemokratiApp }]) => {
 
 // Register ServiceWorker
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', async () => {
+  window.addEventListener('load', () => {
     navigator.serviceWorker.register('./serviceWorker.ts');
   });
 }
+
+// Register PWA Installer
+window.addEventListener('onbeforeinstallprompt', (e: Event) => {
+  e.preventDefault();
+  console.log(e);
+});

@@ -10,6 +10,9 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1e90ff" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <meta name="author" content="Andreas Goodstein" />
     <meta
@@ -23,7 +26,10 @@
 
     <title>MitDemokrati</title>
 
-    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/icon-180.png" />
+    <link rel="apple-touch-startup-image" href="./assets/icon-180.png" />
 
     <link rel="preconnect" href="https://oda.ft.dk/api/" crossorigin />
 
@@ -38,6 +44,8 @@
         min-height: 100vh;
         word-break: break-word;
         width: 100%;
+        -webkit-touch-callout: none;
+        -webkit-tap-highlight-color: transparent;
       }
 
       a,

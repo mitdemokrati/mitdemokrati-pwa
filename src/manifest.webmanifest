@@ -1,0 +1,22 @@
+{
+  "name": "MitDemokrati",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1E90FF",
+  "theme_color": "#1E90FF",
+  "lang": "da",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}
