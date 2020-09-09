@@ -97,9 +97,16 @@ type PartyVoteSpread = {
 
 type Stemme = {
   afstemningid: number;
-  typeid: number;
+  typeid: StemmeType;
   aktørid: number;
 };
+
+declare enum StemmeType {
+  FOR = 1,
+  IMOD = 2,
+  BLANK = 3,
+  FRAVÆRENDE = 4,
+}
 
 type VoteSpread = {
   for: number;
