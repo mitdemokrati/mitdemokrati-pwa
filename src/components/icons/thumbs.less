@@ -1,17 +1,43 @@
+@import '../../index.less';
+
+.hand {
+  fill: black;
+  transform: translateX(-2px);
+
+  &.color {
+    fill: @color-blank;
+  }
+}
+
 .thumbs {
-  padding: 3px;
   border-radius: 50%;
+  fill: white;
+  padding: 3px;
+  stroke: black;
 }
 
 .thumbs--down {
   &:extend(.thumbs);
 
-  background-color: red;
   transform: scale(-1, -1);
+
+  &.color {
+    stroke: @color-imod;
+  }
+
+  &.fill {
+    fill: @color-imod;
+  }
 }
 
 .thumbs--up {
   &:extend(.thumbs);
 
-  background-color: green;
+  &.color {
+    stroke: @color-for;
+  }
+
+  &.fill {
+    fill: @color-for;
+  }
 }

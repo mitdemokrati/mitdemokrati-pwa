@@ -7,5 +7,5 @@ type ThumbsUpProps = {
   size: number;
 };
 export const ThumbsUp = ({ size }: ThumbsUpProps) => (
-  <Thumb className="thumbs--up" size={size} />
+  <Thumb className="thumbs--up color" size={size} />
 );
