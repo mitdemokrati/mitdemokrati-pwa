@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 import chunk from 'lodash/chunk';
 
 export const chunkArray = <T>(array: T[], chunkSize: number) => {

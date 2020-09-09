@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 import chunk from 'lodash/chunk';
 import {
   chunkArray,
