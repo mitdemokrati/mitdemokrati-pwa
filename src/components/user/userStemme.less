@@ -1,0 +1,43 @@
+@import '../../index.less';
+
+@button-size: 50px;
+
+.user-stemme {
+  width: 100%;
+
+  &--selector {
+    &:extend(.row);
+
+    justify-content: space-between;
+
+    button {
+      background-color: transparent;
+      border: none;
+      border-radius: 50%;
+      height: @button-size;
+      position: relative;
+      width: @button-size;
+
+      &:focus {
+        outline: none;
+      }
+
+      .icon {
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -45%);
+      }
+    }
+
+    .selected {
+      border: 1px solid black;
+      box-shadow: 0 0 3px 0 black;
+    }
+  }
+
+  p {
+    margin: 0.5rem 0;
+    text-align: center;
+  }
+}
