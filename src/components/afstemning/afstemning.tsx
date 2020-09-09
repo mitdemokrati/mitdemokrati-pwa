@@ -5,15 +5,12 @@ import {
   parseVoteSpreadFromStemmeList,
 } from '../../utility/afstemning';
 
-import { Stemme } from '../stemme/stemme';
-import { ForslagStiller } from '../forslagstiller/forslagStiller';
 import { SmallPie } from '../charts/smallpie';
+import { Stemme } from '../stemme/stemme';
+import { StemmeCount } from '../stemme/stemmeCount';
+import { UserStemme } from '../user/userStemme';
 
 import './afstemning.less';
-import { StemmeCount } from '../stemme/stemmeCount';
-import { ThumbsDown } from '../icons/thumbsDown';
-import { ThumbsUp } from '../icons/thumbsUp';
-// import { UserStemme } from '../user/userStemme';
 
 type AfstemningProps = {
   afstemning: Afstemning;
@@ -33,14 +30,14 @@ export const Afstemning = ({ afstemning }: AfstemningProps) => {
         {afstemning.resume || 'Ingen yderligere information fra Folketinget'}
       </p>
 
-      <ForslagStiller forslagStillerIdList={afstemning.forslagStillerId} />
+      <StemmeCount voteSpread={voteSpread} />
 
       <Stemme
         konklusion={afstemning.konklusion}
         stemmeList={afstemning.stemmeList}
       />
 
-      {/* <UserStemme /> */}
+      <UserStemme afstemningId={afstemning.id} />
     </>
   ) : null;
 
@@ -60,18 +57,6 @@ export const Afstemning = ({ afstemning }: AfstemningProps) => {
             <div className="afstemning__header--pie">
               <SmallPie voteSpread={voteSpread} size={52} />
             </div>
-          </div>
-
-          <div className="afstemning__header--vote">
-            <span className="afstemning__header--status">
-              {afstemning.vedtaget ? (
-                <ThumbsUp size={16} />
-              ) : (
-                <ThumbsDown size={16} />
-              )}
-            </span>
-
-            <StemmeCount voteSpread={voteSpread} />
           </div>
         </div>
       </button>

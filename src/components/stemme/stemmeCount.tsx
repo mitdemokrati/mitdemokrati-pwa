@@ -18,7 +18,7 @@ export const StemmeCount = ({ voteSpread }: StemmeCountProps) => {
 function getStemmeCountElement(label: string, count: number) {
   return count > 0 ? (
     <span>
-      {label}: {count}
+      <b>{count}</b> {label}
     </span>
   ) : null;
 }
