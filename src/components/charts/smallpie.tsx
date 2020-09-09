@@ -1,9 +1,9 @@
 import React from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
 
-const COLOR_GREEN = 'limegreen';
-const COLOR_RED = 'crimson';
-const COLOR_BLANK = 'dodgerblue';
+const COLOR_FOR = '#7fb800';
+const COLOR_IMOD = '#f6511d';
+const COLOR_BLANK = '#00a6ed';
 
 type SmallPieProps = {
   voteSpread: VoteSpread;
@@ -30,7 +30,7 @@ function getPieChartData(voteSpread: VoteSpread) {
   return [
     {
       value: voteSpread.for,
-      color: COLOR_GREEN,
+      color: COLOR_FOR,
     },
     {
       value: voteSpread.blank,
@@ -38,7 +38,7 @@ function getPieChartData(voteSpread: VoteSpread) {
     },
     {
       value: voteSpread.imod,
-      color: COLOR_RED,
+      color: COLOR_IMOD,
     },
   ];
 }
