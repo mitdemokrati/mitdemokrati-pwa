@@ -1,3 +1,6 @@
 # TODOs
 
-* Think of good placement in user flow for install button and prompt
+* Refactor custom storage logic to use redux-persist transformers
+* Create detail-view of single afstemning
+* Rethink layout
+  
