@@ -1,5 +1,14 @@
 @import '../../index.less';
 
 .loading-component {
+  // prettier-ignore
   &:extend(.column, .column.centered);
+
+  // React-Virtuoso bug makes min-height of ~60px required
+  min-height: 60px;
+
+  p,
+  h3 {
+    margin: 0;
+  }
 }

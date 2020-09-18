@@ -1,9 +1,9 @@
-version: "3"
+version: '3'
 services:
   install:
     image: node:14
     working_dir: /app
-    command: "yarn install"
+    command: 'yarn install'
     volumes:
       - ./:/app
       - /app/.git
@@ -11,7 +11,7 @@ services:
   build:
     image: node:14
     working_dir: /app
-    command: "yarn build"
+    command: 'yarn build'
     volumes:
       - ./:/app
       - /app/.git
@@ -19,7 +19,7 @@ services:
   start:
     image: node:14
     working_dir: /app
-    command: "yarn start"
+    command: 'yarn start'
     ports:
       - 1234:1234
       - 12345:12345

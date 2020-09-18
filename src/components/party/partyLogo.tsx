@@ -65,6 +65,6 @@ export const PartyLogo = ({ partyLetter }: PartyLogoProps) => {
       return <img src={vLogo} alt="Venstre" />;
 
     default:
-      return <p>{partyLetter}</p>;
+      return partyLetter === 'Ufg' ? null : <p>{partyLetter}</p>;
   }
 };

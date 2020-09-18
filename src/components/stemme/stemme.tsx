@@ -1,18 +1,15 @@
 import React from 'react';
+
 import { parsePartySpreadFromKonklusion } from '../../utility/afstemning';
+import { PartyLogo } from '../party/partyLogo';
 
 import './stemme.less';
-import { PartyLogo } from '../party/partyLogo';
 
 type StemmeProps = {
   konklusion: string;
-  stemmeList: Stemme[];
 };
-export const Stemme = ({ konklusion, stemmeList }: StemmeProps) => {
-  const partySpread =
-    stemmeList.length > 0
-      ? parsePartySpreadFromKonklusion(konklusion) // TODO: Change to parse from stemmeList
-      : parsePartySpreadFromKonklusion(konklusion);
+export const Stemme = ({ konklusion }: StemmeProps) => {
+  const partySpread = parsePartySpreadFromKonklusion(konklusion);
 
   return (
     <div className="stemme">
@@ -20,12 +17,12 @@ export const Stemme = ({ konklusion, stemmeList }: StemmeProps) => {
         <div>{partySpread.for.map(mapPartyLetter)}</div>
       ) : null}
 
-      {partySpread.imod.length > 0 ? (
-        <div>{partySpread.imod.map(mapPartyLetter)}</div>
-      ) : null}
-
       {partySpread.blank.length > 0 ? (
         <div>{partySpread.blank.map(mapPartyLetter)}</div>
+      ) : null}
+
+      {partySpread.imod.length > 0 ? (
+        <div>{partySpread.imod.map(mapPartyLetter)}</div>
       ) : null}
     </div>
   );

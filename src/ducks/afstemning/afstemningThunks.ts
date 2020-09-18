@@ -1,9 +1,8 @@
 import { AnyAction } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { selectAfstemningList } from './afstemningSelectors';
 
 import { addAfstemningList } from './afstemningActions';
-import { IApplicationState } from '../store';
+import { IApplicationState } from '../store/store';
 import { getAktørList } from '../aktør/aktørThunks';
 import {
   enrichAfstemningList,
@@ -11,10 +10,6 @@ import {
   loadPreviousAfstemningList,
 } from '../../logic/afstemningLogic';
 import { uniqueArray } from '../../utility/misc';
-import {
-  loadAfstemningListFromStorage,
-  saveAfstemningListToStorage,
-} from '../../storage/storage';
 
 // Thunks
 export const getNewestAfstemningList = (
@@ -22,20 +17,11 @@ export const getNewestAfstemningList = (
 ): ThunkAction<Promise<void>, IApplicationState, {}, AnyAction> => async (
   dispatch
 ) => {
-  let fromServiceLoaded = false;
-
-  loadAfstemningListFromStorage().then((afstemningList) => {
-    if (!fromServiceLoaded) {
-      dispatch(addAfstemningList(afstemningList));
-    }
-  });
-
   loadAfstemningList(count).then((afstemningList) => {
     if (afstemningList.length < 1) {
       return;
     }
 
-    fromServiceLoaded = true;
     dispatch(addAfstemningList(afstemningList));
     dispatch(getEnrichedAfstemningList(afstemningList));
   });
@@ -63,7 +49,6 @@ function getEnrichedAfstemningList(
     const enrichedAfstemningList = await enrichAfstemningList(afstemningList);
 
     dispatch(addAfstemningList(enrichedAfstemningList));
-    dispatch(saveCompleteAfstemningList());
 
     const uniqueAktørIdList = getUniqueAktørIdList(enrichedAfstemningList);
 
@@ -87,18 +72,4 @@ function getAllAktørIdList(afstemning: Afstemning) {
     ...(afstemning.forslagStillerId || []),
     ...afstemning.stemmeList.map((stemme) => stemme.aktørid),
   ];
-}
-
-function saveCompleteAfstemningList(): ThunkAction<
-  Promise<void>,
-  IApplicationState,
-  {},
-  AnyAction
-> {
-  return async (_, getState) => {
-    const state = getState();
-    const completeAfstemningList = selectAfstemningList(state);
-
-    saveAfstemningListToStorage(completeAfstemningList);
-  };
 }

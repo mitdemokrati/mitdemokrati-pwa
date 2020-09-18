@@ -22,7 +22,7 @@ export const AfstemningList = () => {
 
   const groupSizeList = Array.from(afstemningGroups.entries()).map(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ([group, list]) => list.length
+    ([_, list]) => list.length
   );
 
   const getAfstemningRow = (index: number) => {
@@ -54,8 +54,8 @@ export const AfstemningList = () => {
         item={getAfstemningRow}
         group={getGroupHeader}
         groupCounts={groupSizeList}
-        overscan={300}
-        style={{ height: 'calc(100vh - 48px)', width: '100%' }}
+        overscan={200}
+        style={{ height: 'calc(100vh - 39px)', width: '100%' }}
       />
     </section>
   );

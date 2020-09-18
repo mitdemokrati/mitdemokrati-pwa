@@ -35,8 +35,8 @@ export const parseVoteSpreadFromStemmeList = (
     fraværende: 0,
   };
 
-  stemmeList.forEach((stemme) => {
-    switch (stemme.typeid) {
+  stemmeList.forEach(({ typeid }) => {
+    switch (typeid) {
       case 1:
         voteSpread.for += 1;
         break;
@@ -44,10 +44,10 @@ export const parseVoteSpreadFromStemmeList = (
         voteSpread.imod += 1;
         break;
       case 3:
-        voteSpread.blank += 1;
+        voteSpread.fraværende += 1;
         break;
       case 4:
-        voteSpread.fraværende += 1;
+        voteSpread.blank += 1;
         break;
       default:
         break;
@@ -70,6 +70,39 @@ export const parsePartySpreadFromKonklusion = (konklusion: string) => {
     for: forPartyLetters,
     imod: imodPartyLetters,
     blank: blankPartyLetters,
+  };
+};
+
+export const parsePartySpreadFromStemmeList = (
+  stemmeList: Stemme[],
+  aktørMap: Map<number, Aktør>
+) => {
+  const result = {
+    for: new Set<string>(),
+    imod: new Set<string>(),
+    blank: new Set<string>(),
+  };
+
+  stemmeList.forEach(({ aktørid, typeid }) => {
+    switch (typeid) {
+      case 1:
+        result.for.add(aktørMap.get(aktørid)?.parti || '');
+        break;
+      case 2:
+        result.imod.add(aktørMap.get(aktørid)?.parti || '');
+        break;
+      case 4:
+        result.blank.add(aktørMap.get(aktørid)?.parti || '');
+        break;
+      default:
+        break;
+    }
+  });
+
+  return {
+    for: Array.from(result.for),
+    imod: Array.from(result.imod),
+    blank: Array.from(result.blank),
   };
 };
 

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { clear } from '../../storage/storageAdapter';
+// import { clear } from '../../storage/storageAdapter';
 
 import './button.less';
 
 export const ResetButton = () => {
   const resetAndReload = () => {
-    clear();
-    window.location.reload(false);
+    // clear();
+    window.location.reload();
   };
 
   return (

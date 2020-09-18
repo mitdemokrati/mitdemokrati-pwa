@@ -5,7 +5,7 @@ export const chunkArray = <T>(array: T[], chunkSize: number) => {
 };
 
 export const filterNotInMap = <T>(array: number[], map: Map<number, T>) =>
-  array && map && array.filter((key) => !map.has(key));
+  (array && map && array.filter((key) => !map.has(key))) || [];
 
 export const groupBy = <T>(array: T[], key: keyof T): Map<string, T[]> =>
   array &&
@@ -29,4 +29,4 @@ export const mapArray = <T extends object>(array: T[], key: keyof T) =>
   }, new Map<unknown, T>());
 
 export const uniqueArray = <T extends string | number>(array: T[]) =>
-  array && Array.from(new Set(array));
+  (array && Array.from(new Set(array))) || [];

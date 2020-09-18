@@ -2,8 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { getReduxStore } from './ducks/store';
-import { populateStore } from './utility/setupRedux';
+import { getReduxStore, populateStore } from './ducks/store/store';
 
 import { AfstemningList } from './components/afstemning/afstemningList';
 

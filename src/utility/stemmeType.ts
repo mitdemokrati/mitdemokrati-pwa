@@ -7,10 +7,10 @@ export const getStemmeTypeString = (type: StemmeType) => {
       return 'Imod';
 
     case 3:
-      return 'Blank';
+      return 'Fraværende';
 
     case 4:
-      return 'Fraværende';
+      return 'Blank';
 
     default:
       return '';

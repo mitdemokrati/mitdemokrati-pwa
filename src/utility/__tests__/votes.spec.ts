@@ -17,7 +17,7 @@ describe('the calculateVoteSpread method', () => {
   it('returns expected voteSpread', () => {
     const stemmeList: Stemme[] = [
       { afstemningid: 1, aktørid: 1, typeid: 1 },
-      { afstemningid: 1, aktørid: 2, typeid: 3 },
+      { afstemningid: 1, aktørid: 2, typeid: 4 },
       { afstemningid: 1, aktørid: 3, typeid: 5 },
     ];
 

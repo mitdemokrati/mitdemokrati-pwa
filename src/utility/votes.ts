@@ -11,10 +11,10 @@ function stemmeListReducer(voteSpread: VoteSpread, stemme: Stemme): VoteSpread {
       return { ...voteSpread, imod: voteSpread.imod + 1 };
 
     case 3:
-      return { ...voteSpread, blank: voteSpread.blank + 1 };
+      return { ...voteSpread, fraværende: voteSpread.fraværende + 1 };
 
     case 4:
-      return { ...voteSpread, fraværende: voteSpread.fraværende + 1 };
+      return { ...voteSpread, blank: voteSpread.blank + 1 };
 
     default:
       return voteSpread;

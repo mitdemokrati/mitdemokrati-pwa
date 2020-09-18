@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 
-import {
-  parseVoteSpreadFromKonklusion,
-  parseVoteSpreadFromStemmeList,
-} from '../../utility/afstemning';
+import { parseVoteSpreadFromKonklusion } from '../../utility/afstemning';
 
 import { SmallPie } from '../charts/smallpie';
 import { Stemme } from '../stemme/stemme';
 import { StemmeCount } from '../stemme/stemmeCount';
-import { UserStemme } from '../user/userStemme';
+// import { UserStemme } from '../user/userStemme';
 
 import './afstemning.less';
 
@@ -19,25 +16,23 @@ type AfstemningProps = {
 export const Afstemning = ({ afstemning }: AfstemningProps) => {
   const [visibility, toggleVisibility] = useState(false);
 
-  const voteSpread =
-    afstemning.stemmeList.length > 0
-      ? parseVoteSpreadFromStemmeList(afstemning.stemmeList)
-      : parseVoteSpreadFromKonklusion(afstemning.konklusion);
+  const voteSpread = parseVoteSpreadFromKonklusion(afstemning.konklusion);
 
   const toggleSection = visibility ? (
     <>
-      <p>
-        {afstemning.resume || 'Ingen yderligere information fra Folketinget'}
-      </p>
+      {afstemning.resume
+        ? afstemning.resume
+            .split('\n\n')
+            .map((partResume) => <p>{partResume}</p>)
+        : 'Ingen yderligere information fra Folketinget'}
 
       <StemmeCount voteSpread={voteSpread} />
 
-      <Stemme
-        konklusion={afstemning.konklusion}
-        stemmeList={afstemning.stemmeList}
-      />
+      <Stemme konklusion={afstemning.konklusion} />
 
-      <UserStemme afstemningId={afstemning.id} />
+      {/* <p>{afstemning.konklusion}</p> */}
+
+      {/* <UserStemme afstemningId={afstemning.id} /> */}
     </>
   ) : null;
 
