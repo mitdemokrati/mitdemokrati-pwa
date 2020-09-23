@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline';"
+    />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="Referrer-Policy" content="no-referrer" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="author" content="Andreas Goodstein" />
+    <meta
+      name="description"
+      content="Se hvad dine politikere stemmer i Folketinget"
+    />
+    <meta
+      name="keywords"
+      content="christiansborg, danmark, demokrati, folketinget, gennemsigtighed, politik, politikere, stemmer"
+    />
+
+    <title>MitDemokrati - About</title>
+
+    <style>
+      a {
+        color: rgb(51, 122, 183);
+      }
+
+      body {
+        align-items: center;
+        box-sizing: border-box;
+        display: flex;
+        flex-flow: column;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        margin: 0;
+        min-height: 100vh;
+        word-break: break-word;
+        width: 100%;
+        text-overflow: ellipsis;
+      }
+
+      h1 {
+        margin: 0;
+      }
+
+      header {
+        box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+        box-sizing: border-box;
+        width: 100%;
+        z-index: 1;
+      }
+
+      header a,
+      header a:visited,
+      header a:focus,
+      header a:active,
+      header a:hover {
+        color: black;
+        text-decoration: none;
+      }
+
+      header > .title {
+        margin: 0 auto;
+        max-width: 1024px;
+        padding-left: 0.5rem;
+      }
+
+      main {
+        align-items: center;
+        display: flex;
+        box-sizing: border-box;
+        margin: 0 auto;
+        max-width: 1024px;
+        flex: 1 1;
+        flex-direction: column;
+        padding: 0 0.5rem;
+        width: 100%;
+      }
+
+      footer {
+        background-color: #eee;
+        border-top: 1px solid lightgrey;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 0.5rem;
+        width: 100%;
+      }
+
+      footer > p {
+        margin: 0.25rem 0;
+      }
+
+      .column {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+      }
+
+      .text-muted {
+        opacity: 0.8;
+      }
+
+      .text-right {
+        text-align: right;
+      }
+
+      @media screen and (max-width: 720px) {
+        footer {
+          flex-direction: column;
+        }
+
+        .text-right {
+          text-align: unset;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="title">
+        <a href="/"> <h1>&#8249; Mit Demokrati</h1></a>
+      </div>
+    </header>
+
+    <main>
+      <div class="column">
+        <p>
+          MitDemokrati er et værktøj til at skabe åbenhed om det danske
+          demokrati. Samt gøre det mere overskueligt at få indblik i de
+          beslutninger, der bliver truffet på vegne af den danske befolkning.
+        </p>
+
+        <p>
+          Med MitDemokratis App kan du nemt følge med i hvilke beslutninger, der
+          bliver truffet i folketinget.
+        </p>
+
+        <p>
+          MitDemokrati trækker sine oplysninger direkte fra
+          <a href="http://www.ft.dk">Folketinget</a>
+        </p>
+
+        <h2>Borgerforslag</h2>
+
+        <p>
+          MitDemokrati gør det også nemmere at overskue hvordan det går med de
+          danske Borgerforslag.
+        </p>
+
+        <p>
+          Klik
+          <a
+            href="https://mitdemokrati.com/borgerforslag"
+            rel="noreferrer"
+            target="_blank"
+            >her</a
+          >
+          for at gå til en oversigt over forslagene.
+        </p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p class="text-muted">
+        <a href="mailto:support@mitdemokrati.com">support@mitdemokrati.com</a>
+      </p>
+
+      <p class="text-muted text-right">
+        <a href="https://andreasgoodstein.com">andreasgoodstein.com</a>
+      </p>
+    </footer>
+  </body>
+</html>
