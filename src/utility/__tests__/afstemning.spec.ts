@@ -15,7 +15,7 @@ describe('the parseVoteSpreadFromKonklusion utility method', () => {
 
   it('parses a full konklusion string into the correct VoteSpread object', () => {
     const konklusion =
-      'TestStringFiller For stemte 79, imod stemte 30, og hverken for eller imod stemte 20 MoreTestFiller';
+      'TestStringFiller For stemte 79, imod stemte 30, hverken for eller imod stemte 20 MoreTestFiller';
     const expected = {
       for: 79,
       imod: 30,
@@ -29,7 +29,7 @@ describe('the parseVoteSpreadFromKonklusion utility method', () => {
   });
 
   it('parses a string with only one key into the correct VoteSpread object', () => {
-    const konklusion = 'imod stemte 79';
+    const konklusion = ', imod stemte 79';
     const expected = {
       for: 0,
       imod: 79,
@@ -43,7 +43,7 @@ describe('the parseVoteSpreadFromKonklusion utility method', () => {
   });
 
   it('parses a bad string with 0 instead of NaN', () => {
-    const konklusion = 'hverken for eller imod stemte h6';
+    const konklusion = ', hverken for eller imod stemte h6';
 
     const result = parseVoteSpreadFromKonklusion(konklusion);
 
@@ -109,6 +109,21 @@ describe('the parsePartySpreadFromKonklusion utility method', () => {
       for: ['S', 'Test Testman (Løsgænger)'],
       imod: [],
       blank: ['SF'],
+    };
+
+    const result = parsePartySpreadFromKonklusion(input);
+
+    expect(result).toEqual(expected);
+  });
+
+  it('parses konklusion with an aktør voting against party lines', () => {
+    const input =
+      'Forslaget blev vedtaget. For stemte 89 (SF, Test Testman (EL), KF, og ALT), imod stemte 1 (V), hverken for eller imod stemte 7 (EL, UFG).';
+
+    const expected = {
+      for: ['SF', 'KF', 'ALT', 'Test Testman (EL)'],
+      imod: ['V'],
+      blank: ['EL', 'UFG'],
     };
 
     const result = parsePartySpreadFromKonklusion(input);

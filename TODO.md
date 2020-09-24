@@ -2,7 +2,6 @@
 
 ## Before release
 
-- Fix parsing party konklusion bug with split party votes (chop up string before parsing me thinks)
 - Create install flow and prompt
 
 ## Eventually

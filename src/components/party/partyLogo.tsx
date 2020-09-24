@@ -67,6 +67,6 @@ export const PartyLogo = ({
       return <img src={vLogo} alt="Venstre" />;
 
     default:
-      return partyLetter === 'Ufg' ? null : <p>{partyLetter}</p>;
+      return <p>{partyLetter.replace('UFG', 'Løsgænger')}</p>;
   }
 };

@@ -1,6 +1,6 @@
-const BLANK_KEY = 'hverken for eller imod stemte';
+const BLANK_KEY = ', hverken for eller imod stemte';
 const FOR_KEY = 'for stemte';
-const IMOD_KEY = 'imod stemte';
+const IMOD_KEY = ', imod stemte';
 const TOTAL_VOTES = 179;
 const NO_PARTY_LETTER = 'UFG';
 
@@ -62,11 +62,26 @@ export const parsePartySpreadFromKonklusion = (
 ): PartySpread => {
   const lowerCaseKonklusion = konklusion.toLowerCase();
 
-  const forPartyLetters = parseSubstringParty(lowerCaseKonklusion, FOR_KEY);
+  const forSubString = lowerCaseKonklusion.substring(
+    lowerCaseKonklusion.indexOf(FOR_KEY),
+    lowerCaseKonklusion.indexOf(IMOD_KEY)
+  );
 
-  const imodPartyLetters = parseSubstringParty(lowerCaseKonklusion, IMOD_KEY);
+  const imodSubString = lowerCaseKonklusion.substring(
+    lowerCaseKonklusion.indexOf(IMOD_KEY),
+    lowerCaseKonklusion.indexOf(BLANK_KEY)
+  );
 
-  const blankPartyLetters = parseSubstringParty(lowerCaseKonklusion, BLANK_KEY);
+  const blankSubString = lowerCaseKonklusion.substring(
+    lowerCaseKonklusion.indexOf(BLANK_KEY),
+    lowerCaseKonklusion.length
+  );
+
+  const forPartyLetters = parseSubstringParty(forSubString, FOR_KEY);
+
+  const imodPartyLetters = parseSubstringParty(imodSubString, IMOD_KEY);
+
+  const blankPartyLetters = parseSubstringParty(blankSubString, BLANK_KEY);
 
   return {
     for: forPartyLetters,
@@ -121,7 +136,9 @@ function parseSubstringParty(string: string, key: string) {
     return [];
   }
 
-  const endIndex = string.indexOf(')', startIndex + 1);
+  const endIndex = string.includes(')')
+    ? string.lastIndexOf(')')
+    : string.length;
 
   const subString = string.substring(startIndex, endIndex);
 
@@ -161,28 +178,24 @@ function splitStringIntoPartyLetters(string: string) {
 
   return [...partyLetterList, lastLetter]
     .filter(Boolean)
-    .map(capitalizeAndRelabelIndividuals)
-    .map((letter) => letter.trim());
+    .map((letter) => letter.trim())
+    .map(capitalize)
+    .map(replaceNoPartyLetter)
+    .sort((a, b) => a.length - b.length);
 }
 
-function capitalizeAndRelabelIndividuals(string: string) {
-  if (!string.includes(NO_PARTY_LETTER)) {
-    return string;
-  }
-
-  const capitalizedIndividual = capitalizeName(string);
-
-  return replaceNoPartyLetter(capitalizedIndividual);
+function capitalize(string: string) {
+  return string.length > 3
+    ? string.split(' ').map(capitalizeNameAndParty).join(' ')
+    : string.toUpperCase();
 }
 
-function capitalizeName(string: string) {
-  return string.split(' ').map(capitalizeOnlyFirstLetter).join(' ');
-}
-
-function capitalizeOnlyFirstLetter(string: string) {
-  return `${string.slice(0, 1).toUpperCase()}${string.slice(1).toLowerCase()}`;
+function capitalizeNameAndParty(string: string) {
+  return string.includes('(')
+    ? string.toUpperCase()
+    : `${string.slice(0, 1).toUpperCase()}${string.slice(1).toLowerCase()}`;
 }
 
 function replaceNoPartyLetter(string: string) {
-  return string.replace(`(${NO_PARTY_LETTER.toLowerCase()}`, '(Løsgænger)');
+  return string.replace(`(${NO_PARTY_LETTER})`, '(Løsgænger)');
 }
