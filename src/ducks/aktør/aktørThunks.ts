@@ -10,10 +10,12 @@ import { filterNotInMap } from '../../utility/misc';
 // Thunks
 export const getAktørList = (
   aktørIdList: number[]
-): ThunkAction<Promise<void>, IApplicationState, {}, AnyAction> => async (
-  dispatch,
-  getState
-) => {
+): ThunkAction<
+  Promise<void>,
+  IApplicationState,
+  Record<string, unknown>,
+  AnyAction
+> => async (dispatch, getState) => {
   const state = getState();
   const stateAktørMap = selectAktørMap(state);
 

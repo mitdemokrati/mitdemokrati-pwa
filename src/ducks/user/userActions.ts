@@ -1,5 +1,6 @@
 import { AnyAction } from 'redux';
 
+// eslint-disable-next-line no-shadow
 export enum UserActionType {
   CAST_USER_STEMME = 'mitdemokrati_pwa/user/CAST_USER_STEMME',
   UNCAST_USER_STEMME = 'mitdemokrati_pwa/user/UNCAST_USER_STEMME',
@@ -13,6 +14,12 @@ export type UserAction = AnyAction & {
 export type CastUserStemmeActionType = UserAction & {
   payload: { afstemningId: number; typeId: StemmeType };
 };
+
+export type UncastUserStemmeActionType = UserAction & {
+  payload: { afstemningId: number };
+};
+
+// Action Creators
 export const CastUserStemmeAction = (
   afstemningId: number,
   typeId: StemmeType
@@ -21,9 +28,6 @@ export const CastUserStemmeAction = (
   type: UserActionType.CAST_USER_STEMME,
 });
 
-export type UncastUserStemmeActionType = UserAction & {
-  payload: { afstemningId: number };
-};
 export const UncastUserStemmeAction = (
   afstemningId: number
 ): UncastUserStemmeActionType => ({

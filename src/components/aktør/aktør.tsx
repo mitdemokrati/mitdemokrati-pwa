@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { selectAktørList } from '../../ducks/aktør/aktørSelectors';
 import { AktørPhoto } from './aktørPhoto';
 
-export const Aktør = () => {
+export const Aktør = (): JSX.Element | null => {
   const aktørList = useSelector(selectAktørList);
 
   const aktør = aktørList[30];

@@ -1,1 +1,1 @@
-export const isOnline = () => navigator && navigator.onLine;
+export const isOnline = (): boolean => navigator && navigator.onLine;

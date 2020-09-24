@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 
-// Action Types
+// eslint-disable-next-line no-shadow
 export enum AfstemningActionType {
   ADD_AFSTEMNING_LIST = 'mitdemokrati_pwa/afstemning/ADD_AFSTEMNING_LIST',
 }
@@ -10,10 +10,11 @@ export type AfstemningAction = AnyAction & {
   type: AfstemningActionType;
 };
 
-// Action Creators
 export type AddAfstemningListAction = AfstemningAction & {
   payload: { afstemningList: Afstemning[] };
 };
+
+// Action Creators
 export const addAfstemningList = (
   afstemningList: Afstemning[]
 ): AddAfstemningListAction => ({

@@ -8,7 +8,9 @@ const AFSTEMNING_STILLER_ID_URL = encodeURI(
   'https://oda.ft.dk/api/SagAktør?$select=aktørid,sagid&$filter=(rolleid eq 19 or rolleid eq 16) and (sagsIdPlaceholder)'
 );
 
-export const fetchForslagStillerIdList = async (sagIdList: number[]) => {
+export const fetchForslagStillerIdList = async (
+  sagIdList: number[]
+): Promise<AfstemningStiller[]> => {
   if (sagIdList.length < 1) {
     return [];
   }
@@ -24,7 +26,7 @@ export const fetchForslagStillerIdList = async (sagIdList: number[]) => {
     )
   );
 
-  return sagIdResponses.flat();
+  return sagIdResponses.flat().filter(Boolean) as AfstemningStiller[];
 };
 
 async function fetchForslagStillerIdListChunk(sagIdList: number[]) {

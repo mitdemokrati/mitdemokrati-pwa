@@ -1,10 +1,14 @@
 import { IApplicationState } from '../store/store';
+import { AfstemningState } from './afstemningReducer';
 
-export const selectAfstemningState = (state: IApplicationState) =>
-  state?.afstemning;
+export const selectAfstemningState = (
+  state: IApplicationState
+): AfstemningState => state?.afstemning;
 
-export const selectAfstemningMap = (state: IApplicationState) =>
+export const selectAfstemningMap = (
+  state: IApplicationState
+): AfstemningState['afstemningMap'] =>
   selectAfstemningState(state)?.afstemningMap || new Map();
 
-export const selectAfstemningList = (state: IApplicationState) =>
+export const selectAfstemningList = (state: IApplicationState): Afstemning[] =>
   Array.from(selectAfstemningMap(state)?.values() || []);

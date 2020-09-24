@@ -9,7 +9,7 @@ interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>;
 }
 
-export const InstallButton = () => {
+export const InstallButton = (): JSX.Element => {
   const [installPrompt, setInstallPrompt] = useState<
     BeforeInstallPromptEvent | undefined
   >(undefined);

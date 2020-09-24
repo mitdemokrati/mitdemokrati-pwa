@@ -14,9 +14,12 @@ import { uniqueArray } from '../../utility/misc';
 // Thunks
 export const getNewestAfstemningList = (
   count?: number
-): ThunkAction<Promise<void>, IApplicationState, {}, AnyAction> => async (
-  dispatch
-) => {
+): ThunkAction<
+  Promise<void>,
+  IApplicationState,
+  Record<string, unknown>,
+  AnyAction
+> => async (dispatch) => {
   loadAfstemningList(count).then((afstemningList) => {
     if (afstemningList.length < 1) {
       return;
@@ -30,9 +33,12 @@ export const getNewestAfstemningList = (
 export const getPreviousAfstemningList = (
   oldestAfstemning: Afstemning,
   count?: number
-): ThunkAction<Promise<void>, IApplicationState, {}, AnyAction> => async (
-  dispatch
-) => {
+): ThunkAction<
+  Promise<void>,
+  IApplicationState,
+  Record<string, unknown>,
+  AnyAction
+> => async (dispatch) => {
   const afstemningList = await loadPreviousAfstemningList(
     oldestAfstemning,
     count
@@ -44,7 +50,12 @@ export const getPreviousAfstemningList = (
 
 function getEnrichedAfstemningList(
   afstemningList: Afstemning[]
-): ThunkAction<Promise<void>, IApplicationState, {}, AnyAction> {
+): ThunkAction<
+  Promise<void>,
+  IApplicationState,
+  Record<string, unknown>,
+  AnyAction
+> {
   return async (dispatch) => {
     const enrichedAfstemningList = await enrichAfstemningList(afstemningList);
 

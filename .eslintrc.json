@@ -7,6 +7,7 @@
   "extends": [
     "plugin:react/recommended",
     "airbnb",
+    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
   "globals": {
@@ -34,13 +35,14 @@
     "import/no-unresolved": "off",
     "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",
-    "no-use-before-define": ["error", { "functions": false }],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
     "react/jsx-filename-extension": [0],
     "react/jsx-one-expression-per-line": "off",
     "react/prop-types": "off",
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "no-use-before-define": [0],
+    "@typescript-eslint/no-use-before-define": ["error", { "functions": false }]
   },
   "settings": {
     "import/resolver": {

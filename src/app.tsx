@@ -6,7 +6,7 @@ import { getReduxStore, populateStore } from './ducks/store/store';
 
 import { AfstemningList } from './components/afstemning/afstemningList';
 
-export const MitDemokratiApp = () => {
+export const MitDemokratiApp = (): JSX.Element => {
   const { persistor, store } = getReduxStore();
   populateStore(store);
 

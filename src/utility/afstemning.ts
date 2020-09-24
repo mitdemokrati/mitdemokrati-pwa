@@ -57,7 +57,9 @@ export const parseVoteSpreadFromStemmeList = (
   return voteSpread;
 };
 
-export const parsePartySpreadFromKonklusion = (konklusion: string) => {
+export const parsePartySpreadFromKonklusion = (
+  konklusion: string
+): PartySpread => {
   const lowerCaseKonklusion = konklusion.toLowerCase();
 
   const forPartyLetters = parseSubstringParty(lowerCaseKonklusion, FOR_KEY);
@@ -76,7 +78,7 @@ export const parsePartySpreadFromKonklusion = (konklusion: string) => {
 export const parsePartySpreadFromStemmeList = (
   stemmeList: Stemme[],
   aktørMap: Map<number, Aktør>
-) => {
+): PartySpread => {
   const result = {
     for: new Set<string>(),
     imod: new Set<string>(),

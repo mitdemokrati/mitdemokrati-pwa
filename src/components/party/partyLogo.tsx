@@ -20,7 +20,9 @@ import vLogo from 'url:../../assets/parties/venstrelogo70.png';
 type PartyLogoProps = {
   partyLetter: string;
 };
-export const PartyLogo = ({ partyLetter }: PartyLogoProps) => {
+export const PartyLogo = ({
+  partyLetter,
+}: PartyLogoProps): JSX.Element | null => {
   switch (partyLetter) {
     case 'ALT':
       return <img src={aLogo} alt="Alternativet" />;

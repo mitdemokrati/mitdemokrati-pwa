@@ -3,7 +3,7 @@ import { isOnline } from '../../utility/online';
 
 import './loading.less';
 
-const OfflineLoading = () => (
+const OfflineLoading = (): JSX.Element => (
   <div className="loading-component">
     <h3>Offline</h3>
     <p>Kan ikke hente data</p>
@@ -13,7 +13,7 @@ const OfflineLoading = () => (
 type LoadingProps = {
   text?: string;
 };
-export const Loading = ({ text = 'Indlæser' }: LoadingProps) =>
+export const Loading = ({ text = 'Indlæser' }: LoadingProps): JSX.Element =>
   isOnline() ? (
     <div className="loading-component">
       <p>{text}</p>

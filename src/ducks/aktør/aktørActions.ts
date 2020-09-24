@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 
-// Action Types
+// eslint-disable-next-line no-shadow
 export enum AktørActionType {
   ADD_AKTØR_LIST = 'mitdemokrati_pwa/aktør/ADD_AKTØR_LIST',
 }

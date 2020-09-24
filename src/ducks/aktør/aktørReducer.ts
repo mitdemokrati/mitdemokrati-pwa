@@ -15,7 +15,7 @@ const INITIAL_STATE: AktørState = {
 export const aktørReducer = (
   state: AktørState = INITIAL_STATE,
   action: AktørAction
-) => {
+): AktørState => {
   switch (action.type) {
     case AktørActionType.ADD_AKTØR_LIST: {
       const addAktørAction = action as AddAktørListAction;

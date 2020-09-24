@@ -4,7 +4,7 @@ import React from 'react';
 
 import './button.less';
 
-export const ResetButton = () => {
+export const ResetButton = (): JSX.Element => {
   const resetAndReload = () => {
     // clear();
     window.location.reload();

@@ -7,7 +7,9 @@ import './afstemningGroup.less';
 type AfstemningGroupProps = {
   groupHeader: string;
 };
-export const AfstemningGroup = ({ groupHeader }: AfstemningGroupProps) => {
+export const AfstemningGroup = ({
+  groupHeader,
+}: AfstemningGroupProps): JSX.Element => {
   const dateHeader = parseDateToLocale(groupHeader);
 
   return <p className="afstemning-list--group-header">{dateHeader}</p>;

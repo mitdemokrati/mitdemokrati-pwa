@@ -13,7 +13,7 @@ type AfstemningProps = {
   afstemning: Afstemning;
 };
 
-export const Afstemning = ({ afstemning }: AfstemningProps) => {
+export const Afstemning = ({ afstemning }: AfstemningProps): JSX.Element => {
   const [visibility, toggleVisibility] = useState(false);
 
   const voteSpread = parseVoteSpreadFromKonklusion(afstemning.konklusion);

@@ -5,24 +5,28 @@ import {
 import { fetchForslagStillerIdList } from '../services/forslagStillerService';
 import { mapArray } from '../utility/misc';
 
-export const loadAfstemningList = (count?: number) => {
+export const loadAfstemningList = (count?: number): Promise<Afstemning[]> => {
   return fetchLatestAfstemningList(count);
 };
 
 export const loadPreviousAfstemningList = async (
   oldAfstemning: Afstemning,
   count?: number
-) => {
+): Promise<Afstemning[]> => {
   return fetchPreviousAfstemningList(oldAfstemning, count);
 };
 
-export const enrichAfstemningList = async (afstemningList: Afstemning[]) => {
+export const enrichAfstemningList = async (
+  afstemningList: Afstemning[]
+): Promise<Afstemning[]> => {
   const forslagStillerList = await getAfstemningForslagStiller(afstemningList);
 
   return matchForslagStillerWithAfstemning(afstemningList, forslagStillerList);
 };
 
-async function getAfstemningForslagStiller(afstemningList: Afstemning[]) {
+async function getAfstemningForslagStiller(
+  afstemningList: Afstemning[]
+): Promise<AfstemningStiller[]> {
   const missingForslagStillerList = afstemningList.filter(
     (afstemning) => !afstemning.forslagStillerId
   );
@@ -57,7 +61,11 @@ function matchForslagStillerWithAfstemning(
 
   // Update afstemning in map with forslagStillerIdList
   forslagStillerMap.forEach((forslagStillerIdList, sagid) => {
-    const afstemning = afstemningMap.get(sagid)!;
+    const afstemning = afstemningMap.get(sagid);
+
+    if (!afstemning) {
+      return;
+    }
 
     afstemning.forslagStillerId = forslagStillerIdList;
 

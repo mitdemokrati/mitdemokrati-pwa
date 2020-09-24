@@ -1,6 +1,8 @@
 import { fetchAktør } from '../services/aktørService';
 
-export const loadAktørList = async (aktørIdList: number[]) => {
+export const loadAktørList = async (
+  aktørIdList: number[]
+): Promise<Aktør[]> => {
   if (aktørIdList.length < 1) {
     return [];
   }

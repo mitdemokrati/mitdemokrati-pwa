@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 type Afstemning = {
   dato: string;
   forslagStillerId?: number[];
@@ -91,6 +92,12 @@ type Party = {
   name: string;
 };
 
+type PartySpread = {
+  for: string[];
+  imod: string[];
+  blank: string[];
+};
+
 type PartyVoteSpread = {
   [party: string]: VoteSpread;
 };
@@ -101,6 +108,7 @@ type Stemme = {
   aktørid: number;
 };
 
+// eslint-disable-next-line no-shadow
 declare enum StemmeType {
   FOR = 1,
   IMOD = 2,

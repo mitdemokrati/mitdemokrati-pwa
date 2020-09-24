@@ -7,7 +7,7 @@ type ForslagStillerProps = {
 };
 export const ForslagStiller = ({
   forslagStillerIdList,
-}: ForslagStillerProps) => {
+}: ForslagStillerProps): JSX.Element | null => {
   if (!forslagStillerIdList || forslagStillerIdList.length < 1) {
     return null;
   }

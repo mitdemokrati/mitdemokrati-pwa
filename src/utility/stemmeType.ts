@@ -1,4 +1,4 @@
-export const getStemmeTypeString = (type: StemmeType) => {
+export const getStemmeTypeString = (type: StemmeType): string => {
   switch (type) {
     case 1:
       return 'For';

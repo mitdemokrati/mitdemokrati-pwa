@@ -6,6 +6,6 @@ import './thumbs.less';
 type ThumbsUpProps = {
   size: number;
 };
-export const ThumbsUp = ({ size }: ThumbsUpProps) => (
+export const ThumbsUp = ({ size }: ThumbsUpProps): JSX.Element => (
   <Thumb className="thumbs--up color" size={size} />
 );

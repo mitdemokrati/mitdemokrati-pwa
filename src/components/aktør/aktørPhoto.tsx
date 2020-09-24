@@ -13,7 +13,7 @@ export const AktørPhoto = ({
   name,
   photoUrl,
   width = DEFAULT_PHOTO_SIZE,
-}: AktørPhotoProps) => {
+}: AktørPhotoProps): JSX.Element | null => {
   if (!photoUrl) {
     return null;
   }

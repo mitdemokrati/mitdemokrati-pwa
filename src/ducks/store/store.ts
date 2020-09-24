@@ -1,11 +1,12 @@
 import {
+  AnyAction,
   applyMiddleware,
   combineReducers,
   compose,
   createStore,
   Store,
 } from 'redux';
-import { persistStore } from 'redux-persist';
+import { Persistor, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
 import { getNewestAfstemningList } from '../afstemning/afstemningThunks';
 
@@ -24,6 +25,7 @@ export interface IApplicationState {
 }
 
 const composeEnhancers =
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   window?.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -35,7 +37,10 @@ const combinedReducers = persistRootReducer(
   })
 );
 
-export const getReduxStore = () => {
+export const getReduxStore = (): {
+  store: Store<unknown, AnyAction>;
+  persistor: Persistor;
+} => {
   const store = createStore(
     combinedReducers,
     composeEnhancers(applyMiddleware(thunk))
@@ -45,6 +50,6 @@ export const getReduxStore = () => {
   return { store, persistor };
 };
 
-export const populateStore = (store: Store) => {
+export const populateStore = (store: Store): void => {
   getNewestAfstemningList(15)(store.dispatch, store.getState, {});
 };

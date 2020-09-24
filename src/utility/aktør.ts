@@ -1,7 +1,7 @@
 export const parseValueFromBiography = (
   biography: string | undefined,
   value: string
-) => {
+): string => {
   if (!biography) {
     return '';
   }

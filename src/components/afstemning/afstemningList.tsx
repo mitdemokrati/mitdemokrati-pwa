@@ -14,7 +14,7 @@ import './afstemningList.less';
 
 const LOAD_MORE_AFSTEMNING_COUNT = 15;
 
-export const AfstemningList = () => {
+export const AfstemningList = (): JSX.Element => {
   const afstemningList = useSelector(selectAfstemningList);
   const dispatch = useDispatch();
 

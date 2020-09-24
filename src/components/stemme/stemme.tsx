@@ -8,7 +8,7 @@ import './stemme.less';
 type StemmeProps = {
   konklusion: string;
 };
-export const Stemme = ({ konklusion }: StemmeProps) => {
+export const Stemme = ({ konklusion }: StemmeProps): JSX.Element => {
   const partySpread = parsePartySpreadFromKonklusion(konklusion);
 
   return (

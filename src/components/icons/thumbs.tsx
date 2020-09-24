@@ -4,7 +4,10 @@ type ThumbProps = {
   className?: string;
   size: number;
 };
-export const Thumb = ({ className = 'thumbs', size }: ThumbProps) => (
+export const Thumb = ({
+  className = 'thumbs',
+  size,
+}: ThumbProps): JSX.Element => (
   <svg
     className={className}
     xmlns="http://www.w3.org/2000/svg"

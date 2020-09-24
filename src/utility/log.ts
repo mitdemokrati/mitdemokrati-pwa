@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-export const logError = (error: Error | string) => {
+export const logError = (error: Error | string): void => {
   if ((error as Error).name) {
     console.error(error);
   }
@@ -10,6 +10,12 @@ export const logError = (error: Error | string) => {
   }
 };
 
-export const log = (message: string | [] | object | number) => {
+export const logWarn = (warning: string): void => {
+  console.warn(`MitDemokrati: ${warning}`);
+};
+
+export const log = (
+  message: string | [] | Record<string, unknown> | number
+): void => {
   console.log(`MitDemokrati: ${message}`);
 };

@@ -7,7 +7,7 @@ const AKTØR_PARTI_URL = encodeURI(
   'https://oda.ft.dk/api/AktørAktør?$filter=fraaktørid eq aktørIdPlaceholder and rolleid eq 15 and TilAktør/typeid eq 4&$expand=TilAktør&$select=TilAktør/id,TilAktør/navn&$orderby=TilAktør/slutdato desc&$top=1'
 );
 
-export async function fetchAktør(aktørId: number) {
+export async function fetchAktør(aktørId: number): Promise<Aktør> {
   const response = await tryFetch<Aktør>(
     AKTØR_URL.replace('idPlaceholder', aktørId.toString())
   );
@@ -27,7 +27,9 @@ export async function fetchAktør(aktørId: number) {
   return mappedAktør;
 }
 
-export async function fetchAktørParti(aktørId: number) {
+export async function fetchAktørParti(
+  aktørId: number
+): Promise<string | undefined> {
   const response = await tryFetch<{ value: [{ TilAktør: { navn: string } }] }>(
     AKTØR_PARTI_URL.replace('aktørIdPlaceholder', aktørId.toString())
   );

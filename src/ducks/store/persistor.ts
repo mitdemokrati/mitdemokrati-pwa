@@ -1,4 +1,4 @@
-import { Reducer } from 'redux';
+import { Reducer, AnyAction } from 'redux';
 import { persistReducer } from 'redux-persist';
 import { get as getItem, set as setItem, del as removeItem } from 'idb-keyval';
 
@@ -20,5 +20,7 @@ const rootPersistConfig = {
   transforms: [afstemningTransformer, aktørTransformer, userTransform],
 };
 
-export const persistRootReducer = (rootReducer: Reducer) =>
+export const persistRootReducer = (
+  rootReducer: Reducer
+): Reducer<unknown, AnyAction> =>
   persistReducer(rootPersistConfig, rootReducer);

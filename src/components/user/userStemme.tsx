@@ -16,7 +16,7 @@ import { Hand } from '../icons/hand';
 type UserStemmeProps = {
   afstemningId: number;
 };
-export const UserStemme = ({ afstemningId }: UserStemmeProps) => {
+export const UserStemme = ({ afstemningId }: UserStemmeProps): JSX.Element => {
   const userStemmeMap = useSelector(selectUserStemmeMap);
   const dispatch = useDispatch();
 

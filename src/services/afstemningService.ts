@@ -9,7 +9,9 @@ const PREVIOUS_AFSTEMNING_URL = encodeURI(
   "https://oda.ft.dk/api/Afstemning?$expand=Sagstrin/Sag,Møde,Stemme&$orderby=Møde/dato desc,id desc&$top=1&$filter=typeid eq 1 and Møde/dato le DateTime'dateTimePlaceholder' and id lt idPlaceHolder"
 );
 
-export const fetchLatestAfstemningList = async (count: number = 1) => {
+export const fetchLatestAfstemningList = async (
+  count = 1
+): Promise<Afstemning[]> => {
   const url = LATEST_AFSTEMNING_URL.replace('top=1', `top=${count}`);
 
   return fetchAfstemningList(url);
@@ -17,8 +19,8 @@ export const fetchLatestAfstemningList = async (count: number = 1) => {
 
 export const fetchPreviousAfstemningList = async (
   afstemning: Afstemning,
-  count: number = 1
-) => {
+  count = 1
+): Promise<Afstemning[]> => {
   const url = PREVIOUS_AFSTEMNING_URL.replace(
     'dateTimePlaceholder',
     afstemning.dato

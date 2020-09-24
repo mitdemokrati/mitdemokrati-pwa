@@ -5,7 +5,7 @@ import './stemme.less';
 type StemmeCountProps = {
   voteSpread: VoteSpread;
 };
-export const StemmeCount = ({ voteSpread }: StemmeCountProps) => {
+export const StemmeCount = ({ voteSpread }: StemmeCountProps): JSX.Element => {
   return (
     <div className="stemme-count">
       {getStemmeCountElement('For', voteSpread.for)}
@@ -15,7 +15,10 @@ export const StemmeCount = ({ voteSpread }: StemmeCountProps) => {
   );
 };
 
-function getStemmeCountElement(label: string, count: number) {
+function getStemmeCountElement(
+  label: string,
+  count: number
+): JSX.Element | null {
   return count > 0 ? (
     <span>
       <b>{count}</b> {label}
