@@ -4,6 +4,10 @@ export const useOutsideClick = (
   ref: React.Ref<unknown>,
   callback: EffectCallback
 ): void => {
+  if (!ref) {
+    return;
+  }
+
   const handleClick = (e: Event) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
