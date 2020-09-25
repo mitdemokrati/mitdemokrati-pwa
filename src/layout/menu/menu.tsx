@@ -8,8 +8,6 @@ import { isMobile } from '../../utility/environment';
 
 import './menu.less';
 
-const AboutLink = () => <a href="/about">Om{'\n'}MitDemokrati</a>;
-
 const MenuContent = (): JSX.Element => {
   const installPrompt = useSelector(selectInstallPrompt);
 
@@ -22,48 +20,55 @@ const MenuContent = (): JSX.Element => {
       ) : null}
 
       <li>
-        <AboutLink />
+        <a href="/about">Om{'\n'}MitDemokrati</a>
       </li>
     </>
   );
 };
 
-const MobileMenu = (): JSX.Element => {
+type MobileMenuProps = {
+  parentRef: React.Ref<HTMLElement>;
+};
+const MobileMenu = ({ parentRef }: MobileMenuProps): JSX.Element => {
   const [expanded, setExpanded] = useState(false);
 
-  const ref = useRef<HTMLUListElement>();
+  if (!expanded) {
+    return (
+      <button type="button" onClick={() => setExpanded(true)}>
+        {'\u2630'}
+      </button>
+    );
+  }
 
-  useOutsideClick(ref, () => {
+  useOutsideClick(parentRef, () => {
     setExpanded(false);
   });
 
-  const wrappedMenuContent = expanded ? (
+  return (
     <>
       <button type="button" onClick={() => setExpanded(false)}>
         {'\u2715'}
       </button>
 
-      <MenuContent />
+      <ul>
+        <MenuContent />
+      </ul>
     </>
-  ) : (
-    <button type="button" onClick={() => setExpanded(true)}>
-      {'\u2630'}
-    </button>
-  );
-
-  return (
-    <ul className="menu" ref={ref}>
-      {wrappedMenuContent}
-    </ul>
   );
 };
 
 const DesktopMenu = (): JSX.Element => (
-  <ul className="menu">
+  <ul>
     <MenuContent />
   </ul>
 );
 
 export const Menu = (): JSX.Element => {
-  return <nav>{isMobile() ? <MobileMenu /> : <DesktopMenu />}</nav>;
+  const ref = useRef<HTMLElement>();
+
+  return (
+    <nav className="menu" ref={ref}>
+      {isMobile() ? <MobileMenu parentRef={ref} /> : <DesktopMenu />}
+    </nav>
+  );
 };
