@@ -1,13 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
+import { selectInstallPrompt } from '../../ducks/shared/sharedSelectors';
 import { isStandalone } from '../../utility/environment';
 
-type InstallButtonProps = {
-  installPrompt?: BeforeInstallPromptEvent;
-};
-export const InstallButton = ({
-  installPrompt,
-}: InstallButtonProps): JSX.Element | null => {
+import './button.less';
+
+export const InstallButton = (): JSX.Element | null => {
+  const installPrompt = useSelector(selectInstallPrompt);
+
   const promptToInstall = () => {
     if (installPrompt) {
       return installPrompt.prompt();
@@ -23,7 +24,11 @@ export const InstallButton = ({
   const alreadyInstalled = isStandalone() ?? true;
 
   return !alreadyInstalled && installPrompt ? (
-    <button type="button" onClick={promptToInstall}>
+    <button
+      className="btn btn--install"
+      type="button"
+      onClick={promptToInstall}
+    >
       Installer
     </button>
   ) : null;

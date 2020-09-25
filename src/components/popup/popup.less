@@ -1,0 +1,38 @@
+.popup {
+  background-color: white;
+  border-top: 1px solid lightgrey;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+
+  p {
+    margin: 0.5rem 0;
+
+    &:last-of-type {
+      margin: 0.5rem 0 0 0;
+    }
+  }
+
+  &--install {
+    .btn--install {
+      margin: 1rem;
+    }
+  }
+
+  &--button {
+    &__close {
+      border: 1px solid grey;
+      border-radius: 50%;
+      height: 32px;
+      margin: 0;
+      line-height: 1;
+      padding: 0;
+      position: absolute;
+      right: 0;
+      width: 32px;
+      top: -16px;
+    }
+  }
+}

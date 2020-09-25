@@ -13,7 +13,7 @@ export const ResetButton = (): JSX.Element => {
   return (
     <button
       alt="reset"
-      className="btn btn-reset"
+      className="btn btn--reset"
       type="button"
       onClick={resetAndReload}
     >

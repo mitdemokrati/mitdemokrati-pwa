@@ -6,6 +6,7 @@ import { getReduxStore, populateStore } from './ducks/store/store';
 
 import { AfstemningList } from './components/afstemning/afstemningList';
 import { Menu } from './layout/menu/menu';
+import { InstallPopup } from './components/popup/installPopup';
 
 export const MitDemokratiApp = (): JSX.Element => {
   const { persistor, store } = getReduxStore();
@@ -16,6 +17,7 @@ export const MitDemokratiApp = (): JSX.Element => {
       <PersistGate persistor={persistor}>
         <Menu />
         <AfstemningList />
+        <InstallPopup />
       </PersistGate>
     </Provider>
   );

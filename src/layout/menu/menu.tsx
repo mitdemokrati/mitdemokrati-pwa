@@ -1,33 +1,34 @@
 import React, { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 
+import { selectInstallPrompt } from '../../ducks/shared/sharedSelectors';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
-import { useInterceptInstallPrompt } from '../../hooks/useInterceptInstallPrompt';
-
 import { InstallButton } from '../../components/button/installButton';
 import { isMobile } from '../../utility/environment';
 
 import './menu.less';
 
-type MenuProps = {
-  installPrompt?: BeforeInstallPromptEvent;
+const AboutLink = () => <a href="/about">Om{'\n'}MitDemokrati</a>;
+
+const MenuContent = (): JSX.Element => {
+  const installPrompt = useSelector(selectInstallPrompt);
+
+  return (
+    <>
+      {installPrompt ? (
+        <li>
+          <InstallButton />
+        </li>
+      ) : null}
+
+      <li>
+        <AboutLink />
+      </li>
+    </>
+  );
 };
 
-const AboutLink = () => <a href="/about">Om os</a>;
-
-const MenuContent = ({ installPrompt }: MenuProps): JSX.Element => (
-  <>
-    {installPrompt ? (
-      <li>
-        <InstallButton installPrompt={installPrompt} />
-      </li>
-    ) : null}
-
-    <li>
-      <AboutLink />
-    </li>
-  </>
-);
-const MobileMenu = ({ installPrompt }: MenuProps): JSX.Element => {
+const MobileMenu = (): JSX.Element => {
   const [expanded, setExpanded] = useState(false);
 
   const ref = useRef<HTMLUListElement>();
@@ -42,7 +43,7 @@ const MobileMenu = ({ installPrompt }: MenuProps): JSX.Element => {
         {'\u2715'}
       </button>
 
-      <MenuContent installPrompt={installPrompt} />
+      <MenuContent />
     </>
   ) : (
     <button type="button" onClick={() => setExpanded(true)}>
@@ -57,28 +58,12 @@ const MobileMenu = ({ installPrompt }: MenuProps): JSX.Element => {
   );
 };
 
-const DesktopMenu = ({ installPrompt }: MenuProps): JSX.Element => (
+const DesktopMenu = (): JSX.Element => (
   <ul className="menu">
-    <MenuContent installPrompt={installPrompt} />
+    <MenuContent />
   </ul>
 );
 
 export const Menu = (): JSX.Element => {
-  const [installPrompt, setInstallPrompt] = useState<
-    BeforeInstallPromptEvent | undefined
-  >(undefined);
-
-  useInterceptInstallPrompt((event: BeforeInstallPromptEvent) => {
-    setInstallPrompt(event);
-  });
-
-  return (
-    <nav>
-      {isMobile() ? (
-        <MobileMenu installPrompt={installPrompt} />
-      ) : (
-        <DesktopMenu installPrompt={installPrompt} />
-      )}
-    </nav>
-  );
+  return <nav>{isMobile() ? <MobileMenu /> : <DesktopMenu />}</nav>;
 };

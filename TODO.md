@@ -2,7 +2,11 @@
 
 ## Before release
 
-- Create install flow and prompt
+- Figure out better CI/CD with CHosting and GitHub Actions
+
+## After release
+
+- Figure out TWA on Google Play
 
 ## Eventually
 
