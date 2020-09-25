@@ -20,7 +20,7 @@ const MenuContent = (): JSX.Element => {
       ) : null}
 
       <li>
-        <a href="/about">Om{'\n'}MitDemokrati</a>
+        <a href="/about/">Om{'\n'}MitDemokrati</a>
       </li>
     </>
   );
