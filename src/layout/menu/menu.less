@@ -1,10 +1,8 @@
 @import '../../index.less';
 
 .menu {
-  align-self: center;
   display: flex;
   flex-direction: row;
-  justify-content: end;
   position: absolute;
   right: 0.5rem;
   top: 0.5rem;
@@ -22,9 +20,19 @@
   }
 
   ul {
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
     margin: 0;
     list-style-type: none;
     padding: 0;
+
+    @media screen and (max-width: 1024px) {
+      align-items: flex-end;
+      flex-direction: column;
+      justify-content: start;
+    }
 
     li {
       padding: 0 0 0 0.5rem;
