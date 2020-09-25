@@ -1,0 +1,61 @@
+@import '../../index.less';
+
+.menu {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  margin: 0;
+  list-style-type: none;
+  padding: 0;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  z-index: 3;
+
+  @media screen and (max-width: 1024px) {
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: start;
+  }
+
+  a {
+    color: @color-theme;
+    text-decoration: underline;
+  }
+
+  > button {
+    height: 24px;
+    width: 24px;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+  }
+
+  > li {
+    padding: 0 0 0 0.5rem;
+
+    @media screen and (max-width: 1024px) {
+      animation: menu-slide-left 0.2s ease-out 0s 1 forwards;
+      border-left: 1px solid lightgrey;
+      background-color: white;
+      margin-right: -100px;
+      padding: 0.5rem;
+      width: 80px;
+
+      &:first-of-type {
+        margin-top: 7px;
+      }
+
+      &:last-of-type {
+        border-bottom: 1px solid lightgrey;
+      }
+    }
+  }
+}
+
+@keyframes menu-slide-left {
+  to {
+    margin-right: -8px;
+  }
+}

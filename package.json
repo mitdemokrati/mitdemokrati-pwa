@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "npm-run-all -s build:parcel build:about copy:static copy:assets",
-    "build:about": "parcel build --target=browser ./src/pages/about/index.html --no-source-maps --dist-dir dist/about --public-url .",
+    "build:about": "parcel build --target=browser ./src/layout/aboutPage/index.html --no-source-maps --dist-dir dist/about --public-url .",
     "build:parcel": "parcel build --target=browser ./src/index.html --no-source-maps --dist-dir dist",
     "build:analyze": "cross-env PARCEL_BUNDLE_ANALYZER=1 npm-run-all -p build",
     "copy:static": "cp-cli ./src/static ./dist",

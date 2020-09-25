@@ -1,5 +1,5 @@
 import React from 'react';
-import { isOnline } from '../../utility/online';
+import { isOnline } from '../../utility/environment';
 
 import './loading.less';
 

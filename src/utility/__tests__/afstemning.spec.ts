@@ -1,4 +1,5 @@
 import {
+  parsePartySpreadFromStemmeList,
   parsePartySpreadFromKonklusion,
   parseVoteSpreadFromKonklusion,
   parseVoteSpreadFromStemmeList,
@@ -127,6 +128,57 @@ describe('the parsePartySpreadFromKonklusion utility method', () => {
     };
 
     const result = parsePartySpreadFromKonklusion(input);
+
+    expect(result).toEqual(expected);
+  });
+});
+
+describe('the parsePartySpreadFromStemmeList utility method', () => {
+  const emptyPartySpread = {
+    for: [],
+    imod: [],
+    blank: [],
+  };
+
+  it('return an empty partySpread on empty input', () => {
+    const result = parsePartySpreadFromStemmeList([], new Map());
+
+    expect(result).toEqual(emptyPartySpread);
+  });
+
+  it('returns an empty partySpread if no aktør match found', () => {
+    const result = parsePartySpreadFromStemmeList(
+      [{ afstemningid: 1, aktørid: 1, typeid: 1 }],
+      new Map([[2, {} as Aktør]])
+    );
+
+    expect(result).toEqual(emptyPartySpread);
+  });
+
+  it('returns a correct partySpread, without duplicates', () => {
+    const expected = {
+      ...emptyPartySpread,
+      imod: ['S', 'V'],
+      blank: ['Ø'],
+    };
+
+    const inputList: Stemme[] = [
+      { afstemningid: 1, aktørid: 1, typeid: 2 },
+      { afstemningid: 1, aktørid: 2, typeid: 1 },
+      { afstemningid: 1, aktørid: 3, typeid: 4 },
+      { afstemningid: 1, aktørid: 5, typeid: 2 },
+      { afstemningid: 1, aktørid: 6, typeid: 3 },
+      { afstemningid: 1, aktørid: 7, typeid: 2 },
+    ];
+    const inputMap: Map<number, Aktør> = new Map([
+      [1, { parti: 'S' } as Aktør],
+      [3, { parti: 'Ø' } as Aktør],
+      [5, { parti: 'V' } as Aktør],
+      [6, { parti: 'S' } as Aktør],
+      [7, { parti: 'V' } as Aktør],
+    ]);
+
+    const result = parsePartySpreadFromStemmeList(inputList, inputMap);
 
     expect(result).toEqual(expected);
   });

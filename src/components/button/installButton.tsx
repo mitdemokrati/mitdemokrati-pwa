@@ -1,36 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-interface BeforeInstallPromptEvent extends Event {
-  readonly platforms: Array<string>;
-  readonly userChoice: Promise<{
-    outcome: 'accepted' | 'dismissed';
-    platform: string;
-  }>;
-  prompt(): Promise<void>;
-}
+import { isStandalone } from '../../utility/environment';
 
-export const InstallButton = (): JSX.Element => {
-  const [installPrompt, setInstallPrompt] = useState<
-    BeforeInstallPromptEvent | undefined
-  >(undefined);
-
-  useEffect(() => {
-    const handleBeforeInstallPrompt = (event: Event) => {
-      const installEvent = event as BeforeInstallPromptEvent;
-      installEvent.preventDefault();
-      setInstallPrompt(installEvent);
-    };
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-
-    return () => {
-      window.removeEventListener(
-        'beforeinstallprompt',
-        handleBeforeInstallPrompt
-      );
-    };
-  }, []);
-
+type InstallButtonProps = {
+  installPrompt?: BeforeInstallPromptEvent;
+};
+export const InstallButton = ({
+  installPrompt,
+}: InstallButtonProps): JSX.Element | null => {
   const promptToInstall = () => {
     if (installPrompt) {
       return installPrompt.prompt();
@@ -43,9 +20,11 @@ export const InstallButton = (): JSX.Element => {
     );
   };
 
-  return (
+  const alreadyInstalled = isStandalone() ?? true;
+
+  return !alreadyInstalled && installPrompt ? (
     <button type="button" onClick={promptToInstall}>
       Installer
     </button>
-  );
+  ) : null;
 };

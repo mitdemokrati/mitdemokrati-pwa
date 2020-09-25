@@ -116,6 +116,10 @@ export const parsePartySpreadFromStemmeList = (
     }
   });
 
+  result.for.delete('');
+  result.imod.delete('');
+  result.blank.delete('');
+
   return {
     for: Array.from(result.for),
     imod: Array.from(result.imod),

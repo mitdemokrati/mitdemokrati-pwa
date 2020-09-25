@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 export const setupAxios = async (): Promise<void> => {
   const [axios, axiosRetry] = await Promise.all([
     import('axios'),

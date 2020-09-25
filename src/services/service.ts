@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 
 import { logWarn } from '../utility/log';
-import { isOnline } from '../utility/online';
+import { isOnline } from '../utility/environment';
 
 export const tryFetch = async <T>(
   url: string
