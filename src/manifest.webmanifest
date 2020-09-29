@@ -1,5 +1,6 @@
 {
   "name": "MitDemokrati",
+  "short_name": "MitDemokrati",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#1E90FF",
