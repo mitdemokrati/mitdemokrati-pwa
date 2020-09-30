@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.mitdemokrati.android",
+      "sha256_cert_fingerprints": [
+        "4A:9A:8D:99:CE:1D:73:DC:7F:A0:2A:86:C1:E7:16:7A:73:20:85:C9:51:2A:CB:B0:D8:22:F6:28:1A:62:DA:27"
+      ]
+    }
+  }
+]
