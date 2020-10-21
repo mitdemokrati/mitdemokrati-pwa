@@ -1,3 +1,5 @@
+import 'regenerator-runtime/runtime';
+
 export default null;
 declare const self: ServiceWorkerGlobalScope;
 

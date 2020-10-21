@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime';
 import { setupAxios } from './utility/setupAxios';
 
 import './index.less';
