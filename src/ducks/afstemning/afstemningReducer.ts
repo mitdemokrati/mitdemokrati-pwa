@@ -13,10 +13,10 @@ const INITIAL_STATE: AfstemningState = {
 };
 
 export const afstemningReducer = (
-  action: AfstemningAction,
-  state = INITIAL_STATE
+  state = INITIAL_STATE,
+  action: AfstemningAction
 ): AfstemningState => {
-  switch (action?.type) {
+  switch (action.type) {
     case AfstemningActionType.ADD_AFSTEMNING_LIST: {
       const addAfstemningListAction = action as AddAfstemningListAction;
 
