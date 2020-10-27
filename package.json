@@ -6,10 +6,11 @@
   "repository": "github:mitdemokrati/mitdemokrati-pwa",
   "license": "MIT",
   "scripts": {
-    "build": "npm-run-all -s build:parcel build:about copy:static copy:assets",
+    "build": "npm-run-all -s build:parcel build:typescript build:about copy:static copy:assets",
     "build:about": "parcel build ./src/layout/aboutPage/index.html --no-source-maps --dist-dir dist/about --public-url .",
     "build:parcel": "parcel build ./src/index.html --no-source-maps --dist-dir dist",
     "build:analyze": "cross-env PARCEL_BUNDLE_ANALYZER=1 npm-run-all -p build",
+    "build:typescript": "tsc --noEmit --skipLibCheck -p .",
     "copy:static": "cp-cli ./src/static ./dist",
     "copy:assets": "cp-cli ./src/assets ./dist",
     "lint": "npm-run-all -p lint:prettier lint:es lint:style",
