@@ -203,3 +203,14 @@ function capitalizeNameAndParty(string: string) {
 function replaceNoPartyLetter(string: string) {
   return string.replace(`(${NO_PARTY_LETTER})`, '(Løsgænger)');
 }
+
+export const sortAfstemning = (a: Afstemning, b: Afstemning): number => {
+  const aDate = Date.parse(a.dato);
+  const bDate = Date.parse(b.dato);
+
+  if (aDate !== bDate) {
+    return bDate - aDate;
+  }
+
+  return b.id - a.id;
+};
