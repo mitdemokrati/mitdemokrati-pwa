@@ -1,17 +1,18 @@
 import React from 'react';
 
 /* eslint-disable import/no-unresolved */
-import aLogo from 'url:../../assets/parties/alternativetlogo70.png';
+import altLogo from 'url:../../assets/parties/alternativetlogo70.png';
 import ddLogo from 'url:../../assets/parties/danmarksdemokraterne70.png';
 import dfLogo from 'url:../../assets/parties/danskfolkepartilogo70.png';
-import kLogo from 'url:../../assets/parties/detkonservativefolkepartilogo70.png';
-import øLogo from 'url:../../assets/parties/enhedslistenlogo70.png';
+import fgLogo from 'url:../../assets/parties/friegroenne70.png';
+import kfLogo from 'url:../../assets/parties/detkonservativefolkepartilogo70.png';
+import elLogo from 'url:../../assets/parties/enhedslistenlogo70.png';
 import iaLogo from 'url:../../assets/parties/inuitpartilogo70.png';
 import jLogo from 'url:../../assets/parties/javnapartilogo70.png';
 import laLogo from 'url:../../assets/parties/liberalalliancelogo70.png';
 import nbLogo from 'url:../../assets/parties/nyeborgerligepartilogo70.png';
 import rvLogo from 'url:../../assets/parties/radikalevenstrelogo70.png';
-import sbLogo from 'url:../../assets/parties/sambandspartilogo70.png';
+import bLogo from 'url:../../assets/parties/sambandspartilogo70.png';
 import siLogo from 'url:../../assets/parties/siumutpartilogo70.png';
 import sLogo from 'url:../../assets/parties/socialdemokratietlogo70.png';
 import sfLogo from 'url:../../assets/parties/socialistiskfolkepartilogo70.png';
@@ -26,7 +27,7 @@ export const PartyLogo = ({
 }: PartyLogoProps): JSX.Element | null => {
   switch (partyLetter) {
     case 'ALT':
-      return <img src={aLogo} alt="Alternativet" />;
+      return <img src={altLogo} alt="Alternativet" />;
 
     case 'DD':
       return <img src={ddLogo} alt="Danmarksdemokraterne" />;
@@ -35,10 +36,13 @@ export const PartyLogo = ({
       return <img src={dfLogo} alt="Dansk Folkeparti" />;
 
     case 'KF':
-      return <img src={kLogo} alt="Det Konservative Folkeparti" />;
+      return <img src={kfLogo} alt="Det Konservative Folkeparti" />;
 
     case 'EL':
-      return <img src={øLogo} alt="Enhedslisten" />;
+      return <img src={elLogo} alt="Enhedslisten" />;
+
+    case 'FG':
+      return <img src={fgLogo} alt="Frie Grønne" />;
 
     case 'IA':
       return <img src={iaLogo} alt="Inuit Ataqatigiit" />;
@@ -53,7 +57,7 @@ export const PartyLogo = ({
       return <img src={nbLogo} alt="Nye Borgerlige" />;
 
     case 'B':
-      return <img src={sbLogo} alt="Sambandsflokkurin" />;
+      return <img src={bLogo} alt="Sambandsflokkurin" />;
 
     case 'SI':
       return <img src={siLogo} alt="Siumut" />;
