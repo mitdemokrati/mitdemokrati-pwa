@@ -64,7 +64,7 @@ const DesktopMenu = (): JSX.Element => (
 );
 
 export const Menu = (): JSX.Element => {
-  const ref = useRef<HTMLElement>();
+  const ref = useRef<HTMLElement>(null);
 
   return (
     <nav className="menu" ref={ref}>

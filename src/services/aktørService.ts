@@ -31,7 +31,7 @@ export async function fetchAktørParti(
   aktørId: number
 ): Promise<string | undefined> {
   const response = await tryFetch<{ value: [{ TilAktør: { navn: string } }] }>(
-    AKTØR_PARTI_URL.replace('aktørIdPlaceholder', aktørId.toString())
+    AKTØR_PARTI_URL.replace(encodeURI('aktørIdPlaceholder'), aktørId.toString())
   );
 
   return response?.data?.value[0].TilAktør.navn;

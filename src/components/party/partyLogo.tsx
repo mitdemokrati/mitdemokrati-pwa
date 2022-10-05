@@ -2,6 +2,7 @@ import React from 'react';
 
 /* eslint-disable import/no-unresolved */
 import aLogo from 'url:../../assets/parties/alternativetlogo70.png';
+import ddLogo from 'url:../../assets/parties/danmarksdemokraterne70.png';
 import dfLogo from 'url:../../assets/parties/danskfolkepartilogo70.png';
 import kLogo from 'url:../../assets/parties/detkonservativefolkepartilogo70.png';
 import øLogo from 'url:../../assets/parties/enhedslistenlogo70.png';
@@ -26,6 +27,9 @@ export const PartyLogo = ({
   switch (partyLetter) {
     case 'ALT':
       return <img src={aLogo} alt="Alternativet" />;
+
+    case 'DD':
+      return <img src={ddLogo} alt="Danmarksdemokraterne" />;
 
     case 'DF':
       return <img src={dfLogo} alt="Dansk Folkeparti" />;

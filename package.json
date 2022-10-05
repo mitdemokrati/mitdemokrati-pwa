@@ -6,8 +6,9 @@
   "repository": "github:mitdemokrati/mitdemokrati-pwa",
   "license": "MIT",
   "scripts": {
-    "build": "npm-run-all -s build:parcel build:typescript build:about copy:static copy:assets",
+    "build": "npm-run-all -s build:clean build:parcel build:typescript build:about copy:static copy:assets",
     "build:about": "parcel build ./src/layout/aboutPage/index.html --no-source-maps --dist-dir dist/about --public-url .",
+    "build:clean": "rimraf dist .parcel-cache",
     "build:parcel": "parcel build ./src/index.html --no-source-maps --dist-dir dist",
     "build:analyze": "cross-env PARCEL_BUNDLE_ANALYZER=1 npm-run-all -p build",
     "build:typescript": "tsc --noEmit --skipLibCheck -p .",
@@ -17,7 +18,6 @@
     "lint:es": "eslint . --ext .ts,.tsx",
     "lint:prettier": "prettier -c .",
     "lint:style": "stylelint **/*.less",
-    "prebuild": "rimraf dist .parcel-cache",
     "start": "parcel ./src/index.html",
     "test": "jest --coverage"
   },

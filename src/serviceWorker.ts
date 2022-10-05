@@ -6,9 +6,9 @@ declare const self: ServiceWorkerGlobalScope;
 const CACHE_NAME = 'mitdemokrati-v1';
 const URLS_TO_CACHE = [self.location.origin];
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(populateCacheOnInstall);
-});
+self.addEventListener('install', (event) =>
+  event.waitUntil(populateCacheOnInstall())
+);
 
 async function populateCacheOnInstall() {
   const cache = await caches.open(CACHE_NAME);
