@@ -1,4 +1,4 @@
-import { parseValueFromBiography } from '../../utility/aktør';
+import { parseValueFromBiography } from '../../utility/aktoer';
 
 const FOLKETING_LINK_KEY = 'url';
 const EMAIL_KEY = 'email';
@@ -9,14 +9,14 @@ const PHOTO_URL_KEY = 'pictureMiRes';
 const VALGKREDS_KEY = 'currentConstituency';
 const ALT_VALGKREDS_KEY = 'substitute';
 
-export const mapAktør = ({
+export const mapAktoer = ({
   id,
   biografi,
   efternavn,
   fornavn,
   navn,
   typeid,
-}: Aktør): Aktør => {
+}: Aktoer): Aktoer => {
   return {
     biografi,
     efternavn,

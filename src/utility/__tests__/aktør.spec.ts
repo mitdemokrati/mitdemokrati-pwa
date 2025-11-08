@@ -1,4 +1,4 @@
-import { parseValueFromBiography } from '../aktør';
+import { parseValueFromBiography } from '../aktoer';
 
 const PARTY_KEY = 'party';
 

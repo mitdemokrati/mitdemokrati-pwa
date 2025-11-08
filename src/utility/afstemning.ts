@@ -10,7 +10,7 @@ export const parseVoteSpreadFromKonklusion = (
   const lowerCaseKonklusionList = konklusion
     ?.toLowerCase()
     ?.split('\n')
-    ?.map((line) => line?.trim() ?? '') ?? ['', '', '', ''];
+    ?.map((line) => line?.trim?.() ?? '') ?? ['', '', '', ''];
 
   const forCount = parseSubstringNumber(lowerCaseKonklusionList[1], FOR_KEY);
 
@@ -98,7 +98,7 @@ export const parsePartySpreadFromKonklusion = (
 
 export const parsePartySpreadFromStemmeList = (
   stemmeList: Stemme[],
-  aktørMap: Map<number, Aktør>
+  aktoerMap: Map<number, Aktoer>
 ): PartySpread => {
   const result = {
     for: new Set<string>(),
@@ -106,16 +106,16 @@ export const parsePartySpreadFromStemmeList = (
     blank: new Set<string>(),
   };
 
-  stemmeList.forEach(({ aktørid, typeid }) => {
+  stemmeList.forEach(({ aktoerid, typeid }) => {
     switch (typeid) {
       case 1:
-        result.for.add(aktørMap.get(aktørid)?.parti || '');
+        result.for.add(aktoerMap.get(aktoerid)?.parti || '');
         break;
       case 2:
-        result.imod.add(aktørMap.get(aktørid)?.parti || '');
+        result.imod.add(aktoerMap.get(aktoerid)?.parti || '');
         break;
       case 4:
-        result.blank.add(aktørMap.get(aktørid)?.parti || '');
+        result.blank.add(aktoerMap.get(aktoerid)?.parti || '');
         break;
       default:
         break;

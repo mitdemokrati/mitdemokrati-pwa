@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectAktørMap } from '../../ducks/aktør/aktørSelectors';
+import { selectAktoerMap } from '../../ducks/aktoer/aktoerSelectors';
 
 type ForslagStillerProps = {
   forslagStillerIdList: number[] | undefined;
@@ -12,11 +12,11 @@ export const ForslagStiller = ({
     return null;
   }
 
-  const aktørMap = useSelector(selectAktørMap);
+  const aktoerMap = useSelector(selectAktoerMap);
 
   const forslagStillerString = getForslagStillerString(
     forslagStillerIdList,
-    aktørMap
+    aktoerMap
   );
 
   return <p>Forslaget er opstillet af {forslagStillerString}</p>;
@@ -24,21 +24,21 @@ export const ForslagStiller = ({
 
 function getForslagStillerString(
   forslagStillerIdList: number[],
-  aktørMap: Map<number, Aktør>
+  aktoerMap: Map<number, Aktoer>
 ) {
   return forslagStillerIdList.reduce(
     (resultString, forslagStillerId, index) => {
-      const aktør = aktørMap.get(forslagStillerId);
+      const aktoer = aktoerMap.get(forslagStillerId);
 
-      if (!aktør) {
+      if (!aktoer) {
         return resultString;
       }
 
-      const aktørPartiString = aktør.parti ? ` (${aktør.parti})` : '';
+      const aktoerPartiString = aktoer.parti ? ` (${aktoer.parti})` : '';
 
       return index === 0
-        ? `${aktør.navn}${aktørPartiString}`
-        : `${resultString}, ${aktør.navn}${aktørPartiString}`;
+        ? `${aktoer.navn}${aktoerPartiString}`
+        : `${resultString}, ${aktoer.navn}${aktoerPartiString}`;
     },
     ''
   );

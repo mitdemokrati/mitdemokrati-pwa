@@ -7,9 +7,9 @@
   "license": "MIT",
   "scripts": {
     "build": "npm-run-all -s build:clean build:parcel build:typescript build:about copy:static copy:assets",
-    "build:about": "parcel build ./src/layout/aboutPage/index.html --no-source-maps --dist-dir dist/about --public-url .",
+    "build:about": "parcel build ./src/layout/aboutPage/index.html --dist-dir dist/about --public-url .",
     "build:clean": "rimraf .parcel-cache dist/**/*",
-    "build:parcel": "parcel build ./src/index.html --no-source-maps --dist-dir dist",
+    "build:parcel": "parcel build ./src/index.html --dist-dir dist",
     "build:analyze": "cross-env PARCEL_BUNDLE_ANALYZER=1 npm-run-all -p build",
     "build:typescript": "tsc --noEmit --skipLibCheck -p .",
     "copy:static": "cp-cli ./src/static ./dist",
@@ -19,6 +19,7 @@
     "lint:prettier": "prettier -c .",
     "lint:style": "stylelint **/*.less",
     "start": "parcel ./src/index.html",
+    "serve": "serve dist",
     "test": "jest --coverage"
   },
   "husky": {
@@ -88,6 +89,7 @@
     "npm-run-all": "^4.1.5",
     "parcel": "2.16.1",
     "prettier": "^2.8.8",
+    "serve": "^14.2.5",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^20.0.0",
     "ts-jest": "^26.5.6",

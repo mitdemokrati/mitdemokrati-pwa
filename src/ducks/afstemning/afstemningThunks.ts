@@ -3,7 +3,7 @@ import { ThunkAction } from 'redux-thunk';
 
 import { addAfstemningList } from './afstemningActions';
 import { IApplicationState } from '../store/store';
-import { getAktørList } from '../aktør/aktørThunks';
+import { getAktoerList } from '../aktoer/aktoerThunks';
 import {
   enrichAfstemningList,
   loadAfstemningList,
@@ -12,41 +12,45 @@ import {
 import { uniqueArray } from '../../utility/misc';
 
 // Thunks
-export const getNewestAfstemningList = (
-  count?: number
-): ThunkAction<
-  Promise<void>,
-  IApplicationState,
-  Record<string, unknown>,
-  AnyAction
-> => async (dispatch) => {
-  loadAfstemningList(count).then((afstemningList) => {
-    if (afstemningList.length < 1) {
-      return;
-    }
+export const getNewestAfstemningList =
+  (
+    count?: number
+  ): ThunkAction<
+    Promise<void>,
+    IApplicationState,
+    Record<string, unknown>,
+    AnyAction
+  > =>
+  async (dispatch) => {
+    loadAfstemningList(count).then((afstemningList) => {
+      if (afstemningList.length < 1) {
+        return;
+      }
+
+      dispatch(addAfstemningList(afstemningList));
+      dispatch(getEnrichedAfstemningList(afstemningList));
+    });
+  };
+
+export const getPreviousAfstemningList =
+  (
+    oldestAfstemning: Afstemning,
+    count?: number
+  ): ThunkAction<
+    Promise<void>,
+    IApplicationState,
+    Record<string, unknown>,
+    AnyAction
+  > =>
+  async (dispatch) => {
+    const afstemningList = await loadPreviousAfstemningList(
+      oldestAfstemning,
+      count
+    );
 
     dispatch(addAfstemningList(afstemningList));
     dispatch(getEnrichedAfstemningList(afstemningList));
-  });
-};
-
-export const getPreviousAfstemningList = (
-  oldestAfstemning: Afstemning,
-  count?: number
-): ThunkAction<
-  Promise<void>,
-  IApplicationState,
-  Record<string, unknown>,
-  AnyAction
-> => async (dispatch) => {
-  const afstemningList = await loadPreviousAfstemningList(
-    oldestAfstemning,
-    count
-  );
-
-  dispatch(addAfstemningList(afstemningList));
-  dispatch(getEnrichedAfstemningList(afstemningList));
-};
+  };
 
 function getEnrichedAfstemningList(
   afstemningList: Afstemning[]
@@ -61,26 +65,26 @@ function getEnrichedAfstemningList(
 
     dispatch(addAfstemningList(enrichedAfstemningList));
 
-    const uniqueAktørIdList = getUniqueAktørIdList(enrichedAfstemningList);
+    const uniqueAktoerIdList = getUniqueAktoerIdList(enrichedAfstemningList);
 
-    dispatch(getAktørList(uniqueAktørIdList));
+    dispatch(getAktoerList(uniqueAktoerIdList));
   };
 }
 
-function getUniqueAktørIdList(afstemningList: Afstemning[]) {
-  const allAktørIdList = afstemningList
-    .map(getAllAktørIdList)
+function getUniqueAktoerIdList(afstemningList: Afstemning[]) {
+  const allAktoerIdList = afstemningList
+    .map(getAllAktoerIdList)
     .flat()
     .filter(Boolean);
 
-  const uniqueAktørIdList = uniqueArray(allAktørIdList);
+  const uniqueAktoerIdList = uniqueArray(allAktoerIdList);
 
-  return uniqueAktørIdList;
+  return uniqueAktoerIdList;
 }
 
-function getAllAktørIdList(afstemning: Afstemning) {
+function getAllAktoerIdList(afstemning: Afstemning) {
   return [
     ...(afstemning.forslagStillerId || []),
-    ...afstemning.stemmeList.map((stemme) => stemme.aktørid),
+    ...afstemning.stemmeList.map((stemme) => stemme?.aktoerid),
   ];
 }

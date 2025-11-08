@@ -27,18 +27,19 @@ export function calculateVoteSpread(stemmeList: Stemme[]): VoteSpread {
 
 export function calculatePartyVoteSpread(
   stemmeList: Stemme[],
-  aktørPartyMap: AktørPartyMap
+  aktoerPartyMap: AktoerPartyMap
 ): PartyVoteSpread {
   const defaultPartyVoteSpread: PartyVoteSpread = {};
 
   return stemmeList.reduce((partyVoteSpread, stemme) => {
-    const aktørParty = aktørPartyMap.get(stemme.aktørid) || DEFAULT_PARTY_NAME;
+    const aktoerParty =
+      aktoerPartyMap.get(stemme?.aktoerid) || DEFAULT_PARTY_NAME;
     const oldPartyVoteSpread =
-      partyVoteSpread[aktørParty] || DEFAULT_VOTE_SPREAD;
+      partyVoteSpread[aktoerParty] || DEFAULT_VOTE_SPREAD;
 
     return {
       ...partyVoteSpread,
-      [aktørParty]: stemmeListReducer(oldPartyVoteSpread, stemme),
+      [aktoerParty]: stemmeListReducer(oldPartyVoteSpread, stemme),
     };
   }, defaultPartyVoteSpread);
 }

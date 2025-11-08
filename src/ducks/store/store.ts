@@ -15,14 +15,14 @@ import {
   afstemningReducer,
   AfstemningState,
 } from '../afstemning/afstemningReducer';
-import { aktørReducer, AktørState } from '../aktør/aktørReducer';
+import { aktoerReducer, AktoerState } from '../aktoer/aktoerReducer';
 import { sharedReducer, SharedState } from '../shared/sharedReducer';
 import { userReducer, UserState } from '../user/userReducer';
 import { persistRootReducer } from './persistor';
 
 export interface IApplicationState {
   afstemning: AfstemningState;
-  aktør: AktørState;
+  aktoer: AktoerState;
   shared: SharedState;
   user: UserState;
 }
@@ -37,7 +37,7 @@ const composeEnhancers =
 const combinedReducers = persistRootReducer(
   combineReducers<IApplicationState>({
     afstemning: afstemningReducer,
-    aktør: aktørReducer,
+    aktoer: aktoerReducer,
     shared: sharedReducer,
     user: userReducer,
   })

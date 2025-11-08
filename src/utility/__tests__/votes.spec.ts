@@ -16,9 +16,9 @@ describe('the calculateVoteSpread method', () => {
 
   it('returns expected voteSpread', () => {
     const stemmeList: Stemme[] = [
-      { afstemningid: 1, aktørid: 1, typeid: 1 },
-      { afstemningid: 1, aktørid: 2, typeid: 4 },
-      { afstemningid: 1, aktørid: 3, typeid: 5 },
+      { afstemningid: 1, aktoerid: 1, typeid: 1 },
+      { afstemningid: 1, aktoerid: 2, typeid: 4 },
+      { afstemningid: 1, aktoerid: 3, typeid: 5 },
     ];
 
     const expectedVoteSpread: VoteSpread = {
@@ -37,9 +37,12 @@ describe('the calculateVoteSpread method', () => {
 describe('the calculate party vote spread method', () => {
   it('returns empty result on empty input', () => {
     const stemmeList: Stemme[] = [];
-    const aktørPartyMap: AktørPartyMap = new Map();
+    const aktoerPartyMap: AktoerPartyMap = new Map();
 
-    const partyVoteSpread = calculatePartyVoteSpread(stemmeList, aktørPartyMap);
+    const partyVoteSpread = calculatePartyVoteSpread(
+      stemmeList,
+      aktoerPartyMap
+    );
 
     expect(partyVoteSpread).toEqual({});
   });
@@ -51,7 +54,7 @@ describe('the calculate party vote spread method', () => {
       'Uden for parti': { for: 0, imod: 0, blank: 1, fraværende: 1 },
     };
 
-    const aktørPartyMap: AktørPartyMap = new Map([
+    const aktoerPartyMap: AktoerPartyMap = new Map([
       [1, 'PartyA'],
       [2, 'PartyB'],
       [3, 'PartyB'],
@@ -60,14 +63,17 @@ describe('the calculate party vote spread method', () => {
     ]);
 
     const stemmeList: Stemme[] = [
-      { afstemningid: 1, aktørid: 1, typeid: 1 },
-      { afstemningid: 1, aktørid: 2, typeid: 2 },
-      { afstemningid: 1, aktørid: 3, typeid: 2 },
-      { afstemningid: 1, aktørid: 4, typeid: 3 },
-      { afstemningid: 1, aktørid: 5, typeid: 4 },
+      { afstemningid: 1, aktoerid: 1, typeid: 1 },
+      { afstemningid: 1, aktoerid: 2, typeid: 2 },
+      { afstemningid: 1, aktoerid: 3, typeid: 2 },
+      { afstemningid: 1, aktoerid: 4, typeid: 3 },
+      { afstemningid: 1, aktoerid: 5, typeid: 4 },
     ];
 
-    const partyVoteSpread = calculatePartyVoteSpread(stemmeList, aktørPartyMap);
+    const partyVoteSpread = calculatePartyVoteSpread(
+      stemmeList,
+      aktoerPartyMap
+    );
 
     expect(partyVoteSpread).toEqual(expectedPartyVoteSpread);
   });

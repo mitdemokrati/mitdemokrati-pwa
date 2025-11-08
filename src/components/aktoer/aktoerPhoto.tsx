@@ -2,18 +2,18 @@ import React from 'react';
 
 const DEFAULT_PHOTO_SIZE = 310;
 
-type AktørPhotoProps = {
+type AktoerPhotoProps = {
   height?: number;
   name?: string;
   photoUrl?: string;
   width?: number;
 };
-export const AktørPhoto = ({
+export const AktoerPhoto = ({
   height = DEFAULT_PHOTO_SIZE,
   name,
   photoUrl,
   width = DEFAULT_PHOTO_SIZE,
-}: AktørPhotoProps): JSX.Element | null => {
+}: AktoerPhotoProps): JSX.Element | null => {
   if (!photoUrl) {
     return null;
   }

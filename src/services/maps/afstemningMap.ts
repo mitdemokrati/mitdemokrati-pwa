@@ -1,5 +1,5 @@
 export const mapAfstemning = (ftAfstemning: FTAfstemning): Afstemning => ({
-  dato: ftAfstemning.Møde.dato,
+  dato: ftAfstemning['Møde'].dato,
   forslagStillerId: ftAfstemning.forslagStillerId,
   id: ftAfstemning.id,
   konklusion: ftAfstemning.konklusion,

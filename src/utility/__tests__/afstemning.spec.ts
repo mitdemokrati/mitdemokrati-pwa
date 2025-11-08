@@ -61,12 +61,12 @@ describe('the parseVoteSpreadFromStemmeList utility method', () => {
 
   it('parses a Stemme[] with values into a VoteSpread object', () => {
     const stemmeList: Stemme[] = [
-      { afstemningid: 1, aktørid: 1, typeid: 1 },
-      { afstemningid: 1, aktørid: 2, typeid: 2 },
-      { afstemningid: 1, aktørid: 3, typeid: 3 },
-      { afstemningid: 1, aktørid: 4, typeid: 4 },
-      { afstemningid: 1, aktørid: 5, typeid: 5 },
-      { afstemningid: 1, aktørid: 5, typeid: 1 },
+      { afstemningid: 1, aktoerid: 1, typeid: 1 },
+      { afstemningid: 1, aktoerid: 2, typeid: 2 },
+      { afstemningid: 1, aktoerid: 3, typeid: 3 },
+      { afstemningid: 1, aktoerid: 4, typeid: 4 },
+      { afstemningid: 1, aktoerid: 5, typeid: 5 },
+      { afstemningid: 1, aktoerid: 5, typeid: 1 },
     ];
     const expected = {
       for: 2,
@@ -102,7 +102,7 @@ describe('the parsePartySpreadFromKonklusion utility method', () => {
     expect(result).toEqual(expected);
   });
 
-  it('parses konklusion with an aktør outside a party', () => {
+  it('parses konklusion with an aktoer outside a party', () => {
     const input =
       'for stemte x (S og Test Testman (UFG)), imod stemte 0, hverken for eller imod stemte y (SF)';
 
@@ -117,7 +117,7 @@ describe('the parsePartySpreadFromKonklusion utility method', () => {
     expect(result).toEqual(expected);
   });
 
-  it('parses konklusion with an aktør voting against party lines', () => {
+  it('parses konklusion with an aktoer voting against party lines', () => {
     const input =
       'Forslaget blev vedtaget. For stemte 89 (SF, Test Testman (EL), KF, og ALT), imod stemte 1 (V), hverken for eller imod stemte 7 (EL, UFG).';
 
@@ -146,10 +146,10 @@ describe('the parsePartySpreadFromStemmeList utility method', () => {
     expect(result).toEqual(emptyPartySpread);
   });
 
-  it('returns an empty partySpread if no aktør match found', () => {
+  it('returns an empty partySpread if no aktoer match found', () => {
     const result = parsePartySpreadFromStemmeList(
-      [{ afstemningid: 1, aktørid: 1, typeid: 1 }],
-      new Map([[2, {} as Aktør]])
+      [{ afstemningid: 1, aktoerid: 1, typeid: 1 }],
+      new Map([[2, {} as Aktoer]])
     );
 
     expect(result).toEqual(emptyPartySpread);
@@ -159,23 +159,23 @@ describe('the parsePartySpreadFromStemmeList utility method', () => {
     const expected = {
       ...emptyPartySpread,
       imod: ['S', 'V'],
-      blank: ['Ø'],
+      blank: ['oe'],
     };
 
     const inputList: Stemme[] = [
-      { afstemningid: 1, aktørid: 1, typeid: 2 },
-      { afstemningid: 1, aktørid: 2, typeid: 1 },
-      { afstemningid: 1, aktørid: 3, typeid: 4 },
-      { afstemningid: 1, aktørid: 5, typeid: 2 },
-      { afstemningid: 1, aktørid: 6, typeid: 3 },
-      { afstemningid: 1, aktørid: 7, typeid: 2 },
+      { afstemningid: 1, aktoerid: 1, typeid: 2 },
+      { afstemningid: 1, aktoerid: 2, typeid: 1 },
+      { afstemningid: 1, aktoerid: 3, typeid: 4 },
+      { afstemningid: 1, aktoerid: 5, typeid: 2 },
+      { afstemningid: 1, aktoerid: 6, typeid: 3 },
+      { afstemningid: 1, aktoerid: 7, typeid: 2 },
     ];
-    const inputMap: Map<number, Aktør> = new Map([
-      [1, { parti: 'S' } as Aktør],
-      [3, { parti: 'Ø' } as Aktør],
-      [5, { parti: 'V' } as Aktør],
-      [6, { parti: 'S' } as Aktør],
-      [7, { parti: 'V' } as Aktør],
+    const inputMap: Map<number, Aktoer> = new Map([
+      [1, { parti: 'S' } as Aktoer],
+      [3, { parti: 'oe' } as Aktoer],
+      [5, { parti: 'V' } as Aktoer],
+      [6, { parti: 'S' } as Aktoer],
+      [7, { parti: 'V' } as Aktoer],
     ]);
 
     const result = parsePartySpreadFromStemmeList(inputList, inputMap);

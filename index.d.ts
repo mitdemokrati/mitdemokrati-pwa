@@ -21,10 +21,10 @@ type AfstemningId = {
 
 type AfstemningStiller = {
   sagid: number;
-  aktørid: number;
+  aktoerid: number;
 };
 
-type Aktør = {
+type Aktoer = {
   id: number;
   typeid: number;
   navn: string;
@@ -38,17 +38,17 @@ type Aktør = {
   phoneNumber?: string;
   valgkreds?: string;
 };
-type AktørMap = Map<number, Aktør>;
-type AktørPartyMap = Map<number, string>;
+type AktoerMap = Map<number, Aktoer>;
+type AktoerPartyMap = Map<number, string>;
 
 type ForslagStiller = {
-  aktørid: number;
+  aktoerid: number;
   sagid: number;
 };
 
 type FTAfstemning = {
   Sagstrin: FTSagstrin;
-  Møde: FTMøde;
+  Møde: FTMoede;
   Stemme: Stemme[];
   'Stemme@odata.nextLink'?: string;
   forslagStillerId?: number[];
@@ -78,12 +78,12 @@ type FTResponse<T> = {
 type LatestIdResponse = {
   value: {
     id: number;
-    Møde: { dato: string };
+    Moede: { dato: string };
     Sagstrin: { Sag: { id: number } };
   }[];
 };
 
-type FTMøde = {
+type FTMoede = {
   id: number;
   dato: string;
 };
@@ -106,7 +106,7 @@ type PartyVoteSpread = {
 type Stemme = {
   afstemningid: number;
   typeid: StemmeType;
-  aktørid: number;
+  aktoerid: number;
 };
 
 // eslint-disable-next-line no-shadow

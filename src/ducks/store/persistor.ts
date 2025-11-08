@@ -7,8 +7,8 @@ import { getMapTransformer } from './transformers/mapTransformer';
 const afstemningTransformer = getMapTransformer(['afstemningMap'])({
   whitelist: ['afstemning'],
 });
-const aktørTransformer = getMapTransformer(['aktørMap'])({
-  whitelist: ['aktør'],
+const aktoerTransformer = getMapTransformer(['aktoerMap'])({
+  whitelist: ['aktoer'],
 });
 const userTransform = getMapTransformer(['userStemmeMap'])({
   whitelist: ['user'],
@@ -17,7 +17,7 @@ const userTransform = getMapTransformer(['userStemmeMap'])({
 const rootPersistConfig = {
   key: 'mitdemokrati',
   storage: { getItem, setItem, removeItem },
-  transforms: [afstemningTransformer, aktørTransformer, userTransform],
+  transforms: [afstemningTransformer, aktoerTransformer, userTransform],
 };
 
 export const persistRootReducer = (

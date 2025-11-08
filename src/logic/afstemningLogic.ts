@@ -83,7 +83,7 @@ function getForslagStillerMap(
 
     map.set(forslagStiller.sagid, [
       ...forslagStillerIdList,
-      forslagStiller.aktørid,
+      forslagStiller?.aktoerid,
     ]);
 
     return map;
