@@ -48,6 +48,8 @@ export const AfstemningList = (): JSX.Element => {
 
   return (
     <section className="afstemning-list">
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/* @ts-ignore */}
       <GroupedVirtuoso
         endReached={loadMoreAfstemning}
         footer={() => <Loading text="Henter afstemninger" />}

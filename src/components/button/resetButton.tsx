@@ -11,12 +11,7 @@ export const ResetButton = (): JSX.Element => {
   };
 
   return (
-    <button
-      alt="reset"
-      className="btn btn--reset"
-      type="button"
-      onClick={resetAndReload}
-    >
+    <button className="btn btn--reset" type="button" onClick={resetAndReload}>
       {'\u21BB'}
     </button>
   );

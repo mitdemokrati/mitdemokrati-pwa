@@ -34,5 +34,5 @@ export async function fetchAktørParti(
     AKTØR_PARTI_URL.replace(encodeURI('aktørIdPlaceholder'), aktørId.toString())
   );
 
-  return response?.data?.value[0].TilAktør.navn;
+  return response?.data?.value?.[0]?.TilAktør?.navn;
 }

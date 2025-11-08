@@ -21,6 +21,9 @@ asyncResources.then(([{ render }, { MitDemokratiApp }]) => {
 // Register ServiceWorker
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./serviceWorker.ts');
+    navigator.serviceWorker.register(
+      new URL('./serviceWorker.ts', import.meta.url),
+      { type: 'module' }
+    );
   });
 }

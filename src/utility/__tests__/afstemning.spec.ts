@@ -16,7 +16,7 @@ describe('the parseVoteSpreadFromKonklusion utility method', () => {
 
   it('parses a full konklusion string into the correct VoteSpread object', () => {
     const konklusion =
-      'TestStringFiller For stemte 79, imod stemte 30, hverken for eller imod stemte 20 MoreTestFiller';
+      '\nTestStringFiller For stemte 79,\n imod stemte 30,\n hverken for eller imod stemte 20 MoreTestFiller';
     const expected = {
       for: 79,
       imod: 30,
@@ -30,7 +30,7 @@ describe('the parseVoteSpreadFromKonklusion utility method', () => {
   });
 
   it('parses a string with only one key into the correct VoteSpread object', () => {
-    const konklusion = ', imod stemte 79';
+    const konklusion = '\n\n, imod stemte 79';
     const expected = {
       for: 0,
       imod: 79,

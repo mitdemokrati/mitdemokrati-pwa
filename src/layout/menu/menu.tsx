@@ -27,7 +27,7 @@ const MenuContent = (): JSX.Element => {
 };
 
 type MobileMenuProps = {
-  parentRef: React.Ref<HTMLElement>;
+  parentRef: React.Ref<unknown>;
 };
 const MobileMenu = ({ parentRef }: MobileMenuProps): JSX.Element => {
   const [expanded, setExpanded] = useState(false);

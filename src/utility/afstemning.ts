@@ -1,19 +1,25 @@
-const BLANK_KEY = ', hverken for eller imod stemte';
+const BLANK_KEY = 'hverken for eller imod stemte';
 const FOR_KEY = 'for stemte';
-const IMOD_KEY = ', imod stemte';
+const IMOD_KEY = 'imod stemte';
 const TOTAL_VOTES = 179;
 const NO_PARTY_LETTER = 'UFG';
 
 export const parseVoteSpreadFromKonklusion = (
   konklusion: string
 ): VoteSpread => {
-  const lowerCaseKonklusion = konklusion.toLowerCase();
+  const lowerCaseKonklusionList = konklusion
+    ?.toLowerCase()
+    ?.split('\n')
+    ?.map((line) => line?.trim() ?? '') ?? ['', '', '', ''];
 
-  const forCount = parseSubstringNumber(lowerCaseKonklusion, FOR_KEY);
+  const forCount = parseSubstringNumber(lowerCaseKonklusionList[1], FOR_KEY);
 
-  const imodCount = parseSubstringNumber(lowerCaseKonklusion, IMOD_KEY);
+  const imodCount = parseSubstringNumber(lowerCaseKonklusionList[2], IMOD_KEY);
 
-  const blankCount = parseSubstringNumber(lowerCaseKonklusion, BLANK_KEY);
+  const blankCount = parseSubstringNumber(
+    lowerCaseKonklusionList[3],
+    BLANK_KEY
+  );
 
   const fraværendeCount = TOTAL_VOTES - blankCount - forCount - imodCount;
 
@@ -127,8 +133,8 @@ export const parsePartySpreadFromStemmeList = (
   };
 };
 
-function parseSubstringParty(string: string, key: string) {
-  if (!string.includes(key)) {
+function parseSubstringParty(string: string, key: string): string[] {
+  if (!string?.includes(key)) {
     return [];
   }
 
@@ -140,7 +146,7 @@ function parseSubstringParty(string: string, key: string) {
     return [];
   }
 
-  const endIndex = string.includes(')')
+  const endIndex = string?.includes(')')
     ? string.lastIndexOf(')')
     : string.length;
 
@@ -152,7 +158,7 @@ function parseSubstringParty(string: string, key: string) {
 }
 
 function parseSubstringNumber(string: string, key: string) {
-  if (!string.includes(key)) {
+  if (!string?.includes(key)) {
     return 0;
   }
 
@@ -195,7 +201,7 @@ function capitalize(string: string) {
 }
 
 function capitalizeNameAndParty(string: string) {
-  return string.includes('(')
+  return string?.includes('(')
     ? string.toUpperCase()
     : `${string.slice(0, 1).toUpperCase()}${string.slice(1).toLowerCase()}`;
 }
