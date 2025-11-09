@@ -2,6 +2,7 @@ import React from 'react';
 
 /* eslint-disable import/no-unresolved */
 import altLogo from 'url:../../assets/parties/alternativetlogo70.png';
+import bpLogo from 'url:../../assets/parties/borgernesparti70.png';
 import ddLogo from 'url:../../assets/parties/danmarksdemokraterne70.png';
 import dfLogo from 'url:../../assets/parties/danskfolkepartilogo70.png';
 import fgLogo from 'url:../../assets/parties/friegroenne70.png';
@@ -10,6 +11,7 @@ import elLogo from 'url:../../assets/parties/enhedslistenlogo70.png';
 import iaLogo from 'url:../../assets/parties/inuitpartilogo70.png';
 import jLogo from 'url:../../assets/parties/javnapartilogo70.png';
 import laLogo from 'url:../../assets/parties/liberalalliancelogo70.png';
+import mLogo from 'url:../../assets/parties/moderaterne70.png';
 import nbLogo from 'url:../../assets/parties/nyeborgerligepartilogo70.png';
 import rvLogo from 'url:../../assets/parties/radikalevenstrelogo70.png';
 import bLogo from 'url:../../assets/parties/sambandspartilogo70.png';
@@ -28,6 +30,9 @@ export const PartyLogo = ({
   switch (partyLetter) {
     case 'ALT':
       return <img src={altLogo} alt="Alternativet" />;
+
+    case 'BP':
+      return <img src={bpLogo} alt="Borgernes Parti" />;
 
     case 'DD':
       return <img src={ddLogo} alt="Danmarksdemokraterne" />;
@@ -52,6 +57,9 @@ export const PartyLogo = ({
 
     case 'LA':
       return <img src={laLogo} alt="Liberal Alliance" />;
+
+    case 'M':
+      return <img src={mLogo} alt="Moderaterne" />;
 
     case 'NB':
       return <img src={nbLogo} alt="Nye Borgerlige" />;
